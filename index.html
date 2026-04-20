@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anaco — The Analysis Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f7f8fa;
+    --surface-2: #eef0f4;
+    --border: rgba(0,0,0,0.07);
+    --border-hover: rgba(0,0,0,0.14);
+    --accent: #1d4ed8;
+    --accent-bright: #2563eb;
+    --accent-light: #dbeafe;
+    --accent-glow: rgba(37,99,235,0.15);
+    --accent-dim: rgba(37,99,235,0.06);
+    --dark: #0f172a;
+    --dark-2: #1e293b;
+    --text: #0f172a;
+    --text-2: #475569;
+    --text-3: #94a3b8;
+    --font-display: 'Poppins', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); color: var(--text-2); background: var(--bg); overflow-x: hidden; }
+
+  /* ── NAVBAR ── */
+  .navbar { position: relative; z-index: 1000; background: #1e3a5f; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: #fff; letter-spacing: 1.5px; text-decoration: none; }
+  .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; padding: 8px 14px; border-radius: 8px; transition: all 0.2s; text-transform: uppercase; }
+  .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .nav-links a.active { color: #fff; }
+  .nav-links .cta-btn { background: #c56000; color: #fff !important; padding: 8px 20px; border-radius: 100px; font-weight: 600; margin-left: 8px; }
+  .nav-links .cta-btn:hover { background: #a85200; box-shadow: 0 4px 20px rgba(197,96,0,0.3); }
+  .mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; }
+  .mobile-toggle span { width: 22px; height: 1.5px; background: #fff; border-radius: 2px; }
+
+  /* ── HERO ── */
+  .hero { min-height: 100vh; background: var(--bg); display: flex; align-items: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 800px 600px at 20% 50%, var(--accent-dim), transparent), radial-gradient(ellipse 600px 400px at 85% 20%, rgba(99,102,241,0.03), transparent); }
+  .hero-inner { max-width: 1280px; margin: 0 auto; padding: 60px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; width: 100%; }
+
+  .hero-visual { display: flex; align-items: center; justify-content: center; }
+  .lab-device { width: 100%; max-width: 420px; aspect-ratio: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 32px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .lab-device::before { content: ''; position: absolute; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent, var(--accent-bright), transparent, rgba(99,102,241,0.5), transparent); opacity: 0.04; animation: spin 25s linear infinite; }
+  .lab-device::after { content: ''; position: absolute; inset: 0; border-radius: 32px; background: radial-gradient(circle at 30% 30%, var(--accent-dim), transparent 60%); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .device-icon { position: relative; z-index: 1; }
+  .device-icon svg { width: 150px; height: 150px; }
+  .device-label { position: relative; z-index: 1; color: var(--text-3); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; margin-top: 20px; font-weight: 500; }
+  .pulse-ring { position: absolute; border: 1px solid var(--accent-bright); border-radius: 50%; opacity: 0; animation: pulseOut 4.5s ease-out infinite; }
+  .pulse-ring:nth-child(1) { width: 180px; height: 180px; }
+  .pulse-ring:nth-child(2) { width: 260px; height: 260px; animation-delay: 1.5s; }
+  .pulse-ring:nth-child(3) { width: 340px; height: 340px; animation-delay: 3s; }
+  @keyframes pulseOut { 0% { opacity: 0.15; transform: scale(0.8); } 100% { opacity: 0; transform: scale(1.15); } }
+
+  .hero-content { color: var(--text); }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 20px; }
+  .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+  .hero-content h1 { font-family: var(--font-display); font-size: clamp(38px, 4.5vw, 58px); font-weight: 700; line-height: 1.1; margin-bottom: 28px; letter-spacing: -1px; color: var(--text); text-align: center; }
+  .hero-content h1 em { font-style: normal; color: var(--accent); }
+  .hero-desc { font-size: 16px; line-height: 1.75; color: var(--text-2); max-width: 640px; margin-bottom: 24px; font-weight: 300; }
+  .hero-desc strong { color: var(--text); font-weight: 600; }
+  .hero-desc em { color: var(--accent); font-style: italic; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 100px; font-family: var(--font-body); font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: all 0.3s; }
+  .btn-primary { background: var(--accent); color: var(--bg); box-shadow: 0 4px 20px var(--accent-glow); }
+  .btn-primary:hover { background: var(--accent-bright); transform: translateY(-2px); box-shadow: 0 8px 28px var(--accent-glow); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--text-3); background: var(--surface); transform: translateY(-2px); }
+
+  /* ── INDUSTRIES ── */
+  .industries { padding: 100px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .section-header { text-align: center; max-width: 600px; margin: 0 auto 56px; padding: 0 40px; }
+  .section-eyebrow { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
+  .section-header h2 { font-family: var(--font-display); font-size: clamp(26px, 3vw, 38px); color: var(--text); font-weight: 700; line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.5px; }
+  .section-header p { font-size: 15px; line-height: 1.7; color: var(--text-3); }
+  .carousel-wrapper { position: relative; padding: 0 40px; max-width: 1280px; margin: 0 auto; }
+  .carousel-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 8px 0 20px; }
+  .carousel-track::-webkit-scrollbar { display: none; }
+  .industry-card { flex: 0 0 240px; scroll-snap-align: start; background: var(--bg); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); transition: all 0.35s; cursor: pointer; }
+  .industry-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 8px 28px var(--accent-glow); }
+  .card-image { height: 140px; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .card-image svg { width: 48px; height: 48px; opacity: 0.5; }
+  .card-body { padding: 18px; }
+  .card-body h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .card-arrow { color: var(--accent); font-size: 13px; font-weight: 500; opacity: 0; transform: translateX(-6px); transition: all 0.3s; display: inline-block; }
+  .industry-card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+  .carousel-nav { display: flex; justify-content: center; gap: 10px; margin-top: 28px; }
+  .carousel-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.25s; color: var(--text-2); }
+  .carousel-btn:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 4px 16px var(--accent-glow); }
+
+  /* ── CEO + GALLERY ── */
+  .about-section { padding: 100px 40px; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .ceo-card { background: var(--bg); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: all 0.3s; }
+  .ceo-card:hover { border-color: var(--border-hover); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+  .ceo-card-header { background: var(--dark); padding: 28px 32px; }
+  .ceo-card-header h3 { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .ceo-card-header p { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .ceo-card-body { padding: 28px 32px; }
+  .ceo-card-body p { font-size: 14px; line-height: 1.75; color: var(--text-2); margin-bottom: 14px; font-weight: 300; }
+  .read-more-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-weight: 600; font-size: 13px; cursor: pointer; border: none; background: none; font-family: var(--font-body); margin-top: 8px; transition: gap 0.2s; }
+  .read-more-btn:hover { gap: 10px; }
+  .gallery-card { background: var(--bg); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; }
+  .gallery-card-header { padding: 24px 32px; border-bottom: 1px solid var(--border); }
+  .gallery-card-header h3 { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--text); }
+  .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; }
+  .gallery-item { aspect-ratio: 4/3; background: var(--surface); position: relative; overflow: hidden; cursor: pointer; border-radius: 4px; }
+  .gallery-item::after { content: attr(data-label); position: absolute; bottom: 10px; left: 12px; color: var(--text-3); font-size: 11px; font-weight: 500; }
+  .gallery-item:hover { opacity: 0.8; }
+  .gallery-item svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; opacity: 0.12; }
+
+  /* ── BANNER ── */
+  .banner { height: 360px; background: var(--dark); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 500px 300px at 50% 50%, rgba(37,99,235,0.12), transparent); }
+  .banner-content { text-align: center; position: relative; z-index: 1; padding: 0 40px; }
+  .banner-content h2 { font-family: var(--font-display); font-size: clamp(26px, 3.5vw, 42px); font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .banner-content p { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
+  .banner .btn-primary { background: var(--accent-bright); color: #fff; }
+  .molecule { position: absolute; border: 1px solid rgba(37,99,235,0.1); border-radius: 50%; animation: floatMol 8s ease-in-out infinite; }
+  .molecule:nth-child(1) { width: 70px; height: 70px; top: 15%; left: 10%; }
+  .molecule:nth-child(2) { width: 100px; height: 100px; bottom: 10%; right: 8%; animation-delay: 2s; }
+  .molecule:nth-child(3) { width: 45px; height: 45px; top: 30%; right: 20%; animation-delay: 4s; }
+  @keyframes floatMol { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--bg); color: var(--text-3); padding: 36px 40px; border-top: 1px solid var(--border); }
+  .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-left { font-size: 12px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .footer-left a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+  .footer-left a:hover { color: var(--accent); }
+  .footer-right a { color: var(--text-3); text-decoration: none; font-size: 12px; }
+  .footer-right a:hover { color: var(--accent); }
+
+  /* ── MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 40px; }
+  .modal-overlay.active { display: flex; }
+  .modal { background: var(--bg); border: 1px solid var(--border); border-radius: 24px; max-width: 640px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 48px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.15); }
+  .modal h2 { font-family: var(--font-display); font-size: 24px; color: var(--text); margin-bottom: 24px; letter-spacing: -0.5px; }
+  .modal p { font-size: 14px; line-height: 1.85; color: var(--text-2); margin-bottom: 16px; font-weight: 300; }
+  .modal-close { position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text-3); transition: all 0.2s; }
+  .modal-close:hover { border-color: var(--text-3); color: var(--text); }
+  .ceo-signature { font-family: var(--font-display); font-style: italic; color: var(--text); font-size: 18px; margin-top: 8px; }
+
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-visual { order: -1; } .hero-btns { justify-content: center; }
+    .about-section { grid-template-columns: 1fr; } .lab-device { max-width: 280px; }
+  }
+  @media (max-width: 680px) {
+    .nav-links { display: none; } .mobile-toggle { display: flex; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: #1e3a5f; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .hero-inner { padding: 40px 24px; } .section-header { padding: 0 24px; } .carousel-wrapper { padding: 0 24px; }
+    .about-section { padding: 60px 24px; } .footer-inner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar"><div class="nav-inner">
+  <a href="index.html" class="logo">anaco</a>
+  <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="tinylab.html">TinyLab</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="preorder.html" class="cta-btn">Pre-Order</a></li>
+  </ul>
+</div></nav>
+
+<section class="hero" id="hero"><div class="hero-inner">
+  <div class="hero-visual fade-in"><div class="lab-device">
+    <div class="pulse-ring"></div><div class="pulse-ring"></div><div class="pulse-ring"></div>
+    <div class="device-icon"><svg viewBox="0 0 160 160" fill="none">
+      <rect x="58" y="20" width="44" height="8" rx="4" fill="rgba(29,78,216,0.12)"/>
+      <path d="M62 28V68L32 118C28 125 33 134 42 134H118C127 134 132 125 128 118L98 68V28" stroke="rgba(37,99,235,0.45)" stroke-width="2" fill="none"/>
+      <path d="M62 68L32 118C28 125 33 134 42 134H118C127 134 132 125 128 118L98 68" fill="rgba(37,99,235,0.05)"/>
+      <circle cx="65" cy="105" r="6" fill="rgba(37,99,235,0.25)"/><circle cx="85" cy="115" r="8" fill="rgba(37,99,235,0.15)"/>
+      <circle cx="100" cy="100" r="5" fill="rgba(99,102,241,0.2)"/>
+      <line x1="62" y1="68" x2="98" y2="68" stroke="rgba(0,0,0,0.05)" stroke-width="1"/>
+    </svg></div>
+    <div class="device-label">TinyLab Device</div>
+  </div></div>
+
+  <div class="hero-content fade-in">
+    <h1>Meet <em>TinyLab</em></h1>
+
+    <p class="hero-desc">
+      The world's most accessible laboratory. TinyLab takes samples, performs experiments, isolates compounds, captures measurements, and interprets results — all within a single, desktop-sized appliance. Reliable, intuitive, and built to last.
+    </p>
+    <p class="hero-desc">
+      What makes TinyLab different is what went into it.<br>
+      Thoughtful engineering. Purposeful design.<br>
+      A commitment to making precision analysis available to <em>everyone</em>.<br>
+      The more you use it, the more time, cost, and complexity it eliminates.<br>
+      What you do with that is entirely up to you.
+    </p>
+    <p class="hero-desc">
+      An entire laboratory, reimagined for your facility. Compact. Versatile. One of a kind.
+    </p>
+
+    <div class="hero-btns" style="justify-content:center">
+      <a href="tinylab.html" class="btn btn-outline">Learn More</a>
+      <a href="preorder.html" class="btn btn-primary">Pre-Order Now →</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="industries" id="industries">
+  <div class="section-header fade-in">
+    <div class="section-eyebrow">Industries</div>
+    <h2>Precision for Every Sector</h2>
+    <p>From agriculture to defense, TinyLab delivers laboratory-grade analytics wherever critical decisions are made.</p>
+  </div>
+  <div class="carousel-wrapper"><div class="carousel-track" id="carouselTrack">
+    <div class="industry-card fade-in" onclick="location.href='industries/winemaking.html'"><div class="card-image" style="background-image:url('images/winery.jpg')"></div><div class="card-body"><h3>Wine & Beer</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/biomanufacturing.html'"><div class="card-image" style="background-image:url('images/biomanufacturing.jpg')"></div><div class="card-body"><h3>Biomanufacturing</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/agriculture.html'"><div class="card-image" style="background-image:url('images/agriculture.jpg')"></div><div class="card-body"><h3>Agriculture</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/chemicals.html'"><div class="card-image" style="background-image:url('images/chemicals.jpg')"></div><div class="card-body"><h3>Chemicals</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/oil-gas.html'"><div class="card-image" style="background-image:url('images/oilandgas.jpg')"></div><div class="card-body"><h3>Oil & Gas</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/research.html'"><div class="card-image" style="background-image:url('images/research.jpg')"></div><div class="card-body"><h3>Research</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/defense.html'"><div class="card-image" style="background-image:url('images/defense.jpg')"></div><div class="card-body"><h3>Defense</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/municipal.html'"><div class="card-image" style="background-image:url('images/municipal.jpg')"></div><div class="card-body"><h3>Municipal</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/k12-education.html'"><div class="card-image" style="background-image:url('images/education.jpg')"></div><div class="card-body"><h3>K–12 Education</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/university-education.html'"><div class="card-image" style="background-image:url('images/universityeducation.jpg')"></div><div class="card-body"><h3>University Education</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/beverages.html'"><div class="card-image" style="background-image:url('images/beverages.jpg')"></div><div class="card-body"><h3>Beverages</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/cpg-food.html'"><div class="card-image" style="background-image:url('images/cpg.jpg')"></div><div class="card-body"><h3>CPG Food</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/nutrition-supplements.html'"><div class="card-image" style="background-image:url('images/supplementsnutrition.jpg')"></div><div class="card-body"><h3>Nutrition & Supplements</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/beauty-fragrance.html'"><div class="card-image" style="background-image:url('images/beautyfragrances.jpg')"></div><div class="card-body"><h3>Beauty & Fragrances</h3><span class="card-arrow">→</span></div></div>
+    <div class="industry-card fade-in" onclick="location.href='industries/home.html'"><div class="card-image" style="background-image:url('images/home.jpg')"></div><div class="card-body"><h3>For Home</h3><span class="card-arrow">→</span></div></div>
+  </div>
+  <div class="carousel-nav">
+    <button class="carousel-btn" onclick="scrollCarousel(-1)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 2L4 8l7 6"/></svg></button>
+    <button class="carousel-btn" onclick="scrollCarousel(1)"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 2l7 6-7 6"/></svg></button>
+  </div></div>
+</section>
+
+<section class="about-section" id="about">
+  <div class="ceo-card fade-in"><div class="ceo-card-header"><h3>A Letter from Our CEO</h3><p>Benjamin Liker, Founder & Chief Executive Officer</p></div>
+  <div class="ceo-card-body">
+    <p>Hello friend, I'm Benjamin Liker, the inventor of Tinylab and founder of Anaco.</p>
+    <p>I started Anaco because like most Americans, I'm fed up with the U.S. food system. I believe that there are hundreds of millions of people who can (and will) make better decisions for their health, but only if they're given the opportunity to know exactly what they're putting in their bodies.</p>
+    <button class="read-more-btn" onclick="openModal()">Read the full letter →</button>
+  </div></div>
+  <div class="gallery-card fade-in"><div class="gallery-card-header"><h3>Image Gallery</h3></div><div class="gallery-grid">
+    <div class="gallery-item" data-label="TinyLab in the field"><svg viewBox="0 0 40 40" fill="none"><rect x="8" y="8" width="24" height="24" rx="3" stroke="#94a3b8" stroke-width="1.5"/><circle cx="20" cy="18" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M8 28l8-6 6 4 6-8 4 4" stroke="#94a3b8" stroke-width="1.5"/></svg></div>
+    <div class="gallery-item" data-label="Lab testing"><svg viewBox="0 0 40 40" fill="none"><rect x="8" y="8" width="24" height="24" rx="3" stroke="#94a3b8" stroke-width="1.5"/><circle cx="20" cy="18" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M8 28l8-6 6 4 6-8 4 4" stroke="#94a3b8" stroke-width="1.5"/></svg></div>
+    <div class="gallery-item" data-label="Team at work"><svg viewBox="0 0 40 40" fill="none"><rect x="8" y="8" width="24" height="24" rx="3" stroke="#94a3b8" stroke-width="1.5"/><circle cx="20" cy="18" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M8 28l8-6 6 4 6-8 4 4" stroke="#94a3b8" stroke-width="1.5"/></svg></div>
+    <div class="gallery-item" data-label="Product detail"><svg viewBox="0 0 40 40" fill="none"><rect x="8" y="8" width="24" height="24" rx="3" stroke="#94a3b8" stroke-width="1.5"/><circle cx="20" cy="18" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M8 28l8-6 6 4 6-8 4 4" stroke="#94a3b8" stroke-width="1.5"/></svg></div>
+  </div></div>
+</section>
+
+<section class="banner" id="preorder">
+  <div class="molecule"></div><div class="molecule"></div><div class="molecule"></div>
+  <div class="banner-content fade-in">
+    <h2>The Future of Analysis. Now Available.</h2>
+    <p>Reserve your TinyLab and bring laboratory-grade precision to your organization.</p>
+    <a href="preorder.html" class="btn btn-primary">Pre-Order TinyLab →</a>
+  </div>
+</section>
+
+<footer class="footer"><div class="footer-inner">
+  <div class="footer-left"><a href="terms.html">Terms of Service</a><span>·</span><span>© 2026 The Analysis Company</span><span>·</span><a href="mailto:bliker@anaco.com">Contact Us</a></div>
+  
+</div></footer>
+
+<div class="modal-overlay" id="ceoModal"><div class="modal">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <h2>A Letter from Our CEO</h2>
+  <p>Hello friend, I'm Benjamin Liker, the inventor of Tinylab and founder of Anaco.</p>
+  <p>I started Anaco because like most Americans, I'm fed up with the U.S. food system. I believe that there are hundreds of millions of people who can (and will) make better decisions for their health, but only if they're given the opportunity to know exactly what they're putting in their bodies. Take this example: If you buy a carton of eggs from Whole Foods and a carton of eggs from a local farmer's market, they're going to look and taste different. Despite both being labeled as "Eggs," they have completely different chemical breakdowns. Two strawberry bushes with identical DNA in the same field might have different sugar levels because the valley they're in heats unevenly. Two oranges picked from the same tree might have different levels of citric acid because of differences in sun exposure.</p>
+  <p>You get the point — and under the current system, there's simply no way to know exactly what you're putting in your body! The crazy part is that this isn't due to outdated regulations nor a corporate conspiracy to poison us (despite that being a politically convenient hypothesis) — it's the result of cutting-edge technology and market forces in action… and the problems go far beyond food testing.</p>
+  <p>Over the past half-century, our society has poured a LOT of money into medical and biotechnology research; as a result, laboratory equipment manufacturers have increasingly focused on making highly-capable, but incredibly complex and expensive instruments for those researchers. However, those instruments are overkill for the analytical QC testing labs, which perform repetitive compositional testing on things like food, wine, beverages, chemicals, fuels, and more. The result? Obscenely high lab start-up costs, industry consolidation, high operational costs, and inefficient processes — all combining to result in prices of $500–5000 per sample and wait times of 2–3 days. At that price and pace, it's financially and logistically impossible to test anything at scale.</p>
+  <p>That's why I invented Tinylab. It uses state-of-the-art technologies to replicate the functions of traditional analytical instruments in a much more compact package that's cheaper, more energy efficient, requires less maintenance, and uses fewer reagents than other instruments. Its operating principle is to automate the 4 critical steps to any chemical analysis: Sample Preparation, Component Separation, Detection, and Data Analysis. Just a few years ago, none of these were possible at the price point we're offering Tinylab, but due to recent advancements in microfabrication, additive manufacturing, photonics, and machine learning/AI, we have created something truly wonderful.</p>
+  <p>When I travelled across the country talking to farmers, vintners, facility managers, business owners, and plain ol' ordinary folks, I realized that most people who would get the most use out of a Tinylab don't have the extensive education needed to operate typical analytical tools. Because of this, we've designed Tinylab to be remarkably easy to use. You control it with an iPad, selecting only what tests you want to run on your samples and how fast you want the results. They say you can only choose 2 of: Cheap, Good, Fast. Tinylab, already the most inexpensive tool of its kind, allows you to choose between more accurate (but slower) analysis and "quick and dirty" measurements. It has self-cleaning modes and uses the absolute minimum quantity of consumables. It automatically alerts you if there is a problem with the device, and we swap out the problematic unit at no cost.</p>
+  <p>What's more astounding is that Tinylab gets better the more you use it. Our proprietary algorithm learns your processes, what analyses you find important, and what inputs drive quantifiable results for your products. After about 2 years of use, we are able to create what's called a Chemical Digital Twin (CDT), on which you can run virtual simulations of various process improvements; typically used in manufacturing, this is the first time CDTs (and their benefits) will be available to the dozens of industries using Tinylab. They allow you to improve the 3 most critical things to any Agricultural, Biomanufacturing, or Chemicals-related business: Quality, Cost, and Yield. And even better news: The Chemical Digital Twins trained on your processes is your intellectual property, not anyone else's.</p>
+  <p>Tinylab is a product that comes from the heart, and I hope you enjoy using it as much as we enjoy making it.</p>
+  <p>Sincerely,</p>
+  <p class="ceo-signature">Benjamin Liker<br><span style="font-family:var(--font-body);font-style:normal;font-size:13px;color:var(--text-3)">CEO & Founder, Anaco</span></p>
+</div></div>
+
+<script>
+function scrollCarousel(d){document.getElementById('carouselTrack').scrollBy({left:d*280,behavior:'smooth'})}
+function openModal(){document.getElementById('ceoModal').classList.add('active');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('ceoModal').classList.remove('active');document.body.style.overflow=''}
+document.getElementById('ceoModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
