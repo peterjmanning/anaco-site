@@ -104,7 +104,7 @@
   .about-section { padding: 100px 40px; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
   .ceo-card { background: var(--bg); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: all 0.3s; }
   .ceo-card:hover { border-color: var(--border-hover); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-  .ceo-card-header { background: var(--dark); padding: 28px 32px; }
+  .ceo-card-header { background: #000000; padding: 28px 32px; }
   .ceo-card-header h3 { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 4px; }
   .ceo-card-header p { font-size: 13px; color: rgba(255,255,255,0.5); }
   .ceo-card-body { padding: 28px 32px; }
@@ -112,8 +112,8 @@
   .read-more-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-weight: 600; font-size: 13px; cursor: pointer; border: none; background: none; font-family: var(--font-body); margin-top: 8px; transition: gap 0.2s; }
   .read-more-btn:hover { gap: 10px; }
   .gallery-card { background: var(--bg); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; }
-  .gallery-card-header { padding: 24px 32px; border-bottom: 1px solid var(--border); }
-  .gallery-card-header h3 { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--text); }
+  .gallery-card-header { padding: 28px 32px; border-bottom: 1px solid var(--border); background: #000000; }
+  .gallery-card-header h3 { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: #fff; }
   .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; }
   .gallery-item { aspect-ratio: 4/3; background: var(--surface); position: relative; overflow: hidden; cursor: pointer; border-radius: 4px; }
   .gallery-item::after { content: attr(data-label); position: absolute; bottom: 10px; left: 12px; color: var(--text-3); font-size: 11px; font-weight: 500; }
@@ -257,7 +257,7 @@
 </section>
 
 <section class="about-section" id="about">
-  <div class="ceo-card fade-in"><div class="ceo-card-header"><h3>A Letter from Our CEO</h3><p>Benjamin Liker, Founder & Chief Executive Officer</p></div>
+  <div class="ceo-card fade-in"><div class="ceo-card-header"><h3>A Letter from Our CEO</h3></div>
   <div class="ceo-card-body">
     <p>Hello friend, I'm Benjamin Liker, the inventor of Tinylab and founder of Anaco.</p>
     <p>I started Anaco because like most Americans, I'm fed up with the U.S. food system. I believe that there are hundreds of millions of people who can (and will) make better decisions for their health, but only if they're given the opportunity to know exactly what they're putting in their bodies.</p>
