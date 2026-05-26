@@ -35,17 +35,22 @@
   --nav-edge-inset: clamp(16px, 2.8vw, 28px);
   /* Page box rhythm — vw/% track the layout viewport when zooming */
   --page-edge-inset: 5%;
-  --stagger-box-width: 75vw;
-  --section-stack-gap: 7%;
+  --section-stack-gap: 8.4%;
+  /* Contact + newsletter floating cards (inquiries width + 20%) */
+  --floating-card-width: min(calc(52vw * 1.2), calc(34rem * 1.2));
+  /* Hero “Meet / TinyLab” left edge — section header boxes align to this */
+  --hero-headline-inset: clamp(36px, 5vw, 72px);
+  --section-header-width: 26rem;
   /* Shared with .sheet — keeps float-header rise and section gaps in sync when zooming */
   --sheet-pad: clamp(36px, 5vw, 64px);
   --layer-hang: clamp(12px, 2vw, 20px);
   --float-header-lift: clamp(12px, 2vw, 22px);
   --float-header-lift-more: clamp(22px, 3.2vw, 36px);
   --float-header-overhang: calc(
-    var(--layer-hang) + var(--sheet-pad) + var(--float-header-lift-more) + 0.5rem
+    var(--layer-hang) + var(--sheet-pad) + var(--float-header-lift-more) + 0.6rem
   );
-  --home-section-stack-gap: max(7%, var(--float-header-overhang));
+  --home-section-stack-gap: max(8.4%, var(--float-header-overhang));
+  --float-content-clearance: clamp(3.9rem, 6.6vw, 5.4rem);
   /* Small/medium copy — bumped on home + preorder via main.home / main.site-page-main */
   --copy-eyebrow: clamp(0.8rem, 1.15vw, 1rem);
   --copy-sheet-label: clamp(0.8rem, 1.1vw, 0.95rem);
@@ -319,8 +324,33 @@ body {
   margin-bottom: 1rem;
 }
 .body-lg:last-child { margin-bottom: 0; }
-/* Accent box — solid cyan fill (same as Pre-Order nav button) */
-.accent-chip,
+/* Accent chip — marker highlight behind TinyLab (and other chip labels) */
+.accent-chip {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  color: var(--text);
+  background: none;
+  border: none;
+  font-weight: 700;
+  text-shadow: none;
+  isolation: isolate;
+  vertical-align: baseline;
+}
+.accent-chip::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  left: -0.22em;
+  right: -0.32em;
+  top: 54%;
+  height: 1.42em;
+  min-width: calc(100% + 0.45em);
+  transform: translateY(-54%);
+  background: url('../images/copyhighlight-accent.png') center / 100% 100% no-repeat;
+}
+/* Solid cyan fill for other accent labels */
 .text-neon,
 .eyebrow,
 .section-eyebrow,
@@ -340,7 +370,6 @@ body {
   font-weight: 700;
   text-shadow: none;
 }
-.accent-chip,
 .text-neon,
 .eyebrow,
 .section-eyebrow {
@@ -487,36 +516,47 @@ html:not(.reveal-lite) .text-rotator-word {
   margin: 0 auto;
   padding: 0 var(--home-wrap-inset);
 }
-/* Stagger: ~75% of viewport, flush to one edge; opposite edge keeps ~25% gutter */
-.home #product .home-wrap,
-.home #facilities .home-wrap,
-.home #newsletter .home-wrap {
-  width: var(--stagger-box-width);
-  max-width: none;
-  margin-left: 0;
-  margin-right: auto;
-  padding-left: 0;
-  padding-right: 0;
-}
-.home #product .sheet,
-.home #facilities .sheet,
-.home #newsletter .sheet {
-  border-left: none;
-}
+/* Section sheets: full width edge to edge */
 .home #industries .home-wrap,
+.home #product .home-wrap,
 .home #specs .home-wrap,
-.home #contact .home-wrap {
-  width: var(--stagger-box-width);
+.home #facilities .home-wrap,
+.home #terms .home-wrap,
+.home #privacy .home-wrap {
+  width: 100%;
   max-width: none;
-  margin-left: auto;
-  margin-right: 0;
-  padding-left: 0;
-  padding-right: 0;
+  margin: 0;
+  padding: 0;
 }
 .home #industries .sheet,
+.home #product .sheet,
 .home #specs .sheet,
-.home #contact .sheet {
+.home #facilities .sheet,
+.home #terms .sheet,
+.home #privacy .sheet {
+  border-left: none;
   border-right: none;
+}
+/* Contact + newsletter — centered floating cards, shared width */
+#contact.home-section,
+#newsletter.home-section {
+  display: flex;
+  justify-content: center;
+}
+#newsletter.home-section {
+  padding-bottom: clamp(56px, 9vw, 96px);
+}
+.home #contact .home-wrap,
+.home #newsletter .home-wrap {
+  width: var(--floating-card-width);
+  max-width: calc(34rem * 1.2);
+  margin: 0 auto;
+  padding: 0;
+}
+.home #contact .sheet,
+.home #newsletter .sheet {
+  border: 1px solid var(--outline);
+  box-shadow: var(--float-shadow);
 }
 .home-section {
   padding: 0 0 var(--home-section-stack-gap);
@@ -532,8 +572,13 @@ html:not(.reveal-lite) .text-rotator-word {
   position: relative;
   overflow: visible;
 }
-/* Hatch accents: square in a clear corner, or edge bar when content fills the corner.
-   Never on the same corner as the floating header (TL on industries/specs/contact; TR on product/facilities/newsletter). */
+/* Hatch accents: square in a clear corner, or edge bar when content fills the corner */
+.home .sheet--has-float-header > .sheet-hatch--band-top-left {
+  display: none;
+}
+.home .sheet--has-float-header > .sheet-hatch--band-top-right {
+  z-index: 1;
+}
 .sheet-hatch {
   position: absolute;
   z-index: 0;
@@ -579,9 +624,24 @@ html:not(.reveal-lite) .text-rotator-word {
   right: var(--sheet-pad);
   left: auto;
   bottom: auto;
-  width: clamp(8rem, 38%, 15.5rem);
+  width: clamp(7rem, 30%, 14rem);
   height: clamp(28px, 4vw, 34px);
-  max-width: calc(100% - var(--sheet-pad) * 2 - min(26rem, 46%) - 1.25rem);
+  max-width: calc(100% - var(--sheet-pad) * 2 - 1rem);
+}
+.home #industries .sheet--has-float-header > .sheet-hatch--band-top-right,
+.home #specs .sheet--has-float-header > .sheet-hatch--band-top-right,
+.home #facilities .sheet--has-float-header > .sheet-hatch--band-top-right {
+  width: clamp(8rem, 26%, 15rem);
+  max-width: min(16rem, calc(100% - var(--sheet-pad) * 2 - 1.25rem));
+}
+.home #product .sheet--has-float-header > .sheet-hatch--band-top-right {
+  width: clamp(9rem, 20%, 17rem);
+  max-width: min(18rem, calc(100% - var(--sheet-pad) * 2 - 1.5rem));
+}
+.home #contact .sheet--has-float-header > .sheet-hatch--band-top-right,
+.home #newsletter .sheet--has-float-header > .sheet-hatch--band-top-right {
+  width: clamp(5.5rem, 40%, 9.5rem);
+  max-width: calc(100% - var(--sheet-pad) * 2 - 0.5rem);
 }
 .home #contact .sheet-hatch--square {
   width: 52px;
@@ -622,14 +682,17 @@ html:not(.reveal-lite) .text-rotator-word {
   .home .sheet--has-float-header .sheet-hatch--square.sheet-hatch--tl {
     display: none;
   }
-  .home #newsletter .sheet-hatch--square.sheet-hatch--tl,
-  .home #contact .sheet-hatch--square.sheet-hatch--tr {
+  .home #contact .sheet-hatch--square.sheet-hatch--bl {
     display: block;
   }
-  .home #product .sheet-hatch--band-top-left,
-  .home #specs .sheet-hatch--band-top-right {
-    max-width: min(62%, 12rem);
+  .home .sheet-hatch--band-top-right {
+    max-width: min(52%, 10.5rem);
     height: clamp(24px, 5vw, 30px);
+  }
+  .home #contact .sheet--has-float-header > .sheet-hatch--band-top-right,
+  .home #newsletter .sheet--has-float-header > .sheet-hatch--band-top-right {
+    width: clamp(5rem, 42%, 8.5rem);
+    max-width: calc(100% - var(--sheet-pad) * 2);
   }
 }
 .sheet-foot {
@@ -890,25 +953,21 @@ html:not(.reveal-lite) .text-rotator-word {
 .layer-float--header-up-more {
   top: calc(-1 * (var(--layer-hang) + var(--sheet-pad) + var(--float-header-lift-more)));
 }
-/* Staggered home: header on opposite outer corner (hang inward, away from viewport edge) */
+/* Home section headers: uniform width, left edge aligned with hero Meet / TinyLab */
 @media (min-width: 901px) {
-  .home #product .layer-float--header,
-  .home #facilities .layer-float--header,
-  .home #newsletter .layer-float--header {
-    left: auto;
-    right: calc(-1 * (var(--layer-hang) + var(--sheet-pad)));
+  .home .sheet--has-float-header > .layer-float.layer-float--header {
+    left: var(--hero-headline-inset);
+    right: auto;
+    width: var(--section-header-width);
+    max-width: var(--section-header-width);
+    box-sizing: border-box;
   }
-  .home #product .layer-float--header::before,
-  .home #facilities .layer-float--header::before,
-  .home #newsletter .layer-float--header::before {
-    --layer-shadow-x: -14px;
-    --layer-shadow-y: 14px;
-  }
-  .home #industries .layer-float--header,
-  .home #specs .layer-float--header,
-  .home #contact .layer-float--header {
+  .home #contact .sheet--has-float-header > .layer-float.layer-float--header,
+  .home #newsletter .sheet--has-float-header > .layer-float.layer-float--header {
     left: calc(-1 * (var(--layer-hang) + var(--sheet-pad)));
     right: auto;
+    width: min(var(--section-header-width), calc(100% - var(--sheet-pad) * 0.5));
+    max-width: 100%;
   }
 }
 .sheet.sheet--has-float-header,
@@ -919,10 +978,7 @@ html:not(.reveal-lite) .text-rotator-word {
 /* Clearance below floating header (not extra sheet padding — that was making boxes look too tall) */
 .sheet--has-float-header > .layer-float + *,
 .sheet-block.sheet--has-float-header > .layer-float + * {
-  margin-top: clamp(3.25rem, 5.5vw, 4.5rem);
-}
-#industries .sheet--has-float-header > .layer-float + .industries-hub {
-  margin-top: clamp(2.75rem, 4.5vw, 3.75rem);
+  margin-top: var(--float-content-clearance);
 }
 #industries .industries-hub {
   width: 100%;
@@ -1049,8 +1105,7 @@ html:not(.reveal-lite) .text-rotator-word {
 #industries .layer-float--header-up {
   top: calc(-1 * (var(--layer-hang) + var(--sheet-pad) + var(--float-header-lift-more)));
 }
-#industries .layer-float {
-  max-width: min(24rem, 90%);
+#industries .layer-float--header {
   padding-block: clamp(14px, 2vw, 20px) clamp(11px, 1.55vw, 17px);
   padding-inline: clamp(18px, 2.6vw, 28px);
   gap: 0.45rem;
@@ -1071,21 +1126,18 @@ html:not(.reveal-lite) .text-rotator-word {
 }
 #product .sheet--has-float-header > .layer-float + .viewer-frame,
 #product .sheet--has-float-header > .layer-float + #viewer-container {
-  margin-top: clamp(4.5rem, 8vw, 6rem);
+  margin-top: clamp(5.4rem, 9.6vw, 7.2rem);
 }
 .home #product .viewer-frame,
 .home #product #viewer-container {
   max-width: 44rem;
 }
-#specs .sheet--has-float-header > .layer-float {
-  max-width: min(24rem, 92%);
-}
 #specs .sheet--has-float-header > .layer-float + .specs-grid {
-  margin-top: clamp(6rem, 10vw, 8.25rem);
+  margin-top: clamp(7.2rem, 12vw, 9.9rem);
 }
 #specs.home-section,
 #newsletter.home-section--compact {
-  padding: 0 0 var(--home-section-stack-gap);
+  padding-top: 0;
 }
 #newsletter .sheet--compact {
   --sheet-pad: clamp(22px, 3vw, 36px);
@@ -1094,7 +1146,6 @@ html:not(.reveal-lite) .text-rotator-word {
   overflow: visible;
 }
 #newsletter .layer-float--header {
-  max-width: min(21rem, 92%);
   padding-block: clamp(12px, 1.9vw, 18px) clamp(10px, 1.4vw, 15px);
   padding-inline: clamp(14px, 2.2vw, 22px);
   gap: 0.42rem;
@@ -1106,10 +1157,9 @@ html:not(.reveal-lite) .text-rotator-word {
 #newsletter .layer-float--header .layer-float-text {
   font-size: var(--copy-float-text);
   line-height: 1.38;
-  max-width: 19rem;
 }
 #newsletter .sheet--has-float-header > .layer-float + .newsletter-body {
-  margin-top: clamp(3.25rem, 5.5vw, 4.25rem);
+  margin-top: clamp(3.9rem, 6.6vw, 5.1rem);
 }
 #newsletter .newsletter-body {
   width: 100%;
@@ -1148,7 +1198,7 @@ html:not(.reveal-lite) .text-rotator-word {
   color: var(--text-2);
 }
 #contact .sheet--has-float-header > .layer-float + .sheet-block {
-  margin-top: clamp(6.5rem, 11vw, 9rem);
+  margin-top: clamp(7.8rem, 13.2vw, 10.8rem);
 }
 .sheet > .layer-float,
 .sheet-block > .layer-float {
@@ -1555,9 +1605,13 @@ html.intro-done nav.nav .nav-logo .brand-mark {
   line-height: 1.35;
   letter-spacing: -0.02em;
 }
-.home-intro__lab-fly-shell .home-intro__lab {
+.home-intro__lab-fly-shell .home-intro__lab,
+.home-intro__lab-fly-shell .home-intro__sample {
   font: inherit;
   letter-spacing: inherit;
+}
+.home-intro__lab-fly-shell.is-vanish-pair {
+  white-space: nowrap;
 }
 .home-intro__lab,
 .home-intro__sample {
@@ -1603,27 +1657,37 @@ html.intro-done nav.nav .nav-logo .brand-mark {
     display: none;
   }
 }
-.home-intro__lab-slot {
+.home-intro__lab-slot,
+.home-intro__sample-hold {
   display: inline-block;
-  width: 0;
-  margin-right: 0.22em;
   vertical-align: baseline;
-  overflow: hidden;
   visibility: hidden;
   pointer-events: none;
 }
-.home-intro__lab-fly-shell.is-vanish-lab {
+.home-intro__lab-slot {
+  width: 0;
+  margin-right: 0.22em;
+  overflow: hidden;
+}
+.home-intro__sample-hold {
+  margin: 0;
+}
+.home-intro__question.is-vanish .home-intro__stack-line {
   opacity: 0;
-  transform: translate3d(var(--lab-fly-x, 0), 10px, 0);
+  transform: translate3d(0, 10px, 0);
   transition:
     opacity 0.38s ease-in,
     transform 0.38s ease-in;
 }
-.home-intro__question.is-vanish .home-intro__line {
+.home-intro__question.is-vanish .home-intro__stack-line--word:has(.home-intro__q-mark) {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.home-intro__question.is-vanish .home-intro__q-mark {
   opacity: 0;
-  transform: translate3d(0, 10px, 0);
-  transition-duration: 0.38s;
-  transition-timing-function: ease-in;
+  transform: none;
+  transition: opacity 0.38s ease-in;
 }
 .home-intro__flyer {
   display: flex;
@@ -1660,10 +1724,14 @@ html.intro-done nav.nav .nav-logo .brand-mark {
 }
 .headline-row--accent .accent-chip,
 .hero-headline .headline-row--accent .hero-accent {
-  display: inline-block;
-  vertical-align: baseline;
-  padding: 0.06em var(--accent-box-pad-x) 0.08em;
+  padding: 0.04em 0.12em 0.06em;
   line-height: 1.05;
+}
+.headline-row--accent .accent-chip::before,
+.hero-headline .hero-accent::before {
+  left: -0.18em;
+  right: -0.28em;
+  height: 1.38em;
 }
 .intro-fly--tinylab .accent-chip {
   font: inherit;
@@ -1721,10 +1789,10 @@ html.intro-done nav.nav .nav-logo .brand-mark {
   }
 }
 
-/* ── HERO — full bleed top, left, right; bottom spacing unchanged ── */
+/* ── HERO — full bleed top, left, right; extra gap before Industries only ── */
 .hero {
   min-height: 100vh;
-  padding: 0 0 var(--section-stack-gap);
+  padding: 0 0 calc(var(--section-stack-gap) * 1.25);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1828,9 +1896,10 @@ html.intro-done nav.nav .nav-logo .brand-mark {
   box-sizing: border-box;
 }
 .home #specs .specs-grid {
-  max-width: 52rem;
-  margin-left: auto;
+  max-width: none;
+  margin-left: 0;
   margin-right: 0;
+  width: 100%;
 }
 .home .viewer-placeholder {
   position: absolute;
@@ -2049,10 +2118,14 @@ html.intro-done nav.nav .nav-logo .brand-mark {
 }
 /* ── INNER PAGES (same Edison sheets as home) ── */
 .page-wrap {
-  width: var(--stagger-box-width);
+  width: 100%;
   max-width: none;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
+}
+.site-page .page-wrap > .sheet {
+  border-left: none;
+  border-right: none;
 }
 .site-page {
   padding-top: var(--nav-h);
@@ -3404,23 +3477,30 @@ html:not(.reveal-lite) .blur-in.is-revealing {
   .home #product .home-wrap,
   .home #specs .home-wrap,
   .home #facilities .home-wrap,
+  .home #terms .home-wrap,
+  .home #privacy .home-wrap {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
   .home #contact .home-wrap,
   .home #newsletter .home-wrap {
-    width: var(--stagger-box-width);
-    max-width: none;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 0;
-    padding-right: 0;
+    width: min(92vw, calc(34rem * 1.2));
+    margin: 0 auto;
   }
   .home #product .sheet,
   .home #facilities .sheet,
-  .home #newsletter .sheet,
   .home #industries .sheet,
   .home #specs .sheet,
-  .home #contact .sheet {
-    border-left: 1px solid var(--outline);
-    border-right: 1px solid var(--outline);
+  .home #terms .sheet,
+  .home #privacy .sheet {
+    border-left: none;
+    border-right: none;
+  }
+  .home #contact .sheet,
+  .home #newsletter .sheet {
+    border: 1px solid var(--outline);
+    box-shadow: var(--float-shadow);
   }
   .home #specs .specs-grid {
     max-width: none;
@@ -3450,9 +3530,8 @@ html:not(.reveal-lite) .blur-in.is-revealing {
     transform: translate(8px, 8px);
   }
   .sheet--has-float-header > .layer-float + *,
-  .sheet-block.sheet--has-float-header > .layer-float + *,
-  #industries .sheet--has-float-header > .layer-float + .industries-hub {
-    margin-top: clamp(3.25rem, 5.5vw, 4.5rem);
+  .sheet-block.sheet--has-float-header > .layer-float + * {
+    margin-top: var(--float-content-clearance);
   }
   #industries .usecases-grid { grid-template-columns: 1fr; }
   #newsletter .newsletter-body {
@@ -3467,7 +3546,7 @@ html:not(.reveal-lite) .blur-in.is-revealing {
   }
   #product .sheet--has-float-header > .layer-float + .viewer-frame,
   #product .sheet--has-float-header > .layer-float + #viewer-container {
-    margin-top: clamp(3.25rem, 5.5vw, 4.5rem);
+    margin-top: var(--float-content-clearance);
   }
   .sheet > .layer-float,
   .sheet-block > .layer-float {

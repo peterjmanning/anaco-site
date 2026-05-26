@@ -8,6 +8,8 @@
   const LAB_BRING_MS = 720;
   const LAB_SETTLE_MS = 340;
   const LINE2_LAB_FLY_DELAY_MS = 420;
+  const VANISH_MS = 380;
+  const VANISH_EASE = 'ease-in';
 
   const PIECES = [
     { key: 'meet', fly: '.intro-fly--meet', target: 'main.home .hero-headline .headline-row:first-child' },
@@ -28,6 +30,11 @@
   ];
 
   const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+  const nextFrame = () =>
+    new Promise((resolve) => {
+      requestAnimationFrame(() => requestAnimationFrame(resolve));
+    });
 
   function buildFlyTransform(x, y, scaleX = 1, scaleY = 1) {
     const tx = Math.round(x);
@@ -178,6 +185,47 @@
         el.style.transform = 'scaleX(0)';
         el.style.opacity = '0';
         onTransitionEnd(el, 'transform', ms).then(resolve);
+      });
+    });
+  }
+
+  function attachSampleToShell(shell, sampleEl) {
+    const shellRect = rectOf(shell);
+    const sampleRect = rectOf(sampleEl);
+    const gap = Math.round(sampleRect.left - shellRect.right);
+
+    const sampleHold = document.createElement('span');
+    sampleHold.className = 'home-intro__sample-hold';
+    sampleHold.setAttribute('aria-hidden', 'true');
+    sampleHold.style.width = `${Math.round(sampleRect.width)}px`;
+    sampleEl.parentNode.insertBefore(sampleHold, sampleEl);
+
+    sampleEl.style.display = 'inline-block';
+    sampleEl.style.verticalAlign = 'baseline';
+    sampleEl.style.margin = '0';
+    sampleEl.style.marginLeft = `${gap}px`;
+    shell.appendChild(sampleEl);
+    shell.classList.add('is-vanish-pair');
+  }
+
+  async function runPairVanish(shell, sampleEl, deltaX, question) {
+    attachSampleToShell(shell, sampleEl);
+    await nextFrame();
+
+    const start = rectOf(shell);
+    shell.style.transition = 'none';
+    shell.style.transform = buildFlyTransform(start.left, start.top);
+    void shell.offsetWidth;
+
+    question.classList.add('is-vanish');
+
+    return new Promise((resolve) => {
+      void shell.offsetWidth;
+      requestAnimationFrame(() => {
+        shell.style.transition = `opacity ${VANISH_MS}ms ${VANISH_EASE}, transform ${VANISH_MS}ms ${VANISH_EASE}`;
+        shell.style.transform = buildFlyTransform(start.left + deltaX, start.top + 10);
+        shell.style.opacity = '0';
+        onTransitionEnd(shell, 'transform', VANISH_MS, 80).then(resolve);
       });
     });
   }
@@ -339,16 +387,13 @@
     }
     await wait(LAB_SETTLE_MS);
 
-    question.classList.add('is-vanish');
     if (labFly?.shell) {
-      const { shell, deltaX } = labFly;
-      const shellRect = rectOf(shell);
-      shell.style.transition = 'opacity 0.38s ease-in, transform 0.38s ease-in';
-      shell.style.transform = buildFlyTransform(shellRect.left + deltaX, shellRect.top + 10);
-      shell.style.opacity = '0';
-      void shell.offsetWidth;
+      await runPairVanish(labFly.shell, sampleEl, labFly.deltaX, question);
+    } else {
+      question.classList.add('is-vanish');
+      await wait(VANISH_MS + 40);
     }
-    await wait(420);
+    await wait(40);
 
     labFly?.stopContrails?.();
     labFly?.hold?.remove();
