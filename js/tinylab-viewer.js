@@ -1,4 +1,3 @@
-
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -33,12 +32,13 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 // Scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xf7f8fa);
+// OVERRIDE: Changed background to pure white
+scene.background = new THREE.Color(0xffffff);
 const env = new THREE.PMREMGenerator(renderer);
 scene.environment = env.fromScene(new RoomEnvironment(), 0.04).texture;
 
 // Camera
-const camera = new THREE.PerspectiveCamera(45, 1, 0.001, 100);
+const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 100);
 camera.position.set(0, 0.5, 2);
 
 // Controls
@@ -46,7 +46,7 @@ const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.dampingFactor = 0.08;
 controls.minDistance = 0.005;
-controls.maxDistance = 50;
+controls.maxDistance = 5000;
 controls.zoomSpeed = 3.0;
 controls.rotateSpeed = 1.0;
 controls.minPolarAngle = 0;
@@ -102,6 +102,15 @@ loader.load(MODEL_URL, (gltf) => {
       allMeshes.push(child);
       originalMaterials.set(child, child.material);
       child.material = child.material.clone();
+      
+      // OVERRIDE: Force all meshes to be a dark gray/black color
+      if (child.material.color) {
+        child.material.color.setHex(0x1a1a1a); 
+      }
+      
+      // FIX: Render both sides of the flat parts
+      child.material.side = THREE.DoubleSide;
+      
       child.material.transparent = true;
       child.material.opacity = 1;
       const modKey = assignModule(child, nodeIdx);
@@ -301,40 +310,76 @@ function enterModule(key) {
     const msize = mbox.getSize(new THREE.Vector3());
     const maxDim = Math.max(msize.x, msize.y, msize.z);
 
-    // For each mesh, compute its offset direction from module center
-    // We'll animate it from origin position to exploded position
-    const meshData = [];
+    // Step 1: Collect all meshes and their world centers first
+    const tempMeshes = [];
     activeModuleModel.traverse(c => {
       if (c.isMesh) {
         c.material = c.material.clone();
+        
+        // OVERRIDE: Force all parts of the exploded module to be dark gray/black
+        if (c.material.color) {
+          c.material.color.setHex(0x1a1a1a);
+        }
+
+        c.material.side = THREE.DoubleSide;
         c.material.transparent = true;
         c.material.opacity = 0;
-        // Get this mesh's world position center
+        
         const meshBox = new THREE.Box3().setFromObject(c);
         const meshCenter = meshBox.getCenter(new THREE.Vector3());
-        const dir = new THREE.Vector3().subVectors(meshCenter, mcenter);
-        const dirLength = dir.length();
-        // Normalize and scale - the further from center, the more it spreads
-        if (dirLength > 0.001) {
-          dir.normalize();
-        } else {
-          // If at center, give a small random direction
-          dir.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
-        }
-        // Spread by 60% of max module dimension
-        const explosionDistance = maxDim * 0.6;
-        meshData.push({
-          mesh: c,
-          startPos: c.position.clone(),
-          offset: dir.multiplyScalar(explosionDistance)
+        
+        tempMeshes.push({ 
+          mesh: c, 
+          center: meshCenter, 
+          startPos: c.position.clone() 
         });
       }
     });
 
+    const meshData = [];
+
+    if (key === 'flow-cell') {
+      // ----------------------------------------------------
+      // RADIAL EXPLOSION (Flow Cell only)
+      // ----------------------------------------------------
+      tempMeshes.forEach(item => {
+        const dir = new THREE.Vector3().subVectors(item.center, mcenter);
+        if (dir.length() > 0.001) {
+          dir.normalize();
+        } else {
+          dir.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
+        }
+        const offset = dir.multiplyScalar(maxDim * 0.6);
+        meshData.push({ mesh: item.mesh, startPos: item.startPos, offset: offset });
+      });
+
+    } else {
+      // ----------------------------------------------------
+      // EVENLY SPACED FRONT-TO-BACK EXPLOSION (Sorted by Z-axis)
+      // ----------------------------------------------------
+      // Sort parts based on their original depth (Z coordinate)
+      tempMeshes.sort((a, b) => a.center.z - b.center.z);
+      
+      // Determine the total spread distance based on the module's size
+      const totalSpread = maxDim * 4.5; 
+      const gap = totalSpread / Math.max(1, tempMeshes.length - 1);
+      const midIndex = (tempMeshes.length - 1) / 2;
+
+      tempMeshes.forEach((item, index) => {
+        // Calculate exactly where this part should end up in the line
+        const targetZ = mcenter.z + (index - midIndex) * gap;
+        
+        // The offset is the difference between its starting position and target position
+        const offset = new THREE.Vector3(0, 0, targetZ - item.center.z);
+        
+        meshData.push({ mesh: item.mesh, startPos: item.startPos, offset: offset });
+      });
+    }
+
     scene.add(activeModuleModel);
 
-    // Camera target — account for exploded size (40% bigger)
-    const dist = maxDim * 2.6;
+    // Camera target — account for the longer stretched assembly
+    const dist = maxDim * 3.2;
     const newPos = new THREE.Vector3(mcenter.x + dist * 0.5, mcenter.y + dist * 0.3, mcenter.z + dist);
     animateCamera(newPos, mcenter, 1000);
 
@@ -344,8 +389,7 @@ function enterModule(key) {
     function explodeStep() {
       const elapsed = performance.now() - startTime;
       const t = Math.min(elapsed / duration, 1);
-      // Ease out
-      const eased = 1 - Math.pow(1 - t, 3);
+      const eased = 1 - Math.pow(1 - t, 3); // Ease out
 
       meshData.forEach(d => {
         d.mesh.position.copy(d.startPos).addScaledVector(d.offset, eased);
