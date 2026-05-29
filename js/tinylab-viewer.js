@@ -23,6 +23,25 @@ const placeholder = document.getElementById('viewer-placeholder');
 const partHud = document.getElementById('part-hud');
 const partNameEl = document.getElementById('part-name');
 const backBtn = document.getElementById('backBtn');
+const specPanel = document.getElementById('viewer-spec-panel');
+const specHint = specPanel?.querySelector('.viewer-spec-panel__hint');
+const specModules = specPanel ? specPanel.querySelectorAll('.viewer-spec-panel__module') : [];
+
+function showSpecPanel(key) {
+  if (!specPanel) return;
+  specModules.forEach((el) => {
+    el.hidden = el.dataset.module !== key;
+  });
+  if (specHint) specHint.hidden = true;
+  specPanel.classList.add('viewer-spec-panel--active');
+}
+
+function hideSpecPanel() {
+  if (!specPanel) return;
+  specModules.forEach((el) => { el.hidden = true; });
+  if (specHint) specHint.hidden = false;
+  specPanel.classList.remove('viewer-spec-panel--active');
+}
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -255,6 +274,7 @@ function enterModule(key) {
   activeModule = key;
   partHud.style.display = 'none';
   backBtn.style.display = 'block';
+  showSpecPanel(key);
 
   // Show module title overlay
   const titleEl = document.getElementById('moduleTitle');
@@ -392,6 +412,7 @@ window.exitModule = function() {
   animateCamera(initialCamPos, initialCamTarget, 900);
   activeModule = null;
   backBtn.style.display = 'none';
+  hideSpecPanel();
   const titleEl = document.getElementById('moduleTitle');
   if (titleEl) titleEl.style.display = 'none';
 };
