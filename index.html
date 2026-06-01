@@ -112,14 +112,7 @@
         <p class="layer-float-text">From agriculture to fermentation to chemicals — laboratory-grade results wherever critical decisions are made.</p>
       </aside>
       <div class="industries-hub">
-        <div class="carousel-wrap">
-          <div class="carousel-track" id="carouselTrack"></div>
-          <div class="carousel-nav">
-            <button class="carousel-btn" type="button" onclick="scrollCarousel(-1)" aria-label="Previous"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 2L4 8l7 6"/></svg></button>
-            <button class="carousel-btn" type="button" onclick="scrollCarousel(1)" aria-label="Next"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 2l7 6-7 6"/></svg></button>
-          </div>
-        </div>
-        <div class="industry-unfold" id="industryUnfold" hidden></div>
+        <div class="industries-grid" id="industriesGrid" aria-label="Industries"></div>
       </div>
     </div>
   </div>
@@ -604,7 +597,7 @@
   })();
 </script>
 <script src="js/industries-data.js" defer></script>
-<script src="js/industries-carousel.js" defer></script>
+<script src="js/industries-carousel.js?v=2" defer></script>
 <script src="js/home-intro.js" defer></script>
 <script src="js/anaco.js" defer></script>
 <script>

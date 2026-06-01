@@ -1,0 +1,35 @@
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# Dependencies (npm run optimize-images, local preview, etc.)
+node_modules/
+
+# Local secrets — copy js/shopify-config.example.js → js/shopify-config.js
+js/shopify-config.js
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Optional WebP outputs from scripts/optimize-images.mjs (site uses JPEG carousel copies)
+images/carousel/*.webp
+images/hero/*.webp
+
+# Temp / cache
+*.tmp
+*.temp
+.cache/

@@ -1,136 +1,68 @@
 (function () {
   'use strict';
 
-  var data = window.INDUSTRIES_DATA;
-  var track = document.getElementById('carouselTrack');
-  var unfold = document.getElementById('industryUnfold');
-  if (!data || !track || !unfold) return;
+  function initIndustriesGrid() {
+    var data = window.INDUSTRIES_DATA;
+    var grid = document.getElementById('industriesGrid');
+    if (!data || !grid) return;
 
-  var VISIBLE_INITIAL = 5;
-  var activeId = null;
-  var panels = Object.create(null);
-
-  function thumbSrc(imgPath) {
-    var name = imgPath.replace(/^images\//, '').replace(/\.(jpe?g|png|webp)$/i, '');
-    return 'images/carousel/' + name + '.jpg';
-  }
-
-  function panelHtml(item) {
-    var cases = item.cases.map(function (c) {
-      return (
-        '<div class="usecase-card">' +
-          '<div class="usecase-icon">' + c.icon + '</div>' +
-          '<div class="usecase-label">' + c.label + '</div>' +
-          '<h3>' + c.head + '</h3>' +
-          '<p>' + c.text + '</p>' +
-        '</div>'
-      );
-    }).join('');
-    return (
-      '<h3 class="industry-unfold-heading">' + item.heading + '</h3>' +
-      '<div class="usecases-grid">' + cases + '</div>'
-    );
-  }
-
-  function loadItemImage(wrap) {
-    if (!wrap || wrap.dataset.loaded === '1') return;
-    var src = wrap.dataset.src;
-    if (!src) return;
-    var img = wrap.querySelector('img');
-    if (!img) return;
-    img.src = src;
-    wrap.dataset.loaded = '1';
-  }
-
-  function prefetchAhead(fromIndex, count) {
-    var items = track.querySelectorAll('.carousel-item');
-    for (var i = fromIndex; i < Math.min(fromIndex + count, items.length); i++) {
-      var wrap = items[i].querySelector('.carousel-item-img');
-      if (wrap) loadItemImage(wrap);
+    function carouselSrc(imgPath) {
+      var name = imgPath.replace(/^images\//, '').replace(/\.(jpe?g|png|webp)$/i, '');
+      return 'images/carousel/' + name + '.jpg';
     }
+
+    function industryDescription(item) {
+      if (!item.cases || !item.cases.length) return '';
+      return item.cases[0].text || '';
+    }
+
+    data.forEach(function (item) {
+      var link = document.createElement('a');
+      link.className = 'industry-grid-item';
+      link.href = 'industries/#' + encodeURIComponent(item.id);
+      link.setAttribute('aria-label', item.title);
+
+      var media = document.createElement('div');
+      media.className = 'industry-grid-item__media';
+
+      var img = document.createElement('img');
+      img.alt = '';
+      img.decoding = 'async';
+      img.loading = 'eager';
+      img.src = carouselSrc(item.img);
+      img.addEventListener('error', function onImgError() {
+        if (img.dataset.fallbackApplied === '1') return;
+        img.dataset.fallbackApplied = '1';
+        img.src = item.img;
+      });
+
+      media.appendChild(img);
+
+      var overlay = document.createElement('div');
+      overlay.className = 'industry-grid-item__overlay';
+
+      var desc = industryDescription(item);
+      if (desc) {
+        var descEl = document.createElement('p');
+        descEl.className = 'industry-grid-item__desc';
+        descEl.textContent = desc;
+        overlay.appendChild(descEl);
+      }
+
+      var title = document.createElement('span');
+      title.className = 'industry-grid-item__title';
+      title.textContent = item.title;
+      overlay.appendChild(title);
+
+      link.appendChild(media);
+      link.appendChild(overlay);
+      grid.appendChild(link);
+    });
   }
 
-  data.forEach(function (item, index) {
-    panels[item.id] = panelHtml(item);
-
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'carousel-item';
-    btn.dataset.id = item.id;
-    btn.setAttribute('aria-expanded', 'false');
-    btn.setAttribute('aria-controls', 'industryUnfold');
-
-    var thumb = thumbSrc(item.img);
-    var imgHtml =
-      '<div class="carousel-item-img" data-src="' + thumb + '" data-loaded="0">' +
-        '<img alt="" decoding="async" width="420" height="280">' +
-      '</div>';
-
-    btn.innerHTML = imgHtml + '<span class="carousel-item-title">' + item.title + '</span>';
-    btn.addEventListener('click', function () {
-      toggle(item.id, btn);
-    });
-    track.appendChild(btn);
-
-    if (index < VISIBLE_INITIAL) {
-      loadItemImage(btn.querySelector('.carousel-item-img'));
-    }
-  });
-
-  if ('IntersectionObserver' in window) {
-    var imgObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          loadItemImage(entry.target);
-          imgObserver.unobserve(entry.target);
-        });
-      },
-      { root: track, rootMargin: '120px 0px', threshold: 0.01 }
-    );
-    track.querySelectorAll('.carousel-item-img[data-loaded="0"]').forEach(function (el) {
-      imgObserver.observe(el);
-    });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initIndustriesGrid);
   } else {
-    prefetchAhead(VISIBLE_INITIAL, data.length);
-  }
-
-  track.addEventListener(
-    'scroll',
-    function () {
-      var items = track.querySelectorAll('.carousel-item');
-      if (!items.length) return;
-      var gap = parseFloat(getComputedStyle(track).gap) || 12;
-      var step = items[0].offsetWidth + gap;
-      var index = Math.round(track.scrollLeft / step);
-      prefetchAhead(index, VISIBLE_INITIAL + 2);
-    },
-    { passive: true }
-  );
-
-  function closeAll() {
-    activeId = null;
-    unfold.hidden = true;
-    unfold.innerHTML = '';
-    track.querySelectorAll('.carousel-item').forEach(function (el) {
-      el.classList.remove('is-active');
-      el.setAttribute('aria-expanded', 'false');
-    });
-  }
-
-  function toggle(id, btn) {
-    if (activeId === id) {
-      closeAll();
-      return;
-    }
-    activeId = id;
-    track.querySelectorAll('.carousel-item').forEach(function (el) {
-      var on = el === btn;
-      el.classList.toggle('is-active', on);
-      el.setAttribute('aria-expanded', on ? 'true' : 'false');
-    });
-    unfold.innerHTML = panels[id];
-    unfold.hidden = false;
-    loadItemImage(btn.querySelector('.carousel-item-img'));
+    initIndustriesGrid();
   }
 })();

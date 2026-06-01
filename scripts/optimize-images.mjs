@@ -41,14 +41,19 @@ const heroDir = path.join(imagesDir, 'hero');
 fs.mkdirSync(carouselDir, { recursive: true });
 fs.mkdirSync(heroDir, { recursive: true });
 
-async function writeWebp(inputPath, outputPath, width, quality = 78) {
+async function writeWebp(inputPath, outputPath, maxWidth = 1920, maxHeight = 1080, quality = 78) {
   if (!fs.existsSync(inputPath)) {
     console.warn('skip (missing):', inputPath);
     return;
   }
   await sharp(inputPath)
     .rotate()
-    .resize({ width: Math.round(width), withoutEnlargement: true })
+    .resize({
+      width: maxWidth,
+      height: maxHeight,
+      fit: 'inside',
+      withoutEnlargement: true,
+    })
     .webp({ quality, effort: 4 })
     .toFile(outputPath);
   const kb = (fs.statSync(outputPath).size / 1024).toFixed(1);
@@ -59,7 +64,7 @@ for (const name of carouselNames) {
   const src = path.join(imagesDir, `${name}.jpg`);
   const altSrc = path.join(imagesDir, name === 'winery' ? 'winery.jpg' : `${name}.jpg`);
   const input = fs.existsSync(src) ? src : altSrc;
-  await writeWebp(input, path.join(carouselDir, `${name}.webp`), 420);
+  await writeWebp(input, path.join(carouselDir, `${name}.webp`), 1920, 1080);
 }
 
 const gifPath = path.join(imagesDir, 'tinylab-device.gif');
