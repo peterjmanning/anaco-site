@@ -25,8 +25,10 @@ npm-debug.log*
 *.sublime-project
 *.sublime-workspace
 
-# Optional WebP outputs from scripts/optimize-images.mjs (site uses JPEG carousel copies)
-images/carousel/*.webp
+# Legacy folder (use images/grid/ instead)
+images/carousel/
+
+# Optional WebP outputs from scripts/optimize-images.mjs
 images/hero/*.webp
 
 # Temp / cache

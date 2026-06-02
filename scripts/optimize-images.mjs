@@ -1,6 +1,7 @@
 /**
- * Generates web-optimized assets for the home page carousel and hero.
+ * Resizes industry JPEGs in images/ for web (max 1920×1080).
  * Run: node scripts/optimize-images.mjs
+ * Requires: npm install --save-dev sharp
  */
 import fs from 'fs';
 import path from 'path';
@@ -18,7 +19,7 @@ try {
   process.exit(1);
 }
 
-const carouselNames = [
+const industryNames = [
   'winery',
   'biomanufacturing',
   'agriculture',
@@ -36,16 +37,15 @@ const carouselNames = [
   'home',
 ];
 
-const carouselDir = path.join(imagesDir, 'carousel');
 const heroDir = path.join(imagesDir, 'hero');
-fs.mkdirSync(carouselDir, { recursive: true });
 fs.mkdirSync(heroDir, { recursive: true });
 
-async function writeWebp(inputPath, outputPath, maxWidth = 1920, maxHeight = 1080, quality = 78) {
+async function optimizeJpegInPlace(inputPath, maxWidth = 1920, maxHeight = 1080, quality = 82) {
   if (!fs.existsSync(inputPath)) {
     console.warn('skip (missing):', inputPath);
     return;
   }
+  const tmp = inputPath + '.tmp.jpg';
   await sharp(inputPath)
     .rotate()
     .resize({
@@ -54,26 +54,24 @@ async function writeWebp(inputPath, outputPath, maxWidth = 1920, maxHeight = 108
       fit: 'inside',
       withoutEnlargement: true,
     })
-    .webp({ quality, effort: 4 })
-    .toFile(outputPath);
-  const kb = (fs.statSync(outputPath).size / 1024).toFixed(1);
-  console.log('wrote', path.relative(root, outputPath), `${kb} KB`);
+    .jpeg({ quality, mozjpeg: true })
+    .toFile(tmp);
+  fs.renameSync(tmp, inputPath);
+  const kb = (fs.statSync(inputPath).size / 1024).toFixed(1);
+  console.log('optimized', path.relative(root, inputPath), `${kb} KB`);
 }
 
-for (const name of carouselNames) {
-  const src = path.join(imagesDir, `${name}.jpg`);
-  const altSrc = path.join(imagesDir, name === 'winery' ? 'winery.jpg' : `${name}.jpg`);
-  const input = fs.existsSync(src) ? src : altSrc;
-  await writeWebp(input, path.join(carouselDir, `${name}.webp`), 1920, 1080);
+for (const name of industryNames) {
+  await optimizeJpegInPlace(path.join(imagesDir, `${name}.jpg`));
 }
 
 const gifPath = path.join(imagesDir, 'tinylab-device.gif');
 if (fs.existsSync(gifPath)) {
   await sharp(gifPath, { animated: false })
     .resize({ width: 912, withoutEnlargement: true })
-    .webp({ quality: 82 })
-    .toFile(path.join(heroDir, 'tinylab-device.webp'));
-  console.log('wrote hero poster webp');
+    .jpeg({ quality: 82 })
+    .toFile(path.join(heroDir, 'tinylab-device-poster.jpg'));
+  console.log('wrote hero poster');
 }
 
 console.log('Done.');

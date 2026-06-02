@@ -1,13 +1,16 @@
-# Generates JPEG thumbnails for carousel (no npm required).
-# Run: powershell -ExecutionPolicy Bypass -File scripts/optimize-images.ps1
+# Resizes industry JPEGs for web:
+#   images/grid/{name}.jpg       — grid tiles (~512px wide)
+#   images/grid/{name}-wide.jpg  — expanded row (~1440px wide)
+#   images/{name}.jpg            — detail pages (max 1920×1080, in place)
+# Run: npm run optimize-images
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 
 $root = Split-Path -Parent $PSScriptRoot
 $imagesDir = Join-Path $root 'images'
-$carouselDir = Join-Path $imagesDir 'carousel'
+$gridDir = Join-Path $imagesDir 'grid'
 $heroDir = Join-Path $imagesDir 'hero'
-New-Item -ItemType Directory -Force -Path $carouselDir | Out-Null
+New-Item -ItemType Directory -Force -Path $gridDir | Out-Null
 New-Item -ItemType Directory -Force -Path $heroDir | Out-Null
 
 function Save-ResizedJpeg {
@@ -36,6 +39,14 @@ function Save-ResizedJpeg {
   }
 }
 
+function Optimize-InPlace {
+  param([string]$Path, [int]$MaxWidth = 1920, [int]$MaxHeight = 1080)
+  if (-not (Test-Path $Path)) { return }
+  $tmp = Join-Path $env:TEMP ("anaco-opt-" + [Guid]::NewGuid().ToString() + ".jpg")
+  Save-ResizedJpeg -InputPath $Path -OutputPath $tmp -MaxWidth $MaxWidth -MaxHeight $MaxHeight
+  Move-Item -Force $tmp $Path
+}
+
 $names = @(
   'winery','biomanufacturing','agriculture','chemicals','oilandgas','research',
   'defense','municipal','education','universityeducation','beverages','cpg',
@@ -44,10 +55,11 @@ $names = @(
 
 foreach ($name in $names) {
   $src = Join-Path $imagesDir "$name.jpg"
-  Save-ResizedJpeg -InputPath $src -OutputPath (Join-Path $carouselDir "$name.jpg") -MaxWidth 1920 -MaxHeight 1080
+  Save-ResizedJpeg -InputPath $src -OutputPath (Join-Path $gridDir "$name.jpg") -MaxWidth 512 -MaxHeight 910
+  Save-ResizedJpeg -InputPath $src -OutputPath (Join-Path $gridDir "$name-wide.jpg") -MaxWidth 1440 -MaxHeight 2560
+  Optimize-InPlace -Path $src
 }
 
-# GIF poster: first frame only (static placeholder until animated GIF loads)
 $gif = Join-Path $imagesDir 'tinylab-device.gif'
 if (Test-Path $gif) {
   try {

@@ -60,7 +60,12 @@
     <a href="./" class="nav-logo"><img src="images/favicon.png" alt="" class="brand-mark intro-target" width="48" height="48"><span class="intro-target">Anaco</span></a>
     <button class="nav-toggle" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links">
-      <li><a href="shop/" class="nav-cta">Order</a></li>
+      <li><a href="./" class="nav-link" data-nav-home>Home</a></li>
+      <li><a href="#industries" class="nav-link">Industries</a></li>
+      <li><a href="#product" class="nav-link">Product</a></li>
+      <li><a href="#facilities" class="nav-link">About</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="shop/" class="nav-cta">Shop</a></li>
     </ul>
   </div>
 </nav>
@@ -112,7 +117,10 @@
         <p class="layer-float-text">From agriculture to fermentation to chemicals — laboratory-grade results wherever critical decisions are made.</p>
       </aside>
       <div class="industries-hub">
-        <div class="industries-grid" id="industriesGrid" aria-label="Industries"></div>
+        <div class="industries-hub-stage">
+          <div class="industries-hub-hatch pattern-hatch" aria-hidden="true"></div>
+          <div class="industries-grid" id="industriesGrid" aria-label="Industries"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -597,7 +605,7 @@
   })();
 </script>
 <script src="js/industries-data.js" defer></script>
-<script src="js/industries-carousel.js?v=2" defer></script>
+<script src="js/industries-carousel.js?v=12" defer></script>
 <script src="js/home-intro.js" defer></script>
 <script src="js/anaco.js" defer></script>
 <script>
