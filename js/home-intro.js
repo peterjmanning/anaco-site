@@ -77,7 +77,6 @@
       el.style.opacity = '';
     });
     document.getElementById('home-intro')?.remove();
-    document.dispatchEvent(new Event('anaco-intro-complete'));
   }
 
   function markPageFadeTargets() {
@@ -476,7 +475,6 @@
     html.classList.remove('intro-pending', 'intro-reveal');
     html.classList.add('intro-done');
     intro.remove();
-    document.dispatchEvent(new Event('anaco-intro-complete'));
   }
 
   function init() {

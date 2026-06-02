@@ -98,7 +98,7 @@
     var img = document.createElement('img');
     img.alt = '';
     img.decoding = 'async';
-    img.loading = index < 8 ? 'eager' : 'lazy';
+    img.loading = 'eager';
     img.src = gridThumbSrc(item.img);
     img.dataset.fallback = item.img;
     img.addEventListener('error', function onImgError() {

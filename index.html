@@ -587,23 +587,7 @@
   }
 }
 </script>
-<script type="module">
-  (function () {
-    var target = document.getElementById('product');
-    var boot = function () { import('./js/tinylab-viewer.js'); };
-    if (!target || !('IntersectionObserver' in window)) {
-      boot();
-      return;
-    }
-    var obs = new IntersectionObserver(function (entries) {
-      if (entries.some(function (e) { return e.isIntersecting; })) {
-        boot();
-        obs.disconnect();
-      }
-    }, { rootMargin: '280px 0px' });
-    obs.observe(target);
-  })();
-</script>
+<script type="module" src="js/tinylab-viewer.js"></script>
 <script src="js/industries-data.js" defer></script>
 <script src="js/industries-carousel.js?v=12" defer></script>
 <script src="js/home-intro.js" defer></script>
