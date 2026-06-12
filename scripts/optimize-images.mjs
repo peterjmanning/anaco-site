@@ -65,12 +65,12 @@ for (const name of industryNames) {
   await optimizeJpegInPlace(path.join(imagesDir, `${name}.jpg`));
 }
 
-const gifPath = path.join(imagesDir, 'Tinylab-device.gif');
+const gifPath = path.join(imagesDir, 'tinylab-device.gif');
 if (fs.existsSync(gifPath)) {
   await sharp(gifPath, { animated: false })
     .resize({ width: 912, withoutEnlargement: true })
     .jpeg({ quality: 82 })
-    .toFile(path.join(heroDir, 'Tinylab-device-poster.jpg'));
+    .toFile(path.join(heroDir, 'tinylab-device-poster.jpg'));
   console.log('wrote hero poster');
 }
 

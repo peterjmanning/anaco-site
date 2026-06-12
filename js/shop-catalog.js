@@ -23,7 +23,7 @@ window.SHOP_CATALOG = {
       kicker: 'Base unit',
       description:
         'Portable analytical lab with integrated control software.',
-      image: '../images/Tinylab-device.gif',
+      image: '../images/tinylab-device.gif',
       imageWidth: 456,
       imageHeight: 456,
       icon: 'system',

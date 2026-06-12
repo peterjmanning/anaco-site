@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const Tinylab = fs.readFileSync('Tinylab/index.html', 'utf8');
+const Tinylab = fs.readFileSync('tinylab/index.html', 'utf8');
 const index = fs.readFileSync('index.html', 'utf8');
 
 const specsMatch = Tinylab.match(/<div class="specs-grid">[\s\S]*?<\/div>\s*\n<\/div>\s*\n<section class="cta-strip/);
@@ -79,7 +79,7 @@ const scripts = `
   }
 }
 </script>
-<script type="module" src="js/Tinylab-viewer.js"></script>
+<script type="module" src="js/tinylab-viewer.js"></script>
 `;
 
 const withViewer = fixed.replace(
