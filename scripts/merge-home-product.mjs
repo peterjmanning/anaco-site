@@ -1,9 +1,9 @@
 import fs from 'fs';
 
-const tinylab = fs.readFileSync('tinylab/index.html', 'utf8');
+const Tinylab = fs.readFileSync('Tinylab/index.html', 'utf8');
 const index = fs.readFileSync('index.html', 'utf8');
 
-const specsMatch = tinylab.match(/<div class="specs-grid">[\s\S]*?<\/div>\s*\n<\/div>\s*\n<section class="cta-strip/);
+const specsMatch = Tinylab.match(/<div class="specs-grid">[\s\S]*?<\/div>\s*\n<\/div>\s*\n<section class="cta-strip/);
 if (!specsMatch) throw new Error('specs-grid not found');
 const specsGrid = specsMatch[0].replace(/\n<section class="cta-strip$/, '').trim();
 
@@ -14,7 +14,7 @@ const productSection = `
       <div class="sheet-block">
         <div class="sheet-head">
           <span class="sheet-label">Interactive</span>
-          <h2 class="display-lg">Explore TinyLab in 3D</h2>
+          <h2 class="display-lg">Explore Tinylab in 3D</h2>
           <p class="sheet-lead">Hover to highlight a module. Click to zoom in.</p>
         </div>
         <div id="viewer-container" class="viewer-frame">
@@ -41,7 +41,7 @@ const productSection = `
       <div class="sheet-block">
         <div class="sheet-head sheet-head--left">
           <span class="sheet-label">Specifications</span>
-          <h2 class="display-lg">What's inside TinyLab</h2>
+          <h2 class="display-lg">What's inside Tinylab</h2>
         </div>
         ${specsGrid}
       </div>
@@ -79,7 +79,7 @@ const scripts = `
   }
 }
 </script>
-<script type="module" src="js/tinylab-viewer.js"></script>
+<script type="module" src="js/Tinylab-viewer.js"></script>
 `;
 
 const withViewer = fixed.replace(

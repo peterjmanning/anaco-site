@@ -73,7 +73,7 @@ function transformAbout(html) {
       <div class="sheet-head sheet-head--left">
         <span class="sheet-label">Newsletter</span>
         <h2 class="display-lg">Stay in the loop</h2>
-        <p class="body-lg">Get the latest updates on TinyLab, new features, and industry insights delivered to your inbox.</p>
+        <p class="body-lg">Get the latest updates on Tinylab, new features, and industry insights delivered to your inbox.</p>
       </div>
       <div id="newsletterContent">
         <div class="newsletter-row">
@@ -101,8 +101,8 @@ function transformAbout(html) {
   );
 
   html = html.replace(
-    /<p>Have a question about TinyLab[\s\S]*?<\/p>\s*<p style="margin-top:20px">/,
-    `<p class="body-lg">Have a question about TinyLab, partnerships, or anything else? We'd love to hear from you.</p>
+    /<p>Have a question about Tinylab[\s\S]*?<\/p>\s*<p style="margin-top:20px">/,
+    `<p class="body-lg">Have a question about Tinylab, partnerships, or anything else? We'd love to hear from you.</p>
           <p class="body-lg">`
   );
   html = html.replace(/style="color:var\(--text\)"/g, '');
@@ -184,7 +184,7 @@ function transformPreorder(html) {
     <div class="sheet sheet--top">
       <div class="sheet-head">
         <span class="sheet-label">Reserve</span>
-        <h1 class="display-xl">Pre-order <span class="accent-chip">TinyLab</span></h1>
+        <h1 class="display-xl">Pre-order <span class="accent-chip">Tinylab</span></h1>
         <p class="sheet-lead">Be among the first to bring portable analytical power to your facility.</p>
       </div>
     </div>

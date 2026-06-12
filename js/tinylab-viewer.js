@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-const MODEL_URL = 'images/tinylab-model.glb';
+const MODEL_URL = 'images/Tinylab-model.glb';
 const HIGHLIGHT_COLOR = new THREE.Color(0x146ca6);
 const VIEWER_BASE_COLOR = 0x5c636b;
 const VIEWER_ROUGHNESS = 0.32;
@@ -256,7 +256,7 @@ loader.load(MODEL_URL, (gltf) => {
 
   placeholder.style.display = 'none';
 }, undefined, (err) => {
-  placeholder.innerHTML = '<span style="color:var(--text-3)">Place your <code style="background:var(--surface-2);padding:2px 6px;border-radius:4px;">tinylab-model.glb</code> file in the images folder</span>';
+  placeholder.innerHTML = '<span style="color:var(--text-3)">Place your <code style="background:var(--surface-2);padding:2px 6px;border-radius:4px;">Tinylab-model.glb</code> file in the images folder</span>';
 });
 
 // Track main model and any loaded module model

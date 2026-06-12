@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/anaco.css">
 <script>
 (function () {
@@ -20,6 +20,7 @@
 </script>
 </head>
 <body>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <div id="home-intro" class="home-intro" aria-live="polite">
   <div class="home-intro__backdrop" aria-hidden="true"></div>
@@ -43,12 +44,11 @@
     <div class="home-intro__flyer" hidden>
       <div class="home-intro__cluster home-intro__cluster--title">
         <span class="intro-fly intro-fly--meet display-xl headline-row">Meet</span>
-        <span class="intro-fly intro-fly--tinylab display-xl headline-row headline-row--accent"><span class="accent-chip">TinyLab</span></span>
+        <span class="intro-fly intro-fly--Tinylab display-xl headline-row headline-row--accent"><span class="accent-chip">Tinylab</span></span>
       </div>
       <span class="intro-fly intro-fly--divider" aria-hidden="true"></span>
       <div class="home-intro__cluster home-intro__cluster--brand">
-        <img class="intro-fly intro-fly--mark brand-mark" src="images/favicon.png" alt="" width="48" height="48">
-        <span class="intro-fly intro-fly--name">Anaco</span>
+        <img class="intro-fly intro-fly--logo brand-wordmark" src="images/anaco-logo.png" alt="Anaco" width="834" height="292">
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="./" class="nav-logo"><img src="images/favicon.png" alt="" class="brand-mark intro-target" width="48" height="48"><span class="intro-target">Anaco</span></a>
+    <a href="./" class="nav-logo"><img src="images/anaco-logo.png" alt="Anaco" class="brand-wordmark intro-target" width="834" height="292"></a>
     <button class="nav-toggle" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links">
       <li><a href="./" class="nav-link" data-nav-home>Home</a></li>
@@ -65,7 +65,7 @@
       <li><a href="#product" class="nav-link">Product</a></li>
       <li><a href="#facilities" class="nav-link">About</a></li>
       <li><a href="#contact" class="nav-link">Contact</a></li>
-      <li><a href="shop/" class="nav-cta">Shop</a></li>
+      <li><a href="shop/" class="nav-cta">Order</a></li>
     </ul>
   </div>
 </nav>
@@ -79,12 +79,12 @@
         <div class="hero-content">
           <h1 class="display-xl hero-headline">
             <span class="headline-row intro-target">Meet</span>
-            <span class="headline-row headline-row--accent intro-target"><span class="accent-chip hero-accent">TinyLab</span></span>
+            <span class="headline-row headline-row--accent intro-target"><span class="accent-chip hero-accent">Tinylab</span></span>
           </h1>
           <p class="hero-tagline">Lab-grade analysis, wherever your work happens.</p>
           <div class="hero-btns">
             <a href="#product" class="btn btn-ghost">Explore in 3D</a>
-            <a href="shop/" class="btn btn-primary">Shop →</a>
+            <a href="shop/" class="btn btn-primary">Order →</a>
           </div>
         </div>
         <div class="hero-visual">
@@ -92,10 +92,10 @@
             <div class="hero-device-hatch pattern-hatch" aria-hidden="true"></div>
             <div class="media-frame media-frame--device">
               <img
-                src="images/tinylab-device.gif"
-                alt="TinyLab device"
-                width="456"
-                height="456"
+                src="images/Tinylab-device.gif"
+                alt="Tinylab device"
+                width="520"
+                height="520"
                 decoding="async"
                 fetchpriority="high">
             </div>
@@ -108,14 +108,12 @@
 
 <section class="home-section" id="industries">
   <div class="home-wrap">
-    <div class="sheet sheet--has-float-header">
+    <div class="home-section-head">
+      <h2 class="home-section-title">Industries</h2>
+    </div>
+    <div class="sheet">
       <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
       <div class="sheet-hatch pattern-hatch sheet-hatch--square sheet-hatch--br" aria-hidden="true"></div>
-      <aside class="layer-float layer-float--accent layer-float--header layer-float--header-up layer-float--hang-r">
-        <span class="layer-kicker">Industries</span>
-        <h2 class="layer-float-title">One device, infinite application.</h2>
-        <p class="layer-float-text">From agriculture to fermentation to chemicals — laboratory-grade results wherever critical decisions are made.</p>
-      </aside>
       <div class="industries-hub">
         <div class="industries-hub-stage">
           <div class="industries-hub-hatch pattern-hatch" aria-hidden="true"></div>
@@ -128,13 +126,11 @@
 
 <section class="home-section" id="product">
   <div class="home-wrap">
-    <div class="sheet sheet--has-float-header">
+    <div class="home-section-head">
+      <h2 class="home-section-title">Product</h2>
+    </div>
+    <div class="sheet">
       <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
-      <aside class="layer-float layer-float--accent layer-float--header layer-float--header-up-more layer-float--hang-r layer-float--lg">
-        <span class="layer-kicker">Interactive</span>
-        <h2 class="layer-float-title">Explore TinyLab in 3D</h2>
-        <p class="layer-float-text">Hover to highlight a module. Click to zoom in.</p>
-      </aside>
       <div class="viewer-layout">
         <div id="viewer-container" class="viewer-frame">
           <canvas id="viewer-canvas"></canvas>
@@ -263,199 +259,92 @@
 
 <section class="home-section" id="facilities">
   <div class="home-wrap">
-    <div class="sheet sheet--has-float-header">
+    <div class="home-section-head">
+      <h2 class="home-section-title">Facilities</h2>
+    </div>
+    <div class="sheet">
       <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
       <div class="sheet-hatch pattern-hatch sheet-hatch--edge-bottom" aria-hidden="true"></div>
-      <aside class="layer-float layer-float--accent layer-float--header layer-float--header-up-more layer-float--hang-r">
-        <span class="layer-kicker">Facilities</span>
-        <h2 class="layer-float-title">Where we work</h2>
-      </aside>
-      <div class="facility-list">
-<!-- CNSI -->
-  <div class="facility-block">
-    <button type="button" class="facility-header" onclick="toggleFacility(this)"><h3>California NanoSystems Institute</h3><span class="facility-toggle">+</span></button>
-    <div class="facility-body">
-      <p>Anaco's home is the California Nanosystems Institute at UCLA, a hub of interdisciplinary research, translation, and education where scientists from diverse fields find common purpose in addressing grand challenges of the 21st century. On CNSI's fourth floor, Anaco shares laboratory space with a dozen startups selected for the Magnify program, the only STEM incubator at UCLA.</p>
-      <div class="equip-category">Equipment</div>
-      <div class="equip-grid">
-        <div class="equip-item">DNA Sequencer</div>
-        <div class="equip-item">Thermal Cycler</div>
-        <div class="equip-item">Shakers</div>
-        <div class="equip-item">CO₂ Incubators</div>
-        <div class="equip-item">Autoclave & Glass Wash</div>
-        <div class="equip-item">Class II Biosafety Cabinets</div>
-        <div class="equip-item">Ice Machine</div>
-        <div class="equip-item">Fume Hoods</div>
-        <div class="equip-item">−80°C Freezers</div>
-        <div class="equip-item">Refrigerators</div>
-        <div class="equip-item">Biohazard Waste Disposal</div>
-        <div class="equip-item">Chemical Waste Disposal</div>
-        <div class="equip-item">Centrifuge</div>
-        <div class="equip-item">Refrigerated Centrifuge</div>
-        <div class="equip-item">Gas Supply</div>
-        <div class="equip-item">Air Handling</div>
-        <div class="equip-item">pH Meter</div>
-        <div class="equip-item">Spectrophotometers</div>
-        <div class="equip-item">Fluorometer</div>
-        <div class="equip-item">Deionized Water</div>
-        <div class="equip-item">Water Baths</div>
-        <div class="equip-item">Chemical Storage Cabinets</div>
-        <div class="equip-item">Explosion-proof Cabinets</div>
-        <div class="equip-item">Heat Blocks</div>
-        <div class="equip-item">Vortex Mixers</div>
-        <div class="equip-item">Magnetic Stirrer</div>
-        <div class="equip-item">Hotplate Stirrer</div>
-        <div class="equip-item">Mass Balances</div>
-        <div class="equip-item">Burnout Oven</div>
-        <div class="equip-item">Alloying Furnace</div>
-        <div class="equip-item">Muffle Furnaces</div>
-        <div class="equip-item">Vacuum Furnaces</div>
-        <div class="equip-item">FDM 3D Printers</div>
-        <div class="equip-item">SLA 3D Printers</div>
-        <div class="equip-item">Vacuum Caster</div>
-        <div class="equip-item">Sonicator</div>
-      </div>
-    </div>
-  </div>
+      <div class="facility-grid">
+        <div class="facility-card">
+          <h3 class="facility-card__title">
+            <span class="facility-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M9 3h6v4.5L18 15a2 2 0 01-2 2H8a2 2 0 01-2-2l3-7.5V3z"/><path d="M9 3h6"/></svg></span>
+            <span class="facility-card__title-text">R&amp;D</span>
+          </h3>
+          <ul class="facility-sites">
+            <li class="facility-site">
+              <span class="facility-site__use link-neon">Main Facility</span>
+              <a href="https://www.cnsi.ucla.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">California NanoSystems Institute (Los Angeles)</a>
+            </li>
+            <li class="facility-site">
+              <span class="facility-site__use link-neon">Photonics</span>
+              <a href="https://www.cnsi.ucsb.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">California NanoSystems Institute (Santa Barbara)</a>
+            </li>
+            <li class="facility-site">
+              <span class="facility-site__use link-neon">Surface Engineering</span>
+              <a href="https://www.mi-hq.com/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Michigan Innovation Headquarters</a>
+            </li>
+          </ul>
+        </div>
 
-  <!-- Nanofab Lab -->
-  <div class="facility-block">
-    <button type="button" class="facility-header" onclick="toggleFacility(this)"><h3>Nanofabrication Laboratory</h3><span class="facility-toggle">+</span></button>
-    <div class="facility-body">
-      <p>The UCLA NanoLab provides access to advanced research infrastructure for fabrication and characterization of nanoscale materials, systems and devices. With over 15,000 square feet of class 10, 100 and 1000 cleanroom space, the NanoLab integrates modern semiconductor tools, processes and analysis using substrates ranging in size from small pieces to 150mm wafers with emerging classes of biomedically relevant materials and devices.</p>
+        <div class="facility-card">
+          <h3 class="facility-card__title">
+            <span class="facility-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
+            <span class="facility-card__title-text">Characterization &amp; QC</span>
+          </h3>
+          <ul class="facility-sites">
+            <li class="facility-site">
+              <span class="facility-site__use link-neon">Nanomaterials</span>
+              <a href="https://npc.cnsi.ucla.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Nano &amp; Pico Characterization Laboratory</a>
+            </li>
+            <li class="facility-site">
+              <span class="facility-site__use link-neon">Biomaterials</span>
+              <a href="https://biopacificmip.org/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">NSF BioPACIFIC Materials Innovation Platform</a>
+            </li>
+            <li class="facility-site">
+              <span class="facility-site__use link-neon">Quantum Materials</span>
+              <a href="https://www.cnsi.ucsb.edu/facilities/quantum-structures" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Quantum Structures Facility</a>
+            </li>
+          </ul>
+        </div>
 
-      <div class="equip-category">Lithography</div>
-      <div class="equip-grid">
-        <div class="equip-item">JEOL JSM-6610 SEM</div>
-        <div class="equip-item">ASML PAS 5500/200 Stepper</div>
-        <div class="equip-item">Headway Spin Coater</div>
-        <div class="equip-item">Heidelberg DWL 66 LaserWriter</div>
-        <div class="equip-item">HF-Buffered Oxide Etch</div>
-        <div class="equip-item">Karl Suss MA6 Aligner</div>
-        <div class="equip-item">N₂-Purged Muffle Furnace</div>
-        <div class="equip-item">SVG 8800 Tack Coater & Developer</div>
-        <div class="equip-item">Raith EBPG 5000+ES E-Beam Writer</div>
-      </div>
+        <div class="facility-card">
+          <h3 class="facility-card__title">
+            <span class="facility-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+            <span class="facility-card__title-text">Prototyping</span>
+          </h3>
+          <ul class="facility-sites">
+            <li class="facility-site">
+              <a href="https://magnify.cnsi.ucla.edu/" class="facility-site__use link-neon" target="_blank" rel="noopener noreferrer">Magnify @ CNSI</a>
+              <span class="facility-site__loc">Los Angeles</span>
+            </li>
+            <li class="facility-site">
+              <a href="https://www.cnsi.ucsb.edu/innovation/innovation-workshop" class="facility-site__use link-neon" target="_blank" rel="noopener noreferrer">CNSI Innovation Workshop</a>
+              <span class="facility-site__loc">Santa Barbara</span>
+            </li>
+          </ul>
+        </div>
 
-      <div class="equip-category">Deposition</div>
-      <div class="equip-grid">
-        <div class="equip-item">CHA Mark 40 Evaporator</div>
-        <div class="equip-item">CHA Solution E-Beam Evaporator</div>
-        <div class="equip-item">Tystar Tytan 3600 Oxidation</div>
-        <div class="equip-item">Tystar LPCVD Nitride (Low Stress)</div>
-        <div class="equip-item">Tystar Titan II LPCVD</div>
-        <div class="equip-item">LPCVD Nitride/Poly/LTO</div>
-        <div class="equip-item">Plasma Therm 790 PECVD</div>
-        <div class="equip-item">BMR Technology PECVD</div>
-        <div class="equip-item">CVC 601 Sputterer</div>
-        <div class="equip-item">Denton Desk II Sputterer</div>
-        <div class="equip-item">Denton Desk V Thin Film System</div>
-        <div class="equip-item">Denton Discovery Sputterer</div>
-        <div class="equip-item">Ultratech Fiji ALD</div>
-        <div class="equip-item">STS Multiplex CVD System</div>
-        <div class="equip-item">Ultratech Savannah ALD</div>
-        <div class="equip-item">SCS PDS 2010 Parylene</div>
-      </div>
-
-      <div class="equip-category">Etching</div>
-      <div class="equip-grid">
-        <div class="equip-item">Plasma Therm SLR 770 ICP</div>
-        <div class="equip-item">STS AOE Advanced Oxide Etcher</div>
-        <div class="equip-item">HF Vapor Etcher</div>
-        <div class="equip-item">Matrix 105</div>
-        <div class="equip-item">Oxford Plasmalab 80 Plus</div>
-        <div class="equip-item">Plasma Etch PE-100</div>
-        <div class="equip-item">Plasma-Therm FDRIE DSE III</div>
-        <div class="equip-item">Porous Si Etcher</div>
-        <div class="equip-item">Technics Micro-RIE 800</div>
-        <div class="equip-item">Tegal Plasmaline 515 Asher</div>
-        <div class="equip-item">Ulvac NE-550 Chlorine Etcher</div>
-        <div class="equip-item">Ulvac NLD-570 Oxide Etcher</div>
-        <div class="equip-item">Unaxis DRIE</div>
-        <div class="equip-item">Xactix XeF₂ Etching System</div>
-      </div>
-
-      <div class="equip-category">Measurement</div>
-      <div class="equip-grid">
-        <div class="equip-item">AST Goniometer</div>
-        <div class="equip-item">CDE ResMap</div>
-        <div class="equip-item">Dektak 6 Profilometer</div>
-        <div class="equip-item">Veeco Dektak 8 Profilometer</div>
-        <div class="equip-item">EDAX Genesis</div>
-        <div class="equip-item">FEI Nova 600 SEM/FIB</div>
-        <div class="equip-item">Hitachi S4700 SEM</div>
-        <div class="equip-item">JEOL 7500F FE-SEM</div>
-        <div class="equip-item">Leica DM2500 Microscope</div>
-        <div class="equip-item">M&M Probe Station</div>
-        <div class="equip-item">Nanometrics Nanospec 210/2100</div>
-        <div class="equip-item">Measurement Microscopes</div>
-        <div class="equip-item">Prometrix Omnimap RS35C</div>
-        <div class="equip-item">SCI Filmtek 2000</div>
-        <div class="equip-item">Sopra GES5 Ellipsometer</div>
-        <div class="equip-item">Tencor Flexus 2320A Stress Tester</div>
-        <div class="equip-item">ULVAC UNECS-2000 Ellipsometer</div>
-        <div class="equip-item">Veeco Dektak 150 Profiler</div>
-        <div class="equip-item">Veeco Dimension AFM</div>
-        <div class="equip-item">Wyko NT3300 Optical Profiler</div>
-      </div>
-
-      <div class="equip-category">Thermal</div>
-      <div class="equip-grid">
-        <div class="equip-item">YES LPIII HMDS Oven</div>
-        <div class="equip-item">Tystar Thermal Anneal</div>
-        <div class="equip-item">Carbolite High Temp Oven</div>
-        <div class="equip-item">MPC RTP 650</div>
-        <div class="equip-item">MPC RTP-600xp</div>
-        <div class="equip-item">VWR Vacuum Oven</div>
-        <div class="equip-item">YES-LPIII Vacuum Oven</div>
-      </div>
-
-      <div class="equip-category">Chemical</div>
-      <div class="equip-grid">
-        <div class="equip-item">Chemical Wet Benches (CNSI)</div>
-        <div class="equip-item">Chemical Wet Benches (E-IV)</div>
-        <div class="equip-item">SemiTool Spin Rinse Dryer</div>
-      </div>
-
-      <div class="equip-category">Backend</div>
-      <div class="equip-grid">
-        <div class="equip-item">LogiTech CDP</div>
-        <div class="equip-item">Fusion UV Systems</div>
-        <div class="equip-item">G&P Technology Poli 400L</div>
-        <div class="equip-item">Jelight UV Cleaner</div>
-        <div class="equip-item">Karl Suss SB8 Wafer Bonder</div>
-        <div class="equip-item">Logitech PM5 Polisher/Grinder</div>
-        <div class="equip-item">Loomis LSD-100</div>
-        <div class="equip-item">Tousimis 915B Critical Point Dryer</div>
-      </div>
-
-      <div class="equip-category">Miscellaneous</div>
-      <div class="equip-grid">
-        <div class="equip-item">Z-Test Software</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- NPC Lab -->
-  <div class="facility-block">
-    <button type="button" class="facility-header" onclick="toggleFacility(this)"><h3>Nano & Pico Characterization Laboratory</h3><span class="facility-toggle">+</span></button>
-    <div class="facility-body">
-      <p>The NPC Technology Center offers a curated collection of high-end scientific instrumentation to enable the physicochemical characterization of nanoscale materials, devices, and systems under a wide range of experimental conditions. Capabilities include surface analysis by Scanning Probe Microscopy (SPM), hydrodynamic size and surface charge analysis by Dynamic Light Scattering (DLS) and Zeta Potential (ZP) measurements, and elemental and chemical analysis by ICP-MS.</p>
-      <div class="equip-category">Equipment</div>
-      <div class="equip-grid">
-        <div class="equip-item">Bruker Dimension Icon</div>
-        <div class="equip-item">Bruker Dimension FastScan</div>
-        <div class="equip-item">Horiba NTA</div>
-        <div class="equip-item">Wyatt DynaPro Plate Reader</div>
-        <div class="equip-item">Malvern Zetasizer Nano ZS</div>
-        <div class="equip-item">JPK Nanowizard 4A</div>
-        <div class="equip-item">Shimadzu ICPE-9000</div>
-        <div class="equip-item">PerkinElmer NexION 2000 ICP-MS</div>
-        <div class="equip-item">Anton Paar MCR302 Rheometer</div>
-      </div>
-    </div>
-  </div>
-
+        <div class="facility-card">
+          <h3 class="facility-card__title">
+            <span class="facility-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></span>
+            <span class="facility-card__title-text">Fabrication</span>
+          </h3>
+          <ul class="facility-sites">
+            <li class="facility-site">
+              <a href="https://nanolab.ucla.edu/" class="facility-site__use link-neon" target="_blank" rel="noopener noreferrer">UCLA Nanofabrication Laboratory</a>
+              <span class="facility-site__loc">Los Angeles</span>
+            </li>
+            <li class="facility-site">
+              <a href="https://www.nanotech.ucsb.edu/" class="facility-site__use link-neon" target="_blank" rel="noopener noreferrer">UCSB Nanofabrication Facility</a>
+              <span class="facility-site__loc">Santa Barbara</span>
+            </li>
+            <li class="facility-site">
+              <a href="https://lnf.umich.edu/" class="facility-site__use link-neon" target="_blank" rel="noopener noreferrer">Lurie Nanofabrication Facility</a>
+              <span class="facility-site__loc">Ann Arbor</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -463,88 +352,63 @@
 
 <section class="home-section" id="contact">
   <div class="home-wrap">
-    <div class="sheet sheet--stacked sheet--has-float-header">
-      <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
-      <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--square sheet-hatch--bl" aria-hidden="true"></div>
-      <aside class="layer-float layer-float--accent layer-float--header layer-float--header-up layer-float--hang-r">
-        <span class="layer-kicker">Get in touch</span>
-        <h2 class="layer-float-title">Manufacturing, Hiring, or Business Inquiries?</h2>
-        <p class="layer-float-text">Feel free to reach out with the below form!</p>
-        <p class="layer-float-text"><strong>Or email:</strong> <a href="mailto:bliker@anaco.com" class="link-neon">bliker@anaco.com</a></p>
-      </aside>
-      <div class="sheet-block">
-        <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--edge-right-snug" aria-hidden="true"></div>
-        <div class="form-panel" id="inquiryFormCard">
-          <div id="inquiryFormContent">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="inquiryName">Name *</label>
-                <input type="text" id="inquiryName" placeholder="Your name" required>
-              </div>
-              <div class="form-group">
-                <label for="inquiryEmail">Email *</label>
-                <input type="email" id="inquiryEmail" placeholder="you@company.com" required>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="inquiryCompany">Company</label>
-                <input type="text" id="inquiryCompany" placeholder="Company name">
-              </div>
-              <div class="form-group">
-                <label for="inquiryPhone">Phone</label>
-                <input type="tel" id="inquiryPhone" placeholder="(555) 000-0000">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inquiryType">Inquiry type *</label>
-              <select id="inquiryType" required>
-                <option value="" disabled selected>Select a topic</option>
-                <option>General inquiry</option>
-                <option>TinyLab / Product</option>
-                <option>Hiring / Careers</option>
-                <option>Contract manufacturing</option>
-                <option>Partnership</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="inquiryMessage">Message *</label>
-              <textarea id="inquiryMessage" placeholder="How can we help?" required></textarea>
-            </div>
-            <button type="button" class="submit-btn" onclick="submitInquiry()">Send message →</button>
-          </div>
-          <div id="inquirySuccess" class="form-success">
-            <div class="check">
-              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="3"><path d="M6 16l7 7L26 9"/></svg>
-            </div>
-            <h3 class="display-md">Message sent</h3>
-            <p class="body-lg">Thank you for reaching out. We'll get back to you shortly.</p>
-          </div>
-        </div>
-      </div>
+    <div class="home-section-head">
+      <h2 class="home-section-title">Contact</h2>
     </div>
-  </div>
-</section>
-
-<section class="home-section home-section--compact" id="newsletter">
-  <div class="home-wrap">
-    <div class="sheet sheet--compact sheet--has-float-header">
+    <div class="sheet">
       <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
       <div class="sheet-hatch pattern-hatch sheet-hatch--square sheet-hatch--br" aria-hidden="true"></div>
-      <aside class="layer-float layer-float--accent layer-float--header layer-float--header-up layer-float--hang-r">
-        <span class="layer-kicker">Newsletter</span>
-        <h2 class="layer-float-title">Stay in the loop</h2>
-        <p class="layer-float-text">TinyLab updates and industry insights — in your inbox.</p>
-      </aside>
-      <div class="newsletter-body">
-        <div id="newsletterContent">
-          <div class="newsletter-row">
-            <input type="email" placeholder="you@email.com" id="newsletterEmail" required aria-label="Email address">
-            <button type="button" class="btn btn-primary" onclick="submitNewsletter()">Subscribe</button>
+      <div class="form-panel" id="inquiryFormCard">
+        <div id="inquiryFormContent">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inquiryName">Name *</label>
+              <input type="text" id="inquiryName" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="inquiryEmail">Email *</label>
+              <input type="email" id="inquiryEmail" placeholder="you@company.com" required>
+            </div>
           </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inquiryCompany">Company</label>
+              <input type="text" id="inquiryCompany" placeholder="Company name">
+            </div>
+            <div class="form-group">
+              <label for="inquiryPhone">Phone</label>
+              <input type="tel" id="inquiryPhone" placeholder="(555) 000-0000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inquiryType">Inquiry type *</label>
+            <select id="inquiryType" required>
+              <option value="" disabled selected>Select a topic</option>
+              <option>General inquiry</option>
+              <option>Tinylab / Product</option>
+              <option>Hiring / Careers</option>
+              <option>Contract manufacturing</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inquiryMessage">Message *</label>
+            <textarea id="inquiryMessage" placeholder="How can we help?" required></textarea>
+          </div>
+          <button type="button" class="submit-btn" onclick="submitInquiry()">Send message →</button>
+          <p class="contact-linkedin">
+            Connect with us on
+            <a href="https://www.linkedin.com/company/analysiscompany/" class="contact-linkedin__link" target="_blank" rel="noopener noreferrer" aria-label="Anaco on LinkedIn">
+              <svg class="contact-linkedin__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </p>
         </div>
-        <div id="newsletterSuccess" class="newsletter-success" hidden>
-          <p>You're subscribed! We'll keep you in the loop.</p>
+        <div id="inquirySuccess" class="form-success">
+          <div class="check">
+            <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="3"><path d="M6 16l7 7L26 9"/></svg>
+          </div>
+          <h3 class="display-md">Message sent</h3>
+          <p class="body-lg">Thank you for reaching out. We'll get back to you shortly.</p>
         </div>
       </div>
     </div>
@@ -587,34 +451,12 @@
   }
 }
 </script>
-<script type="module" src="js/tinylab-viewer.js"></script>
+<script type="module" src="js/Tinylab-viewer.js"></script>
 <script src="js/industries-data.js" defer></script>
 <script src="js/industries-carousel.js?v=12" defer></script>
 <script src="js/home-intro.js" defer></script>
 <script src="js/anaco.js" defer></script>
 <script>
-function toggleFacility(header) {
-  var body = header.nextElementSibling;
-  var toggle = header.querySelector('.facility-toggle');
-  var isOpen = body.classList.contains('open');
-  body.classList.toggle('open');
-  toggle.textContent = isOpen ? '+' : '−';
-}
-function submitNewsletter() {
-  var email = document.getElementById('newsletterEmail');
-  if (!email.value) { alert('Please enter your email address.'); return; }
-  var data = new FormData();
-  data.append('email', email.value);
-  data.append('_subject', 'Newsletter Subscription — ' + email.value);
-  data.append('_template', 'table');
-  fetch('https://formsubmit.co/ajax/agangla@anaco.com', { method: 'POST', body: data })
-    .then(function () { showNewsletterSuccess(); })
-    .catch(function () { showNewsletterSuccess(); });
-}
-function showNewsletterSuccess() {
-  document.getElementById('newsletterContent').hidden = true;
-  document.getElementById('newsletterSuccess').hidden = false;
-}
 function submitInquiry() {
   var name = document.getElementById('inquiryName');
   var email = document.getElementById('inquiryEmail');

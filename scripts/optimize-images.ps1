@@ -60,7 +60,7 @@ foreach ($name in $names) {
   Optimize-InPlace -Path $src
 }
 
-$gif = Join-Path $imagesDir 'tinylab-device.gif'
+$gif = Join-Path $imagesDir 'Tinylab-device.gif'
 if (Test-Path $gif) {
   try {
     $gi = New-Object System.Drawing.Bitmap($gif)
@@ -71,7 +71,7 @@ if (Test-Path $gif) {
     $tmp = Join-Path $env:TEMP 'anaco-gif-frame.png'
     $gi.Save($tmp, [System.Drawing.Imaging.ImageFormat]::Png)
     $gi.Dispose()
-    Save-ResizedJpeg -InputPath $tmp -OutputPath (Join-Path $heroDir 'tinylab-device-poster.jpg') -MaxWidth 1920 -MaxHeight 1080
+    Save-ResizedJpeg -InputPath $tmp -OutputPath (Join-Path $heroDir 'Tinylab-device-poster.jpg') -MaxWidth 1920 -MaxHeight 1080
     Remove-Item $tmp -ErrorAction SilentlyContinue
   } catch {
     Write-Warning "Could not build hero poster from GIF: $_"

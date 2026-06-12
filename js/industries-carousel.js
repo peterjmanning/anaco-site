@@ -176,7 +176,7 @@
       casesHtml +
       '</div>' +
       '<div class="industry-grid-item__detail-actions">' +
-      '<a href="shop/" class="industry-grid-item__link industry-grid-item__link--accent">Shop &rarr;</a>' +
+      '<a href="shop/#order" class="industry-grid-item__link industry-grid-item__link--accent">Order &rarr;</a>' +
       '</div>' +
       '</div>'
     );
@@ -202,7 +202,7 @@
       '<div class="industry-grid-item__more-body">' +
       '<span class="industry-grid-item__more-lead">Don\'t see your industry?</span>' +
       '<span class="industry-grid-item__more-cta">Contact us &rarr;</span>' +
-      '<span class="industry-grid-item__more-text">Find out how TinyLab can streamline your team\'s analysis today.</span>' +
+      '<span class="industry-grid-item__more-text">Find out how Tinylab can streamline your team\'s analysis today.</span>' +
       '</div>' +
       '<span class="industry-grid-item__title">...And more</span>' +
       '</div>';

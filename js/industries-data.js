@@ -1,1 +1,288 @@
-window.INDUSTRIES_DATA=[{"id":"winemaking","title":"Wine & Beer","img":"images/winery.jpg","heading":"TinyLab for Winemaking & Brewing","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…fermentation parameters","text":"Monitor sugar content, pH, acidity, SO₂ levels, and volatile compounds in real-time — right at the tank or barrel."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M9 3h6v4.5L18 15a2 2 0 01-2 2H8a2 2 0 01-2-2l3-7.5V3z\"/><path d=\"M9 3h6\"/></svg>","label":"Experiment:","head":"…with new blends","text":"Try new grape varieties, hop combinations, or yeast strains and measure the results immediately, without waiting days for lab reports."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>","label":"Optimize:","head":"…your process","text":"Track batch consistency over time and use data to refine your techniques, reduce waste, and improve product quality."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Comply:","head":"…with regulations","text":"Generate the analytical records you need for regulatory compliance and quality certifications."}]},{"id":"biomanufacturing","title":"Biomanufacturing","img":"images/biomanufacturing.jpg","heading":"TinyLab for Biomanufacturing","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…critical process parameters","text":"Track metabolites, nutrients, pH, and dissolved gases during cell culture and fermentation in real-time."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M9 3h6v4.5L18 15a2 2 0 01-2 2H8a2 2 0 01-2-2l3-7.5V3z\"/><path d=\"M9 3h6\"/></svg>","label":"Experiment:","head":"…with process conditions","text":"Screen media formulations, feeding strategies, and growth conditions with rapid analytical turnaround."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>","label":"Optimize:","head":"…batch consistency","text":"Reduce batch-to-batch variability with continuous inline and at-line monitoring throughout production."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Comply:","head":"…with regulatory standards","text":"Generate the analytical documentation required for GMP compliance and process validation."}]},{"id":"agriculture","title":"Agriculture","img":"images/agriculture.jpg","heading":"TinyLab for Agriculture","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…soil composition","text":"Measure nutrient levels, pH, moisture content, and contaminants directly in the field — no more sending samples to distant labs."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M9 3h6v4.5L18 15a2 2 0 01-2 2H8a2 2 0 01-2-2l3-7.5V3z\"/><path d=\"M9 3h6\"/></svg>","label":"Experiment:","head":"…with fertilization strategies","text":"Compare the effects of different treatments on crop chemistry and soil health with immediate analytical feedback."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>","label":"Optimize:","head":"…irrigation and yield","text":"Use real-time data to make informed decisions on watering, harvesting, and storage timing."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>","label":"Monitor:","head":"…water quality","text":"Test irrigation water sources for contaminants, mineral content, and suitability for your crops."}]},{"id":"chemicals","title":"Chemicals","img":"images/chemicals.jpg","heading":"TinyLab for Chemicals","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…product specifications","text":"Verify concentrations, detect contaminants, and confirm compositional standards throughout the manufacturing process."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>","label":"Monitor:","head":"…process conditions","text":"Perform on-line and at-line quality control to catch deviations before they become costly production issues."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>","label":"Optimize:","head":"…yield and efficiency","text":"Use real-time analytical data to fine-tune reaction conditions, reduce waste, and maximize throughput."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Comply:","head":"…with safety standards","text":"Meet OSHA, EPA, and REACH regulatory requirements with documented analytical evidence."}]},{"id":"oil-gas","title":"Oil & Gas","img":"images/oilandgas.jpg","heading":"TinyLab for Oil & Gas","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…crude composition","text":"Analyze drilling fluids, produced water, and crude oil composition at the wellhead — no more waiting for distant lab results."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>","label":"Monitor:","head":"…production chemistry","text":"Track corrosion indicators, scale-forming ions, and H₂S levels to protect equipment and optimize extraction."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>","label":"Optimize:","head":"…treatment programs","text":"Use real-time data to adjust chemical treatments, reduce downtime, and lower operating costs."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Comply:","head":"…with environmental standards","text":"Document water discharge quality and emissions data for regulatory reporting."}]},{"id":"research","title":"Research","img":"images/research.jpg","heading":"TinyLab for Research","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…samples in the field","text":"Perform analytical measurements at remote sites, field stations, and during expeditions — without transporting samples back to a lab."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M9 3h6v4.5L18 15a2 2 0 01-2 2H8a2 2 0 01-2-2l3-7.5V3z\"/><path d=\"M9 3h6\"/></svg>","label":"Experiment:","head":"…with new methods","text":"Prototype and validate new analytical workflows on a compact, flexible platform."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M13 2L3 14h9l-1 8 10-12h-9l1-8z\"/></svg>","label":"Accelerate:","head":"…discovery","text":"Get results in minutes instead of days, enabling faster iteration and more productive research cycles."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75\"/></svg>","label":"Collaborate:","head":"…across disciplines","text":"Share standardized analytical data with collaborators regardless of their lab infrastructure."}]},{"id":"defense","title":"Defense","img":"images/defense.jpg","heading":"TinyLab for Defense","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"M21 21l-4.35-4.35\"/></svg>","label":"Identify:","head":"…chemical threats","text":"Rapidly detect and classify chemical warfare agents, industrial chemicals, and environmental hazards in the field."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>","label":"Monitor:","head":"…environmental conditions","text":"Perform real-time air, water, and soil analysis in forward operating environments and contaminated zones."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Verify:","head":"…decontamination","text":"Confirm that decontamination procedures have been effective before clearing personnel to return to an area."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75\"/></svg>","label":"Support:","head":"…mission planning","text":"Provide analytical intelligence to commanders for threat assessment and operational decision-making."}]},{"id":"municipal","title":"Municipal","img":"images/municipal.jpg","heading":"TinyLab for Municipal","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…drinking water quality","text":"Monitor contaminants, disinfection byproducts, pH, and mineral content at the source — protecting public health in real-time."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>","label":"Monitor:","head":"…wastewater treatment","text":"Track effluent quality and treatment efficiency to ensure environmental compliance before discharge."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M13 2L3 14h9l-1 8 10-12h-9l1-8z\"/></svg>","label":"Respond:","head":"…to contamination events","text":"Deploy rapid on-site analysis during water quality emergencies to identify threats and guide response efforts."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z\"/><path d=\"M14 2v6h6M16 13H8M16 17H8M10 9H8\"/></svg>","label":"Report:","head":"…compliance data","text":"Generate the analytical records needed for EPA, state, and local regulatory reporting requirements."}]},{"id":"k12-education","title":"K–12 Education","img":"images/education.jpg","heading":"TinyLab for K–12 Education","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z\"/><path d=\"M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z\"/></svg>","label":"Teach:","head":"…real analytical science","text":"Give students hands-on experience with the same instrumentation used by professional scientists and engineers."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5\"/></svg>","label":"Inspire:","head":"…curiosity","text":"Let students test food, water, soil, and everyday materials — making chemistry tangible and relevant to their lives."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 3v18M3 9h18\"/></svg>","label":"Simplify:","head":"…lab management","text":"Replace fragile, complex lab equipment with a single device that's safe, durable, and easy to operate."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg>","label":"Prepare:","head":"…the next generation","text":"Expose students to analytical chemistry concepts and workflows they'll encounter in STEM careers."}]},{"id":"university-education","title":"University Education","img":"images/universityeducation.jpg","heading":"TinyLab for University Education","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z\"/><path d=\"M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z\"/></svg>","label":"Teach:","head":"…advanced analytical methods","text":"Provide undergraduate and graduate students with hands-on experience in chromatography, spectroscopy, and electrochemistry."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 3v18M3 9h18\"/></svg>","label":"Equip:","head":"…teaching labs affordably","text":"Deploy multiple TinyLab units for a fraction of the cost of traditional benchtop instrumentation."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M13 2L3 14h9l-1 8 10-12h-9l1-8z\"/></svg>","label":"Enable:","head":"…student research","text":"Give students the tools to pursue independent research projects with professional-grade analytical capabilities."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z\"/><path d=\"M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z\"/></svg>","label":"Bridge:","head":"…theory and practice","text":"Connect classroom concepts to real-world analytical workflows used across dozens of industries."}]},{"id":"beverages","title":"Beverages","img":"images/beverages.jpg","heading":"TinyLab for Beverages","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…product quality","text":"Measure sugar levels, acidity, microbial indicators, and flavor compounds throughout the production line."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M9 3h6v4.5L18 15a2 2 0 01-2 2H8a2 2 0 01-2-2l3-7.5V3z\"/><path d=\"M9 3h6\"/></svg>","label":"Experiment:","head":"…with new formulations","text":"Develop and refine new beverage recipes with immediate analytical feedback on composition and stability."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>","label":"Optimize:","head":"…production efficiency","text":"Identify quality issues early in the process, reducing waste and rework across the supply chain."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Verify:","head":"…label accuracy","text":"Confirm that nutritional claims and ingredient declarations match actual product composition."}]},{"id":"cpg-food","title":"CPG Food","img":"images/cpg.jpg","heading":"TinyLab for CPG Food","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…for contaminants","text":"Screen for pesticides, heavy metals, allergens, and microbial contamination at every stage of the supply chain."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Verify:","head":"…nutritional content","text":"Confirm that macronutrient, vitamin, and mineral levels match label claims and regulatory standards."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>","label":"Monitor:","head":"…shelf stability","text":"Track chemical changes over time to validate shelf-life claims and optimize packaging strategies."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Comply:","head":"…with food safety standards","text":"Generate documentation for FSMA, HACCP, and international food safety certifications."}]},{"id":"nutrition-supplements","title":"Nutrition & Supplements","img":"images/supplementsnutrition.jpg","heading":"TinyLab for Nutrition & Supplements","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…ingredient purity","text":"Verify that raw materials meet identity, potency, and purity specifications before they enter production."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Verify:","head":"…label claims","text":"Confirm that finished products contain exactly what the label says — no more, no less."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"M21 21l-4.35-4.35\"/></svg>","label":"Screen:","head":"…for contaminants","text":"Detect heavy metals, solvents, pesticides, and adulterants that could compromise product safety."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>","label":"Optimize:","head":"…formulation","text":"Use analytical data to refine dosage forms, improve bioavailability, and enhance product stability."}]},{"id":"beauty-fragrance","title":"Beauty & Fragrances","img":"images/beautyfragrances.jpg","heading":"TinyLab for Beauty & Fragrance","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…ingredient composition","text":"Analyze active ingredient concentrations, preservative levels, and fragrance profiles with precision."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Verify:","head":"…product claims","text":"Confirm that \"organic,\" \"natural,\" and \"free-from\" marketing claims are backed by analytical evidence."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M9 3h6v4.5L18 15a2 2 0 01-2 2H8a2 2 0 01-2-2l3-7.5V3z\"/><path d=\"M9 3h6\"/></svg>","label":"Experiment:","head":"…with new formulations","text":"Develop fragrances, skincare actives, and cosmetic formulations with real-time compositional feedback."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>","label":"Comply:","head":"…with safety regulations","text":"Generate analytical documentation for EU Cosmetics Regulation, FDA, and international standards."}]},{"id":"home","title":"For Home","img":"images/home.jpg","heading":"TinyLab for For Home","cases":[{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>","label":"Test:","head":"…food and beverages","text":"Make sure your family isn't consuming pesticides, hormones, food dyes, and other harmful additives."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M9 3h6v4.5L18 15a2 2 0 01-2 2H8a2 2 0 01-2-2l3-7.5V3z\"/><path d=\"M9 3h6\"/></svg>","label":"Experiment:","head":"…with fermented drinks","text":"Don't be stupid: If you're gonna make your own beer, wine, whiskey, or hooch, at least make sure you won't go blind."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M8 12l4 4 4-4\"/></svg>","label":"Invent:","head":"…new beverages","text":"Launching a CPG Beverage Brand from home is easier than ever."},{"icon":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"M21 21l-4.35-4.35\"/></svg>","label":"Identify:","head":"…beauty ingredients","text":"Check your fragrances, skincare, and cosmetic products' ingredients."}]}];
+window.INDUSTRIES_DATA=[
+  {
+    "id": "winemaking",
+    "title": "Wine & Beer",
+    "img": "images/winery.jpg",
+    "heading": "Tinylab for Wine & Beer",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>",
+        "label": "Test:",
+        "head": "…fermentation parameters",
+        "text": "Monitor a batch's pH, TA, YAN, sugar content, SO₂, polyphenols, aromatics, and alcohol levels remotely and get results in minutes, not days."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Comply:",
+        "head": "…with regulatory standards",
+        "text": "Automatically generate certificates of analysis (COAs) with QRs that prove regulatory compliance and certify the quality and authenticity of your products for your customers."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>",
+        "label": "Optimize:",
+        "head": "…your processes",
+        "text": "Use Tinylab's reliable chemical data to track batch consistency over time and refine your techniques, making your vintage's unique character scalable."
+      }
+    ]
+  },
+  {
+    "id": "beverages",
+    "title": "Beverages",
+    "img": "images/beverages.jpg",
+    "heading": "Tinylab for Beverages",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>",
+        "label": "Test:",
+        "head": "…every batch's quality",
+        "text": "Monitor production quality continuously with the Tinylab autosampler module, automating full 3rd-party qualification for every batch."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"M21 21l-4.35-4.35\"/></svg>",
+        "label": "Keep:",
+        "head": "…suppliers honest",
+        "text": "Verify ingredients are consistent with your supplier's advertised purity standards in as few as 3 clicks."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Generate:",
+        "head": "…accurate nutritional labels",
+        "text": "Automatically generate nutritional labels compliant with US, MX, and EU standards for every single batch, reducing legal exposure."
+      }
+    ]
+  },
+  {
+    "id": "food",
+    "title": "Food",
+    "img": "images/cpg.jpg",
+    "heading": "Tinylab for Food",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>",
+        "label": "Test:",
+        "head": "…for undesirable contaminants",
+        "text": "Ensure harmful chemicals, heavy metals, naturally-occurring toxins, and unlawful substances are not in your products."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Verify:",
+        "head": "…& label nutritional content",
+        "text": "Automatically generate ingredient and nutritional labels compliant with local market regulatory standards for every single batch, reducing legal exposure."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Comply:",
+        "head": "…with regulatory standards",
+        "text": "Automatically generate certificates of analysis (COAs) with QRs that prove regulatory compliance and certify the quality and authenticity of your products for your customers."
+      }
+    ]
+  },
+  {
+    "id": "skincare-haircare",
+    "title": "Skincare & Hair Care",
+    "img": "images/beautyfragrances.jpg",
+    "heading": "Tinylab for Skincare & Hair Care",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Verify:",
+        "head": "…ingredient claims",
+        "text": "Automatically generate ingredient labels compliant with US, MX, and EU standards for every single batch, reducing legal exposure."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>",
+        "label": "Monitor:",
+        "head": "…production & experimentation",
+        "text": "Streamline production QC by continuously monitoring multiple chemical compositions at every point in the process, whether in the lab or a plant."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Comply:",
+        "head": "…with regulatory standards",
+        "text": "Automatically generate certificates of analysis (COAs) with QRs that prove regulatory compliance and certify the quality and authenticity of your products for your customers."
+      }
+    ]
+  },
+  {
+    "id": "nutrition-supplements",
+    "title": "Nutrition & Supplements",
+    "img": "images/supplementsnutrition.jpg",
+    "heading": "Tinylab for Nutrition & Supplements",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>",
+        "label": "Test:",
+        "head": "…for undesirable contaminants",
+        "text": "Ensure harmful chemicals, heavy metals, naturally-occurring toxins, and unlawful substances are not in your products."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Generate:",
+        "head": "…accurate nutritional labels",
+        "text": "Automatically generate nutritional labels compliant with US, MX, and EU standards for every single batch, reducing legal exposure."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"M21 21l-4.35-4.35\"/></svg>",
+        "label": "Keep:",
+        "head": "…suppliers honest",
+        "text": "Verify ingredients are consistent with your supplier's advertised purity standards in as few as 3 clicks."
+      }
+    ]
+  },
+  {
+    "id": "beauty-fragrance",
+    "title": "Fragrances & Beauty",
+    "img": "images/beautyfragrances.jpg",
+    "heading": "Tinylab for Fragrances & Beauty",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M9 3h6v4.5L18 15a2 2 0 01-2 2H8a2 2 0 01-2-2l3-7.5V3z\"/><path d=\"M9 3h6\"/></svg>",
+        "label": "Experiment:",
+        "head": "…with new formulations",
+        "text": "Use Tinylab's reliable chemical data to track batch consistency over time and refine your techniques and formulations, reducing future scale-up concerns."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>",
+        "label": "Monitor:",
+        "head": "…supplier & production quality",
+        "text": "Verify ingredients are consistent with your supplier's advertised purity standards in as few as 3 clicks and monitor production quality continuously with the Tinylab autosampler module."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Comply:",
+        "head": "…with regulatory standards",
+        "text": "Tinylab automates full 3rd-party qualification by generating traceability-forward certificates of analysis (COAs) directly connected to the data it collects, facilitating easier compliance and communication with local regulatory bodies."
+      }
+    ]
+  },
+  {
+    "id": "biomanufacturing",
+    "title": "Biomanufacturing",
+    "img": "images/biomanufacturing.jpg",
+    "heading": "Tinylab for Biomanufacturing",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>",
+        "label": "Test:",
+        "head": "…critical process parameters",
+        "text": "Every team's processes are slightly different; to effectively translate those processes from lab to pilot to production scale, tight control over critical parameters must be maintained. Tinylab's sensor modules can be customized to monitor exactly what's important."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Automate:",
+        "head": "…cGMP and regulatory compliance",
+        "text": "Tinylab automates full 3rd-party qualification by generating traceability-forward certificates of analysis (COAs) directly connected to the data it collects."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>",
+        "label": "Monitor:",
+        "head": "…your scale-up",
+        "text": "Monitor production quality continuously with the Tinylab autosampler module, automating data collection for every batch."
+      }
+    ]
+  },
+  {
+    "id": "specialty-agriculture",
+    "title": "Specialty Agriculture",
+    "img": "images/agriculture.jpg",
+    "heading": "Tinylab for Specialty Agriculture",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>",
+        "label": "Optimize:",
+        "head": "…crop protection & nutrients",
+        "text": "Power a Chemical Digital Twin with field data. Run simulations across weather, water, soil, and inputs to improve yields and cut costs. Tinylab measures protection dosages and residues more accurately than any other system."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Expand:",
+        "head": "…into premium markets",
+        "text": "Labels like organic command higher prices, but growing method alone doesn't tell the full story. Tinylab Tested creates a new category—verified clean produce that's affordable—so growers, processors, and distributors can reach health-conscious buyers regardless of crop protection use."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"M21 21l-4.35-4.35\"/></svg>",
+        "label": "Verify:",
+        "head": "…what buyers care about",
+        "text": "Residue, nutrition, origin, and price matter more than label heuristics alone. Generate batch-level certificates of analysis that prove what's in every lot—building trust with retailers and consumers on facts, not assumptions."
+      }
+    ]
+  },
+  {
+    "id": "commodity-agriculture",
+    "title": "Commodity Agriculture",
+    "img": "images/agriculture.jpg",
+    "heading": "Tinylab for Commodity Agriculture",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>",
+        "label": "Increase:",
+        "head": "…yields & decrease costs",
+        "text": "Tinylab means every farmer has access to rich chemical data that can power their very own Chemical Digital Twin (CDT), a groundbreaking technology previously only available to the manufacturing sector. With Anaco's CDTs, anyone can run simulations across a variety of weather, watering, crop protection, soil health, and nutrient dosage situations, enabling them to computationally optimize crop yields, decrease input costs, and more."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M12 20V10M18 20V4M6 20v-4\"/></svg>",
+        "label": "Implement:",
+        "head": "…successful prescriptions",
+        "text": "Tinylab measures crop protection effective dosages and residues more accurately than any other system, enabling growers to save money, protect consumers, and be more sustainable."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"M21 21l-4.35-4.35\"/></svg>",
+        "label": "Find:",
+        "head": "…higher-paying customers",
+        "text": "Typically, commodity crops are sold for commodity prices. This assumes that they're essentially the same, but anyone who's gotten their hands dirty knows that crops actually vary a lot, depending on soil nutrients, fertilizer, sunlight, temperature, water, etc. – even grown from genetically identical seeds! With the growth of the biomanufacturing industry in America, there is now demand for crops with certain chemical compounds in them that enable farmers to get a premium on top of typical commodity prices."
+      }
+    ]
+  },
+  {
+    "id": "chemicals-fuels",
+    "title": "Chemicals & Fuels",
+    "img": "images/chemicals.jpg",
+    "heading": "Tinylab for Chemicals & Fuels",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg>",
+        "label": "Monitor:",
+        "head": "…yields at every step",
+        "text": "Until now, it's only been affordable to perform regular chemical testing at points A and Z, with plants relying on other detection methods to see if something goes wrong. Tinylab can perform regular, automated chemical testing at points A through Z so you can see if something goes wrong and make improvements."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg>",
+        "label": "Test:",
+        "head": "…anywhere",
+        "text": "Sometimes a lab is too far or too slow to be practical. Tinylab's compact form factor makes it practical to be used anywhere—on land, sea, or even in the air: Our partnerships with drone manufacturers facilitates reliable emissions monitoring of VOCs and GHGs above any facility."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Enhance:",
+        "head": "…traceability & compliance",
+        "text": "Tinylab automates full 3rd-party qualification by generating traceability-forward certificates of analysis (COAs) directly connected to the data it collects, facilitating easier compliance and communication with local regulatory bodies."
+      }
+    ]
+  },
+  {
+    "id": "aerospace-defense",
+    "title": "Aerospace & Defense",
+    "img": "images/defense.jpg",
+    "heading": "Tinylab for Aerospace & Defense",
+    "cases": [
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M13 2L3 14h9l-1 8 10-12h-9l1-8z\"/></svg>",
+        "label": "Deploy:",
+        "head": "…in contested field environments",
+        "text": "Sometimes a lab is too far or too slow to be practical. Tinylab's compact form factor makes it practical to be used anywhere—on land, in the air, or even at sea: One configuration of Tinylab tests for over 20 properties of jet fuel and can be deployed in environments as remote as an aircraft carrier."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"M21 21l-4.35-4.35\"/></svg>",
+        "label": "Detect:",
+        "head": "…& identify hazardous chemicals",
+        "text": "Our partnerships with drone manufacturers facilitates reliable detection and identification of hazardous chemicals from afar."
+      },
+      {
+        "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 11-5.93-9.14\"/><path d=\"M22 4L12 14.01l-3-3\"/></svg>",
+        "label": "Enhance:",
+        "head": "…supply chain traceability",
+        "text": "Tinylab automates full 3rd-party qualification by generating traceability-forward certificates of analysis (COAs) directly connected to the data it collects, facilitating easier compliance with rigorous defense industrial standards."
+      }
+    ]
+  }
+];

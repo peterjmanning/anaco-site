@@ -2,119 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout — Tinylab Store — Anaco</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../css/anaco.css">
-<script src="../../js/anaco.js" defer></script>
-<script src="../../js/shop-catalog.js" defer></script>
-<script src="../../js/shop-cart.js" defer></script>
-<script src="../../js/shopify-config.js" defer></script>
-<script src="../../js/shop-ui.js" defer></script>
-<script src="../../js/shop-checkout.js" defer></script>
-<link rel="icon" type="image/png" href="../../images/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta http-equiv="refresh" content="0; url=../#order">
+<link rel="canonical" href="../#order">
+<script>location.replace('../#order' + (location.search || ''));</script>
+<title>Order — Anaco</title>
 </head>
-<body class="site-page shop-page checkout-page">
-<main class="site-page-main">
-<section class="page-section" id="checkout-main">
-  <div class="page-wrap">
-    <div class="sheet shop-sheet shop-sheet--flush-top checkout-sheet">
-
-      <header class="shop-banner">
-        <a href="../../" class="shop-banner__logo">
-          <img src="../../images/favicon.png" alt="" class="brand-mark" width="32" height="32">
-          <span>Anaco</span>
-        </a>
-        <h1 class="shop-banner__title">Checkout</h1>
-        <a href="./" class="nav-cart shop-banner__cart nav-cart--active" data-cart-link aria-label="Cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L5 3H2"/></svg>
-          <span class="nav-cart__count" data-cart-count hidden>0</span>
-        </a>
-      </header>
-
-      <div class="checkout-toolbar">
-        <a href="../" class="checkout-continue-bubble">← Continue shopping</a>
-      </div>
-
-      <div class="shop-sheet__body checkout-sheet__body">
-        <p class="sheet-lead checkout-intro">Review your cart, enter your details, then complete payment.</p>
-
-        <div id="cart-empty" class="cart-empty" hidden>
-          <p class="body-lg">Your cart is empty.</p>
-          <a href="../" class="btn btn-primary">Browse products</a>
-        </div>
-
-        <div id="cart-panel" class="checkout-layout" hidden>
-          <div class="checkout-cart checkout-panel">
-            <h2 class="display-md">Shopping cart</h2>
-            <p class="body-lg checkout-cart-meta" id="cart-subtotal-count"></p>
-            <div id="cart-lines" class="cart-lines" aria-live="polite"></div>
-          </div>
-
-          <div class="checkout-layout__rule" aria-hidden="true"></div>
-
-          <div class="form-panel checkout-panel checkout-details" id="checkout-form-wrap">
-              <form id="checkout-form" class="checkout-form" onsubmit="return false;" tabindex="-1">
-                <h2 class="display-md">Contact details</h2>
-                <p class="body-lg">We’ll include this information with your order.</p>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="firstName">First Name *</label>
-                    <input type="text" placeholder="Jane" id="firstName" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="lastName">Last Name *</label>
-                    <input type="text" placeholder="Smith" id="lastName" required>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="email">Work Email *</label>
-                  <input type="email" placeholder="jane@company.com" id="email" required>
-                </div>
-                <div class="form-group">
-                  <label for="company">Company / Organization *</label>
-                  <input type="text" placeholder="Acme Corp" id="company" required>
-                </div>
-                <div class="form-group">
-                  <label for="industry">Industry *</label>
-                  <select id="industry" required>
-                    <option value="" disabled selected>Select your industry</option>
-                    <option>Wine & Beer</option>
-                    <option>Biomanufacturing</option>
-                    <option>Agriculture</option>
-                    <option>Chemicals</option>
-                    <option>Oil & Gas</option>
-                    <option>Research</option>
-                    <option>Defense</option>
-                    <option>Municipal</option>
-                    <option>Education</option>
-                    <option>Beverages</option>
-                    <option>CPG Food</option>
-                    <option>Nutrition & Supplements</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="notes">Additional Notes (Optional)</label>
-                  <textarea placeholder="Tell us about your use case..." id="notes"></textarea>
-                </div>
-                <p class="form-error" id="formError" hidden role="alert"></p>
-                <button type="button" class="submit-btn" onclick="submitShopCheckout()">Proceed to payment →</button>
-                <p class="form-note">Secure checkout.</p>
-              </form>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-</main>
-
-<footer class="footer"><div class="footer-inner">
-  <div class="footer-left"><a href="../../#terms">Terms of Service</a><span>·</span><a href="../../#privacy">Privacy Policy</a><span>·</span><span>© 2026 The Analysis Company</span><span>·</span><a href="mailto:bliker@anaco.com">Contact Us</a></div>
-</div></footer>
+<body>
+<p><a href="../#order">Continue to order form</a></p>
 </body>
 </html>

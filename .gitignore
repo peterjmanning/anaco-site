@@ -7,9 +7,6 @@ ehthumbs.db
 # Dependencies (npm run optimize-images, local preview, etc.)
 node_modules/
 
-# Local secrets — copy js/shopify-config.example.js → js/shopify-config.js
-js/shopify-config.js
-
 # Environment variables
 .env
 .env.*

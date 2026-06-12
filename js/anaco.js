@@ -119,4 +119,23 @@
       onHomeScroll();
     }
   }
+
+  initScrollProgress();
+
+  function initScrollProgress() {
+    const bar = document.getElementById('scrollProgress');
+    if (!bar || !document.querySelector('main.home')) return;
+
+    const update = () => {
+      const scrollTop =
+        window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+      bar.style.width = pct + '%';
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }
 })();

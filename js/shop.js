@@ -26,134 +26,6 @@
       .replace(/"/g, '&quot;');
   }
 
-  function findProduct(id) {
-    return getCatalog().find(function (p) {
-      return p.id === id;
-    });
-  }
-
-  function getCartQty(productId) {
-    if (!window.ShopCart) return 0;
-    var item = window.ShopCart.getItems().find(function (i) {
-      return i.productId === productId;
-    });
-    return item ? item.quantity : 0;
-  }
-
-  function syncCardFromCart(card) {
-    var bubble = card.querySelector('.shop-card__cart-bubble');
-    var actions = card.querySelector('.shop-card__actions');
-    var input = card.querySelector('.shop-card__qty-input');
-    if (!bubble) return;
-
-    var qty = getCartQty(card.dataset.productId);
-    if (qty > 0) {
-      bubble.classList.add('is-in-cart');
-      if (actions) actions.classList.add('is-in-cart');
-      if (input) {
-        input.value = String(qty);
-        input.removeAttribute('tabindex');
-      }
-    } else {
-      bubble.classList.remove('is-in-cart');
-      if (actions) actions.classList.remove('is-in-cart');
-      if (input) {
-        input.value = '1';
-        input.setAttribute('tabindex', '-1');
-      }
-    }
-  }
-
-  function syncAllCards() {
-    document.querySelectorAll('.shop-card').forEach(syncCardFromCart);
-  }
-
-  function readQtyInput(input) {
-    var val = (input.value || '').replace(/[^0-9]/g, '');
-    var qty = parseInt(val, 10);
-    return qty > 0 ? qty : 1;
-  }
-
-  function setCartQty(productId, qty) {
-    if (!window.ShopCart) return;
-    if (qty < 1) {
-      window.ShopCart.removeItem(productId);
-    } else {
-      var existing = getCartQty(productId);
-      if (existing) {
-        window.ShopCart.setQuantity(productId, qty);
-      } else {
-        window.ShopCart.addItem(productId, qty);
-      }
-    }
-    if (window.ShopCartUI) window.ShopCartUI.updateBadge();
-  }
-
-  function addToCart(productId, card) {
-    var product = findProduct(productId);
-    if (!product || !window.ShopCart) return;
-
-    var qty = 1;
-    window.ShopCart.addItem(productId, qty);
-    syncCardFromCart(card);
-
-    if (window.ShopCartUI) {
-      window.ShopCartUI.updateBadge();
-    }
-  }
-
-  function bindCard(card) {
-    var productId = card.dataset.productId;
-    var bubble = card.querySelector('.shop-card__cart-bubble');
-    var addBtn = card.querySelector('.shop-card__add');
-    var input = card.querySelector('.shop-card__qty-input');
-    var decBtn = card.querySelector('[data-action="decrease"]');
-    var incBtn = card.querySelector('[data-action="increase"]');
-
-    syncCardFromCart(card);
-
-    if (addBtn) {
-      addBtn.addEventListener('click', function () {
-        addToCart(productId, card);
-      });
-    }
-
-    if (input) {
-      input.addEventListener('input', function () {
-        this.value = this.value.replace(/[^0-9]/g, '');
-      });
-      input.addEventListener('change', function () {
-        if (!bubble.classList.contains('is-in-cart')) return;
-        var qty = readQtyInput(input);
-        input.value = String(qty);
-        setCartQty(productId, qty);
-        syncCardFromCart(card);
-      });
-    }
-
-    if (decBtn) {
-      decBtn.addEventListener('click', function () {
-        var qty = getCartQty(productId);
-        if (qty <= 1) {
-          window.ShopCart.removeItem(productId);
-          syncCardFromCart(card);
-          if (window.ShopCartUI) window.ShopCartUI.updateBadge();
-          return;
-        }
-        setCartQty(productId, qty - 1);
-        syncCardFromCart(card);
-      });
-    }
-
-    if (incBtn) {
-      incBtn.addEventListener('click', function () {
-        var qty = getCartQty(productId) || readQtyInput(input);
-        setCartQty(productId, qty + 1);
-        syncCardFromCart(card);
-      });
-    }
-  }
-
   function renderProductCard(product) {
     var imageSrc = product.image
       ? window.resolveShopAsset
@@ -208,22 +80,9 @@
           escapeHtml(product.description) +
           '</p></div>') +
       '<div class="shop-card__actions">' +
-      '<div class="shop-card__price">' +
-      '<span class="shop-card__price-label">' +
-      escapeHtml(product.priceLabel || '') +
-      '</span>' +
-      (product.priceNote
-        ? '<span class="shop-card__price-note">' + escapeHtml(product.priceNote) + '</span>'
-        : '') +
-      '</div>' +
-      '<div class="shop-card__cart-bubble">' +
-      '<button type="button" class="btn btn-primary shop-card__add">Add to cart</button>' +
-      '<div class="shop-card__qty-stepper">' +
-      '<button type="button" class="shop-card__qty-btn" data-action="decrease" aria-label="Decrease quantity">−</button>' +
-      '<input type="text" class="shop-card__qty-input" value="1" inputmode="numeric" aria-label="Quantity" tabindex="-1">' +
-      '<button type="button" class="shop-card__qty-btn" data-action="increase" aria-label="Increase quantity">+</button>' +
-      '</div>' +
-      '</div>' +
+      '<a href="#order" class="btn btn-primary shop-card__order" data-product-id="' +
+      escapeHtml(product.id) +
+      '">Order</a>' +
       '</div>' +
       '</div>' +
       '</article>'
@@ -263,7 +122,6 @@
     }
 
     root.innerHTML = html;
-    root.querySelectorAll('.shop-card').forEach(bindCard);
     syncFeaturedCardLayout();
   }
 
@@ -292,7 +150,6 @@
 
   function init() {
     renderCatalog();
-    window.addEventListener('shop-cart-changed', syncAllCards);
     window.addEventListener('resize', scheduleFeaturedCardLayout);
   }
 

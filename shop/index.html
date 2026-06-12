@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tinylab Store — Anaco</title>
+<title>Order Tinylab — Anaco</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/anaco.css">
 <script src="../js/anaco.js" defer></script>
 <script src="../js/shop-catalog.js" defer></script>
-<script src="../js/shop-cart.js" defer></script>
-<script src="../js/shop-ui.js" defer></script>
 <script src="../js/shop.js" defer></script>
+<script src="../js/shop-order.js" defer></script>
 <link rel="icon" type="image/png" href="../images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
@@ -23,79 +22,98 @@
 
       <header class="shop-banner">
         <a href="../" class="shop-banner__logo">
-          <img src="../images/favicon.png" alt="" class="brand-mark" width="32" height="32">
-          <span>Anaco</span>
+          <img src="../images/anaco-logo.png" alt="Anaco" class="brand-wordmark" width="834" height="292">
         </a>
-        <h1 class="shop-banner__title">
-          <a href="./" class="shop-banner__title-link"><span class="accent-chip">Tinylab</span><span class="shop-banner__title-rest">Store</span></a>
+        <h1 class="shop-banner__title headline-row headline-row--accent">
+          <span class="accent-chip">Tinylab</span>
         </h1>
-        <a href="checkout/" class="nav-cart shop-banner__cart" data-cart-link aria-label="Cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L5 3H2"/></svg>
-          <span class="nav-cart__count" data-cart-count hidden>0</span>
-        </a>
+        <a href="../" class="shop-banner__back">← Home</a>
       </header>
-
-      <div class="shop-toolbar">
-        <a href="../" class="shop-back-bubble">← Back</a>
-        <a href="checkout/" class="checkout-go-bubble" data-checkout-go hidden>Checkout →</a>
-      </div>
 
       <div class="shop-sheet__body">
         <section class="shop-section" id="products" aria-labelledby="shop-catalog-heading">
           <header class="shop-section-head">
             <h2 class="display-md" id="shop-catalog-heading">Products</h2>
-            <p class="body-lg">Add TinyLab or analytical modules to your cart.</p>
+            <p class="body-lg">Portable analytical hardware and modules. Select a product below, then submit an order request — our team will follow up with delivery details.</p>
           </header>
           <div id="shop-catalog" class="shop-catalog"></div>
         </section>
 
-        <section class="shop-info" aria-labelledby="shop-info-heading">
-          <div class="shop-info-grid">
-            <div class="preorder-diagram" aria-hidden="true">
-              <div class="preorder-orbit-stage pattern-hatch-light">
-                <div class="preorder-orbit-axis preorder-orbit-axis--v"></div>
-                <div class="preorder-orbit-axis preorder-orbit-axis--h"></div>
-                <div class="preorder-orbit-hub">
-                  <div class="preorder-orbit-ring preorder-orbit-ring--1"><span class="preorder-orbit-particle"></span></div>
-                  <div class="preorder-orbit-ring preorder-orbit-ring--2"><span class="preorder-orbit-particle"></span></div>
-                  <div class="preorder-orbit-ring preorder-orbit-ring--3"><span class="preorder-orbit-particle"></span></div>
-                  <div class="preorder-orbit-core"></div>
-                </div>
-              </div>
+        <section class="shop-order-section" id="order" aria-labelledby="shop-order-heading">
+          <div class="shop-order-layout">
+            <div class="shop-order-intro">
+              <h2 class="display-md" id="shop-order-heading">Request an order</h2>
+              <p class="body-lg">Tell us what you need and we’ll get back to you within one business day.</p>
+              <p class="body-lg shop-order-email">Or email <a href="mailto:contact@anaco.com" class="link-neon">contact@anaco.com</a></p>
+              <p class="contact-linkedin">
+                Connect with us on
+                <a href="https://www.linkedin.com/company/analysiscompany/" class="contact-linkedin__link" target="_blank" rel="noopener noreferrer" aria-label="Anaco on LinkedIn">
+                  <svg class="contact-linkedin__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+              </p>
             </div>
-            <div>
-              <h2 class="display-md" id="shop-info-heading">Why choose Anaco?</h2>
-              <p class="body-lg">TinyLab is entering production — early orders ship from the first production batch.</p>
-              <div class="info-item">
-                <div class="info-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-                </div>
-                <div>
-                  <h4>Priority access</h4>
-                  <p>Early customers receive units from the first production batch.</p>
-                </div>
+            <div class="form-panel shop-order-form" id="orderFormCard">
+              <div id="orderFormContent">
+                <form id="order-form" onsubmit="return false;">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="orderFirstName">First name *</label>
+                      <input type="text" id="orderFirstName" placeholder="Jane" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="orderLastName">Last name *</label>
+                      <input type="text" id="orderLastName" placeholder="Smith" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="orderEmail">Work email *</label>
+                    <input type="email" id="orderEmail" placeholder="jane@company.com" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="orderCompany">Company / organization *</label>
+                    <input type="text" id="orderCompany" placeholder="Acme Corp" required>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="orderProduct">Product *</label>
+                      <select id="orderProduct" required>
+                        <option value="" disabled selected>Select a product</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="orderIndustry">Industry *</label>
+                      <select id="orderIndustry" required>
+                        <option value="" disabled selected>Select your industry</option>
+                        <option>Wine & Beer</option>
+                        <option>Beverages</option>
+                        <option>Food</option>
+                        <option>Skincare & Hair Care</option>
+                        <option>Nutrition & Supplements</option>
+                        <option>Fragrances & Beauty</option>
+                        <option>Biomanufacturing</option>
+                        <option>Specialty Agriculture</option>
+                        <option>Commodity Agriculture</option>
+                        <option>Chemicals & Fuels</option>
+                        <option>Aerospace & Defense</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="orderNotes">Additional notes</label>
+                    <textarea id="orderNotes" placeholder="Use case, timeline, modules of interest…"></textarea>
+                  </div>
+                  <p class="form-error" id="orderFormError" hidden role="alert"></p>
+                  <button type="button" class="submit-btn" onclick="submitOrder()">Submit order request →</button>
+                  <p class="form-note">No payment required — we’ll confirm details by email.</p>
+                </form>
               </div>
-              <div class="info-item">
-                <div class="info-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              <div id="orderSuccess" class="form-success" hidden>
+                <div class="check">
+                  <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="3"><path d="M6 16l7 7L26 9"/></svg>
                 </div>
-                <div>
-                  <h4>Dedicated onboarding</h4>
-                  <p>Personalized setup, training, and integration support at no extra cost.</p>
-                </div>
-              </div>
-              <div class="info-item">
-                <div class="info-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                </div>
-                <div>
-                  <h4>Modular by design</h4>
-                  <p>Start with TinyLab and add MicroGC, PTV, microreactor, or flow cell modules as you grow.</p>
-                </div>
-              </div>
-              <div class="contact-inline">
-                <h4>Questions before you buy?</h4>
-                <p>Email us at <a href="mailto:bliker@anaco.com" class="link-neon">bliker@anaco.com</a></p>
+                <h3 class="display-md">Request received</h3>
+                <p class="body-lg">Thank you. We’ll be in touch shortly to finalize your order.</p>
               </div>
             </div>
           </div>
@@ -108,7 +126,7 @@
 </main>
 
 <footer class="footer"><div class="footer-inner">
-  <div class="footer-left"><a href="../#terms">Terms of Service</a><span>·</span><a href="../#privacy">Privacy Policy</a><span>·</span><span>© 2026 The Analysis Company</span><span>·</span><a href="mailto:bliker@anaco.com">Contact Us</a></div>
+  <div class="footer-left"><a href="../#terms">Terms of Service</a><span>·</span><a href="../#privacy">Privacy Policy</a><span>·</span><span>© 2026 The Analysis Company</span><span>·</span><a href="mailto:contact@anaco.com">Contact Us</a></div>
 </div></footer>
 </body>
 </html>

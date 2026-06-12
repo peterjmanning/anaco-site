@@ -13,9 +13,8 @@
 
   const PIECES = [
     { key: 'meet', fly: '.intro-fly--meet', target: 'main.home .hero-headline .headline-row:first-child' },
-    { key: 'tinylab', fly: '.intro-fly--tinylab', target: 'main.home .hero-headline .headline-row--accent' },
-    { key: 'mark', fly: '.intro-fly--mark', target: 'nav.nav .nav-logo .brand-mark' },
-    { key: 'name', fly: '.intro-fly--name', target: 'nav.nav .nav-logo > span.intro-target' },
+    { key: 'Tinylab', fly: '.intro-fly--Tinylab', target: 'main.home .hero-headline .headline-row--accent' },
+    { key: 'logo', fly: '.intro-fly--logo', target: 'nav.nav .nav-logo .brand-wordmark' },
   ];
 
   const TARGET_HIDE = 'main.home .intro-target, nav.nav .intro-target';
@@ -103,7 +102,7 @@
   }
 
   function isLogoPiece(el) {
-    return el.classList.contains('intro-fly--mark');
+    return el.classList.contains('intro-fly--logo');
   }
 
   function placeFixedDivider(el, rect) {
@@ -403,17 +402,15 @@
 
     const dividerEl = intro.querySelector('.intro-fly--divider');
     const meetEl = items.find((p) => p.key === 'meet').flyEl;
-    const tinylabEl = items.find((p) => p.key === 'tinylab').flyEl;
-    const markEl = items.find((p) => p.key === 'mark').flyEl;
-    const nameEl = items.find((p) => p.key === 'name').flyEl;
+    const TinylabEl = items.find((p) => p.key === 'Tinylab').flyEl;
+    const markEl = items.find((p) => p.key === 'logo').flyEl;
 
     meetEl.classList.add('is-flash');
     await wait(240);
-    tinylabEl.classList.add('is-flash');
+    TinylabEl.classList.add('is-flash');
     await wait(240);
     if (dividerEl) dividerEl.classList.add('is-flash');
     markEl.classList.add('is-flash');
-    nameEl.classList.add('is-flash');
     await wait(780);
 
     items.forEach((p) => {

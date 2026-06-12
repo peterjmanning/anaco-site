@@ -41,7 +41,7 @@ ${facilityInner}
       <div class="sheet-head sheet-head--left">
         <span class="sheet-label">Newsletter</span>
         <h2 class="display-lg">Stay in the loop</h2>
-        <p class="body-lg">Get the latest updates on TinyLab, new features, and industry insights delivered to your inbox.</p>
+        <p class="body-lg">Get the latest updates on Tinylab, new features, and industry insights delivered to your inbox.</p>
       </div>
       <div id="newsletterContent">
         <div class="newsletter-row">
@@ -76,7 +76,7 @@ ${facilityInner}
           <span class="sheet-label">Get in touch</span>
           <h2 class="display-lg">General, hiring, or manufacturing</h2>
           <p class="body-lg">One form for product questions, careers, contract manufacturing, and everything else. We'll route your message to the right team.</p>
-          <p class="body-lg"><strong>Email:</strong> <a href="mailto:bliker@anaco.com" class="link-neon">bliker@anaco.com</a></p>
+          <p class="body-lg"><strong>Email:</strong> <a href="mailto:contact@anaco.com" class="link-neon">contact@anaco.com</a></p>
         </div>
       </div>
       <div class="sheet-block">
@@ -107,7 +107,7 @@ ${facilityInner}
               <select id="inquiryType" required>
                 <option value="" disabled selected>Select a topic</option>
                 <option>General inquiry</option>
-                <option>TinyLab / Product</option>
+                <option>Tinylab / Product</option>
                 <option>Hiring / Careers</option>
                 <option>Contract manufacturing</option>
                 <option>Partnership</option>
