@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anaco — The Analysis Company</title>
 <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/aeonik/AeonikPro-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/aeonik/Aeonik-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts-aeonik.css">
 <link rel="stylesheet" href="css/anaco.css">
 <script>
 (function () {
@@ -114,37 +114,49 @@
     <div class="sheet">
       <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
       <div class="sheet-hatch pattern-hatch sheet-hatch--square sheet-hatch--br" aria-hidden="true"></div>
-      <p class="story-intro body-lg">Don't let growth bottleneck success.</p>
-      <p class="body-lg">Relying on off-location lab testing is costly and slow&mdash; Tinylab is neither. Sacrificing operational efficiency while in limbo with third party labs is a thing of the past. By fabricating crucial laboratory instruments in-house at wafer-scale, Anaco delivers portability, affordability, and ease of use in one package.</p>
-      <div class="outcome-grid">
-        <div class="outcome-card">
-          <h3 class="outcome-card__title">
-            <span class="outcome-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
-            <span class="outcome-card__title-text">Cost Efficient</span>
-          </h3>
-          <p class="outcome-card__label">Lab-grade analysis at a fraction of traditional lab cost.</p>
-        </div>
-        <div class="outcome-card">
-          <h3 class="outcome-card__title">
-            <span class="outcome-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
-            <span class="outcome-card__title-text">Time Efficient</span>
-          </h3>
-          <p class="outcome-card__label">Load a sample, select test, and get concentration assessment in minutes&mdash;not days.</p>
-        </div>
-        <div class="outcome-card">
-          <h3 class="outcome-card__title">
-            <span class="outcome-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>
-            <span class="outcome-card__title-text">Accessibility First</span>
-          </h3>
-          <p class="outcome-card__label">Simplicity is a first principle. Tinylab is designed for anyone to operate, and deployable in any environment.</p>
-        </div>
-        <div class="outcome-card">
-          <h3 class="outcome-card__title">
-            <span class="outcome-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></span>
-            <span class="outcome-card__title-text">Analysis, Automated</span>
-          </h3>
-          <p class="outcome-card__label">Tinylab's software integration suite enables data-driven processes that work for you. Synthesize, organize and most importantly&mdash; own, your mission-critical data. Powered by Anaco's AI platform.</p>
-        </div>
+      <div class="why-cascade" role="list">
+        <svg class="why-cascade__connectors" aria-hidden="true"></svg>
+        <article class="why-cascade-card" role="listitem">
+          <p class="why-cascade-card__label">01. Context</p>
+          <h3 class="why-cascade-card__headline">Agricultural, Biomanufactured, and Chemical (ABC) production runs on outside labs.</h3>
+          <ul class="why-cascade-card__points">
+            <li><strong>1.9M+</strong> US farms &amp; facilities &middot; <strong>$8T</strong> in economic output</li>
+            <li>Agricultural, Biomanufactured &amp; Chemical goods power American industry</li>
+            <li>Compliance, QC, process monitoring, soil analysis &mdash; all outsourced to third parties</li>
+          </ul>
+        </article>
+        <article class="why-cascade-card" role="listitem">
+          <p class="why-cascade-card__label">02. Problem</p>
+          <h3 class="why-cascade-card__headline">Slow. Expensive. Too late to act.</h3>
+          <ul class="why-cascade-card__points">
+            <li>Third-party labs: <strong>~$600/sample</strong> &middot; <strong>48+ hour</strong> turnaround</li>
+            <li>Spoilage risk, operational drag, yields stuck at the ceiling</li>
+            <li>Fermentation &amp; winemaking need live chemistry &mdash; not a two-day queue</li>
+          </ul>
+        </article>
+        <article class="why-cascade-card why-cascade-card--solution" role="listitem">
+          <p class="why-cascade-card__label">03. Solution</p>
+          <h3 class="why-cascade-card__headline"><span class="why-cascade-card__product">Tinylab</span> &mdash; the automated desktop lab.</h3>
+          <p class="why-cascade-card__lede">Anyone. Anywhere. Full QC on your bench.</p>
+          <dl class="why-cascade-card__stats">
+            <div class="why-cascade-card__stat">
+              <dt>Cost</dt>
+              <dd><span class="why-cascade-card__was">$600/sample</span> <span class="why-cascade-card__arrow" aria-hidden="true">&rarr;</span> <span class="why-cascade-card__now">$600/mo</span></dd>
+            </div>
+            <div class="why-cascade-card__stat">
+              <dt>Wait</dt>
+              <dd><span class="why-cascade-card__was">48+ hrs</span> <span class="why-cascade-card__arrow" aria-hidden="true">&rarr;</span> <span class="why-cascade-card__now">&lt;1 hr</span></dd>
+            </div>
+          </dl>
+        </article>
+        <article class="why-cascade-card" role="listitem">
+          <p class="why-cascade-card__label">04. Evolution</p>
+          <h3 class="why-cascade-card__headline">Three levers. One platform.</h3>
+          <ul class="why-cascade-card__points">
+            <li>Commodity producers win by cutting costs, boosting yields, or raising quality</li>
+            <li>Anaco&rsquo;s <strong>Chemical Digital Twin</strong> makes all three effortless</li>
+          </ul>
+        </article>
       </div>
     </div>
   </div>
@@ -531,6 +543,7 @@
 }
 </script>
 <script type="module" src="js/tinylab-viewer.js"></script>
+<script src="js/why-cascade.js" defer></script>
 <script src="js/industries-data.js" defer></script>
 <script src="js/industries-carousel.js?v=12" defer></script>
 <script src="js/home-intro.js" defer></script>

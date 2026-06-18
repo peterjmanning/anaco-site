@@ -1,3 +1,5 @@
+@import url('fonts-aeonik.css');
+
 /* Anaco — paper white, grid background, sharp edges */
 :root {
   --bg: #e8e8e5;
@@ -31,8 +33,9 @@
   --accent-box-pad-x: 0.42em;
   --accent-dim: rgba(40, 212, 247, 0.1);
   --dark: #1a1a1a;
-  --font-display: 'Syne', sans-serif;
+  --font-display: 'Aeonik Pro', Arial, sans-serif;
   --font-body: var(--font-display);
+  --font-mono: 'Aeonik Mono', ui-monospace, monospace;
   --nav-h: 72px;
   --brand-wordmark-h: clamp(37px, 5.1vw, 48px);
   --nav-edge-inset: clamp(16px, 2.8vw, 28px);
@@ -98,6 +101,7 @@
 /* Landing + shop: larger body copy (display titles, section headers, nav unchanged) */
 main.home,
 body.site-page main.site-page-main,
+body.site-page .footer,
 body:has(main.home) .footer {
   --copy-eyebrow: clamp(0.9375rem, 1.35vw, 1.125rem);
   --copy-sheet-label: clamp(0.9375rem, 1.3vw, 1.125rem);
@@ -505,7 +509,7 @@ p, li {
   font-weight: 600;
   letter-spacing: 0.01em;
 }
-label, input, textarea, select {
+label, input, textarea, select, option {
   font-family: var(--font-display);
   font-weight: 600;
 }
@@ -757,6 +761,166 @@ main.home .home-section .home-wrap > .sheet {
   max-width: 52rem;
   margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
 }
+.home .why-cascade {
+  --why-cascade-corner: clamp(18px, 2.5vw, 28px);
+  --why-cascade-card-width: calc((100% + 3 * var(--why-cascade-corner)) / 4);
+  --why-cascade-shift: calc(var(--why-cascade-card-width) - var(--why-cascade-corner));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding-bottom: clamp(12px, 2vw, 24px);
+  box-sizing: border-box;
+}
+.home .why-cascade-card {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: var(--why-cascade-card-width);
+  padding: clamp(24px, 3.2vw, 38px);
+  border: var(--outline-width) solid var(--outline);
+  background: var(--paper);
+}
+.home .why-cascade-card:not(:first-of-type) {
+  margin-top: calc(-1 * var(--why-cascade-corner));
+}
+.home .why-cascade__connectors {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 5;
+}
+.home .why-cascade__connector {
+  fill: none;
+  stroke: var(--outline);
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+}
+.home .why-cascade-card:nth-of-type(1) {
+  z-index: 1;
+  margin-left: 0;
+}
+.home .why-cascade-card:nth-of-type(2) {
+  z-index: 2;
+  margin-left: var(--why-cascade-shift);
+}
+.home .why-cascade-card:nth-of-type(3) {
+  z-index: 3;
+  margin-left: calc(2 * var(--why-cascade-shift));
+}
+.home .why-cascade-card:nth-of-type(4) {
+  z-index: 4;
+  margin-left: calc(3 * var(--why-cascade-shift));
+}
+.home .why-cascade-card__label {
+  display: inline-block;
+  margin: 0 0 0.85rem;
+  padding: 0.28em 0.55em;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.55vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--neon);
+  border: 1.5px solid var(--neon);
+  line-height: 1.1;
+}
+.home .why-cascade-card__headline {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.85vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.home .why-cascade-card__product {
+  color: var(--text);
+}
+.home .why-cascade-card__lede {
+  margin: 0 0 0.95rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text-2);
+}
+.home .why-cascade-card__points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+.home .why-cascade-card__points li {
+  position: relative;
+  padding-left: 0.95rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.home .why-cascade-card__points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.35rem;
+  height: 0.35rem;
+  background: var(--neon);
+}
+.home .why-cascade-card__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 1.5vw, 16px);
+  margin: 0;
+}
+.home .why-cascade-card__stat {
+  padding: clamp(12px, 1.6vw, 16px);
+  border: var(--outline-width) solid var(--outline);
+  background: var(--neon-dim);
+}
+.home .why-cascade-card__stat dt {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: var(--copy-xs);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.home .why-cascade-card__stat dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text);
+}
+.home .why-cascade-card__was {
+  font-weight: 600;
+  color: var(--text-3);
+  text-decoration: line-through;
+  text-decoration-color: rgba(10, 10, 10, 0.35);
+}
+.home .why-cascade-card__arrow {
+  margin: 0 0.2em;
+  color: var(--neon);
+  font-weight: 800;
+}
+.home .why-cascade-card__now {
+  color: var(--text);
+  background: var(--accent-box-bg);
+  padding: 0.08em 0.32em;
+  box-decoration-break: clone;
+}
 .home .lab-pipeline {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -947,6 +1111,23 @@ main.home .home-section .home-wrap > .sheet {
   }
   .home .outcome-card:nth-last-child(-n + 2) {
     border-bottom: var(--outline-width) solid var(--outline);
+  }
+  .home .why-cascade {
+    --why-cascade-corner: clamp(14px, 2vw, 22px);
+    --why-cascade-card-width: calc((100% + 3 * var(--why-cascade-corner)) / 4);
+  }
+  .home .why-cascade-card__stats {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .home .why-cascade {
+    --why-cascade-card-width: 100%;
+  }
+  .home .why-cascade-card:nth-of-type(2),
+  .home .why-cascade-card:nth-of-type(3),
+  .home .why-cascade-card:nth-of-type(4) {
+    margin-left: 0;
   }
 }
 .sheet-foot {
@@ -3748,6 +3929,14 @@ section.legal-page .legal-sheet {
 }
 
 /* ——— Shop page ——— */
+.shop-page,
+.shop-page input,
+.shop-page select,
+.shop-page textarea,
+.shop-page button,
+.shop-page option {
+  font-family: var(--font-display);
+}
 .shop-page.site-page {
   padding-top: 0;
 }
