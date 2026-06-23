@@ -140,7 +140,7 @@ body:has(main.home) .footer {
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.015em;
   color: var(--text);
   background-color: var(--bg);
@@ -265,7 +265,7 @@ body {
 .nav-cta {
   font-family: var(--font-display);
   font-size: var(--copy-nav-link);
-  font-weight: 700;
+  font-weight: 400;
   font-stretch: normal;
   letter-spacing: var(--nav-link-letter-spacing);
   text-transform: uppercase;
@@ -375,7 +375,7 @@ body {
 .display-xl {
   font-family: var(--font-display);
   font-size: clamp(2.75rem, 7vw, 5.5rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.03em;
   color: var(--text);
@@ -383,7 +383,7 @@ body {
 .display-lg {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.25rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--text);
@@ -391,7 +391,7 @@ body {
 .display-md {
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 2.5vw, 1.85rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--text);
@@ -402,7 +402,7 @@ body {
   font-size: var(--copy-body-lg);
   line-height: 1.55;
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
   margin-bottom: 1rem;
 }
@@ -415,7 +415,7 @@ body {
   color: var(--text);
   background: none;
   border: none;
-  font-weight: 700;
+  font-weight: 400;
   text-shadow: none;
   isolation: isolate;
   vertical-align: baseline;
@@ -449,7 +449,7 @@ body {
   color: var(--accent-box-text);
   background: var(--accent-box-bg);
   border: none;
-  font-weight: 700;
+  font-weight: 400;
   text-shadow: none;
 }
 .text-neon,
@@ -500,25 +500,25 @@ body {
   font-size: var(--copy-lead);
   line-height: 1.65;
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
   max-width: 36rem;
 }
 p, li {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
 }
 label, input, textarea, select, option {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
 }
 button, .btn {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text);
 }
 
@@ -530,7 +530,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 14px 28px;
   font-family: var(--font-display);
   font-size: var(--copy-btn);
-  font-weight: 700;
+  font-weight: 400;
   text-decoration: none;
   cursor: pointer;
   border: none;
@@ -761,82 +761,96 @@ main.home .home-section .home-wrap > .sheet {
   max-width: 52rem;
   margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
 }
+.home #why .sheet {
+  padding: 0;
+}
 .home .why-cascade {
-  --why-cascade-corner: clamp(18px, 2.5vw, 28px);
-  --why-cascade-card-width: calc((100% + 3 * var(--why-cascade-corner)) / 4);
-  --why-cascade-shift: calc(var(--why-cascade-card-width) - var(--why-cascade-corner));
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  container-type: inline-size;
+  --why-gap: clamp(8px, 1vw, 12px);
+  --why-pad: clamp(12px, 1.5vw, 18px);
+  gap: var(--why-gap);
   width: 100%;
-  padding-bottom: clamp(12px, 2vw, 24px);
+  padding: var(--why-pad);
   box-sizing: border-box;
+}
+.home .why-cascade__chevron {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  color: var(--accent);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+.home .why-cascade__chevron::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  background: var(--paper);
+  z-index: -1;
+}
+.home .why-cascade__chevron svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.home .why-cascade__chevron--right {
+  left: 50%;
+  top: calc(var(--why-pad) + (100% - 2 * var(--why-pad) - var(--why-gap)) / 4);
+}
+.home .why-cascade__chevron--down {
+  left: calc(var(--why-pad) + (100% - 2 * var(--why-pad) - var(--why-gap)) * 0.75 + var(--why-gap) / 2);
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.home .why-cascade__chevron--left {
+  left: 50%;
+  top: calc(var(--why-pad) + (100% - 2 * var(--why-pad) - var(--why-gap)) * 0.75 + var(--why-gap));
+  transform: translate(-50%, -50%) rotate(180deg);
 }
 .home .why-cascade-card {
   position: relative;
   z-index: 1;
   box-sizing: border-box;
-  width: var(--why-cascade-card-width);
-  padding: clamp(24px, 3.2vw, 38px);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 1.6vw, 1.35rem);
+  --why-card-width: calc((100cqw - 2 * var(--why-pad) - var(--why-gap)) / 2);
+  min-height: calc(var(--why-card-width) * 0.6);
+  padding: clamp(24px, 3vw, 36px);
   border: var(--outline-width) solid var(--outline);
   background: var(--paper);
 }
-.home .why-cascade-card:not(:first-of-type) {
-  margin-top: calc(-1 * var(--why-cascade-corner));
-}
-.home .why-cascade__connectors {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-  z-index: 5;
-}
-.home .why-cascade__connector {
-  fill: none;
-  stroke: var(--outline);
-  stroke-width: 1.5;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-  vector-effect: non-scaling-stroke;
-}
-.home .why-cascade-card:nth-of-type(1) {
-  z-index: 1;
-  margin-left: 0;
-}
-.home .why-cascade-card:nth-of-type(2) {
-  z-index: 2;
-  margin-left: var(--why-cascade-shift);
-}
-.home .why-cascade-card:nth-of-type(3) {
-  z-index: 3;
-  margin-left: calc(2 * var(--why-cascade-shift));
-}
-.home .why-cascade-card:nth-of-type(4) {
-  z-index: 4;
-  margin-left: calc(3 * var(--why-cascade-shift));
-}
 .home .why-cascade-card__label {
   display: inline-block;
-  margin: 0 0 0.85rem;
-  padding: 0.28em 0.55em;
+  margin: 0;
+  padding: 0;
   font-family: var(--font-display);
-  font-size: clamp(1rem, 1.55vw, 1.25rem);
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-size: clamp(0.9375rem, 1.45vw, 1.0625rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--neon);
-  border: 1.5px solid var(--neon);
+  color: var(--accent);
+  background: none;
+  border: none;
   line-height: 1.1;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-color: var(--accent);
 }
 .home .why-cascade-card__headline {
-  margin: 0 0 0.75rem;
+  margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.15rem, 1.85vw, 1.5rem);
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: clamp(1.15rem, 1.85vw, 1.425rem);
+  font-weight: 400;
+  line-height: 1.28;
   letter-spacing: -0.02em;
   color: var(--text);
 }
@@ -844,10 +858,10 @@ main.home .home-section .home-wrap > .sheet {
   color: var(--text);
 }
 .home .why-cascade-card__lede {
-  margin: 0 0 0.95rem;
+  margin: 0;
   font-family: var(--font-display);
   font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.45;
   color: var(--text-2);
 }
@@ -856,14 +870,16 @@ main.home .home-section .home-wrap > .sheet {
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.55rem;
+  gap: clamp(0.6rem, 1.1vw, 0.9rem);
+  flex: 1;
+  align-content: space-evenly;
 }
 .home .why-cascade-card__points li {
   position: relative;
-  padding-left: 0.95rem;
+  padding-left: 0.85rem;
   font-family: var(--font-display);
   font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.5;
   color: var(--text-2);
 }
@@ -872,26 +888,28 @@ main.home .home-section .home-wrap > .sheet {
   position: absolute;
   left: 0;
   top: 0.55em;
-  width: 0.35rem;
-  height: 0.35rem;
+  width: 0.32rem;
+  height: 0.32rem;
   background: var(--neon);
 }
 .home .why-cascade-card__stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(10px, 1.5vw, 16px);
+  gap: clamp(0.55rem, 1vw, 0.85rem);
   margin: 0;
+  flex: 1;
+  align-content: start;
 }
 .home .why-cascade-card__stat {
-  padding: clamp(12px, 1.6vw, 16px);
+  padding: clamp(10px, 1.2vw, 14px);
   border: var(--outline-width) solid var(--outline);
   background: var(--neon-dim);
 }
 .home .why-cascade-card__stat dt {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.35rem;
   font-family: var(--font-display);
   font-size: var(--copy-xs);
-  font-weight: 800;
+  font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-3);
@@ -899,13 +917,16 @@ main.home .home-section .home-wrap > .sheet {
 .home .why-cascade-card__stat dd {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1rem, 1.35vw, 1.15rem);
-  font-weight: 700;
-  line-height: 1.25;
+  font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+  font-weight: 400;
+  line-height: 1.3;
   color: var(--text);
 }
+.home .why-cascade-card--solution .why-cascade-card__stats {
+  align-content: center;
+}
 .home .why-cascade-card__was {
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-3);
   text-decoration: line-through;
   text-decoration-color: rgba(10, 10, 10, 0.35);
@@ -913,7 +934,7 @@ main.home .home-section .home-wrap > .sheet {
 .home .why-cascade-card__arrow {
   margin: 0 0.2em;
   color: var(--neon);
-  font-weight: 800;
+  font-weight: 400;
 }
 .home .why-cascade-card__now {
   color: var(--text);
@@ -955,16 +976,16 @@ main.home .home-section .home-wrap > .sheet {
 .home .lab-pipeline__num {
   display: block;
   font-family: var(--font-display);
-  font-size: var(--copy-micro);
-  font-weight: 800;
+  font-size: clamp(0.875rem, 1.25vw, 1rem);
+  font-weight: 400;
   letter-spacing: 0.14em;
   color: var(--neon);
   margin-bottom: 0.65rem;
 }
 .home .lab-pipeline__title {
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 1.55vw, 1.22rem);
-  font-weight: 700;
+  font-size: clamp(1.2rem, 1.85vw, 1.425rem);
+  font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text);
@@ -973,7 +994,7 @@ main.home .home-section .home-wrap > .sheet {
 .home .lab-pipeline__text {
   font-family: var(--font-display);
   font-size: var(--copy-sm);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.55;
   letter-spacing: 0.01em;
   color: var(--text-2);
@@ -1002,7 +1023,7 @@ main.home .home-section .home-wrap > .sheet {
   gap: 0.55rem;
   font-family: var(--font-display);
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text);
@@ -1032,7 +1053,7 @@ main.home .home-section .home-wrap > .sheet {
 .home .outcome-card__label {
   font-family: var(--font-display);
   font-size: var(--copy-sm);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.55;
   letter-spacing: 0.01em;
   color: var(--text-2);
@@ -1112,22 +1133,20 @@ main.home .home-section .home-wrap > .sheet {
   .home .outcome-card:nth-last-child(-n + 2) {
     border-bottom: var(--outline-width) solid var(--outline);
   }
-  .home .why-cascade {
-    --why-cascade-corner: clamp(14px, 2vw, 22px);
-    --why-cascade-card-width: calc((100% + 3 * var(--why-cascade-corner)) / 4);
-  }
   .home .why-cascade-card__stats {
     grid-template-columns: 1fr;
   }
 }
 @media (max-width: 640px) {
   .home .why-cascade {
-    --why-cascade-card-width: 100%;
+    grid-template-columns: 1fr;
   }
-  .home .why-cascade-card:nth-of-type(2),
-  .home .why-cascade-card:nth-of-type(3),
-  .home .why-cascade-card:nth-of-type(4) {
-    margin-left: 0;
+  .home .why-cascade-card {
+    --why-card-width: calc(100cqw - 2 * var(--why-pad));
+    min-height: auto;
+  }
+  .home .why-cascade__chevron {
+    display: none;
   }
 }
 .sheet-foot {
@@ -1155,7 +1174,7 @@ main.home .home-section .home-wrap > .sheet {
   display: inline-block;
   font-family: var(--font-display);
   font-size: var(--copy-sheet-label);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent-box-text);
@@ -1169,7 +1188,7 @@ main.home .home-section .home-wrap > .sheet {
   font-size: var(--copy-sheet-lead);
   line-height: 1.5;
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
   margin-top: 1rem;
 }
@@ -1563,7 +1582,15 @@ main.home .home-section .home-wrap > .sheet {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.45s var(--ease, ease);
+  filter: blur(3px);
+  transition:
+    transform 0.45s var(--ease, ease),
+    filter 0.45s var(--ease, ease);
+}
+.home #industries .industry-grid-item:hover:not(.is-expanded):not(.is-flight) .industry-grid-item__media img,
+.home #industries .industry-grid-item:focus-visible:not(.is-expanded):not(.is-flight) .industry-grid-item__media img,
+.home #industries .industry-grid-item.is-expanded .industry-grid-item__media img {
+  filter: blur(0);
 }
 .home #industries .industry-grid-item:hover:not(.is-expanded):not(.is-flight) .industry-grid-item__media img,
 .home #industries .industry-grid-item:focus-visible:not(.is-expanded):not(.is-flight) .industry-grid-item__media img {
@@ -1611,9 +1638,9 @@ main.home .home-section .home-wrap > .sheet {
   flex-shrink: 0;
   margin-top: auto;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.325vw, 1.95rem);
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: clamp(1.875rem, 3.1vw, 2.625rem);
+  font-weight: 400;
+  line-height: 1.15;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
 }
 .home #industries .industry-grid-item__desc {
@@ -1621,7 +1648,7 @@ main.home .home-section .home-wrap > .sheet {
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(0.675rem, 0.92vw, 0.8125rem);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.35;
   color: rgba(255, 255, 255, 0.92);
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
@@ -1729,7 +1756,7 @@ main.home .home-section .home-wrap > .sheet {
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(0.675rem, 0.92vw, 0.7875rem);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--neon);
@@ -1737,8 +1764,8 @@ main.home .home-section .home-wrap > .sheet {
 .home #industries .industry-grid-item__detail-heading {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 2vw, 1.65rem);
-  font-weight: 700;
+  font-size: clamp(1.35rem, 2.5vw, 2.1rem);
+  font-weight: 400;
   line-height: 1.15;
   color: #fff;
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
@@ -1773,7 +1800,7 @@ main.home .home-section .home-wrap > .sheet {
 .home #industries .industry-case__label {
   font-family: var(--font-display);
   font-size: clamp(0.625rem, 0.82vw, 0.7375rem);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.72);
@@ -1783,7 +1810,7 @@ main.home .home-section .home-wrap > .sheet {
   margin: 0 0 0.35rem;
   font-family: var(--font-display);
   font-size: clamp(0.78rem, 1.02vw, 0.95rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   color: #fff;
 }
@@ -1791,7 +1818,7 @@ main.home .home-section .home-wrap > .sheet {
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(0.675rem, 0.9vw, 0.8125rem);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.88);
 }
@@ -1809,7 +1836,7 @@ main.home .home-section .home-wrap > .sheet {
   border-radius: 999px;
   font-family: var(--font-display);
   font-size: clamp(0.725rem, 0.92vw, 0.85rem);
-  font-weight: 700;
+  font-weight: 400;
   color: #fff;
   text-decoration: none;
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
@@ -1865,7 +1892,7 @@ main.home .home-section .home-wrap > .sheet {
 .home #industries .industry-grid-item__more-lead {
   font-family: var(--font-display);
   font-size: clamp(1.025rem, 1.62vw, 1.2875rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.1;
   color: var(--text);
 }
@@ -1873,7 +1900,7 @@ main.home .home-section .home-wrap > .sheet {
   margin-top: clamp(0.55rem, 1.1vw, 0.85rem);
   font-family: var(--font-display);
   font-size: clamp(0.725rem, 1.02vw, 0.8875rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   color: var(--text);
 }
@@ -1887,7 +1914,7 @@ main.home .home-section .home-wrap > .sheet {
 .home #industries .industry-grid-item__more-text {
   font-family: var(--font-display);
   font-size: clamp(0.675rem, 0.9vw, 0.8125rem);
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-2);
 }
 #industries .layer-float--header-up {
@@ -1953,7 +1980,7 @@ main.home .home-section .home-wrap > .sheet {
   text-align: center;
   font-family: var(--font-display);
   font-size: var(--copy-sm);
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-3);
   line-height: 1.5;
 }
@@ -2092,7 +2119,7 @@ main.home .home-section .home-wrap > .sheet {
 #newsletter .newsletter-success p {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-2);
 }
 #contact .sheet--has-float-header > .layer-float + .sheet-block {
@@ -2107,7 +2134,7 @@ main.home .home-section .home-wrap > .sheet {
   align-self: flex-start;
   font-family: var(--font-display);
   font-size: var(--copy-float-kicker);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   line-height: 1.05;
@@ -2125,7 +2152,7 @@ main.home .home-section .home-wrap > .sheet {
 .layer-float-title {
   font-family: var(--font-display);
   font-size: clamp(1.15rem, 2.2vw, 1.65rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.02em;
   margin: 0;
@@ -2133,7 +2160,7 @@ main.home .home-section .home-wrap > .sheet {
 .layer-float-text {
   font-family: var(--font-display);
   font-size: var(--copy-float-text);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.01em;
   margin: 0;
@@ -2190,7 +2217,7 @@ main.home .home-section .home-wrap > .sheet {
 .pillar-title {
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 2vw, 1.5rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   margin-bottom: 0.75rem;
   color: var(--text);
@@ -2200,7 +2227,7 @@ main.home .home-section .home-wrap > .sheet {
   font-size: var(--copy-pillar);
   line-height: 1.55;
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
 }
 .cta-stage {
@@ -2257,7 +2284,7 @@ main.home .home-section .home-wrap > .sheet {
   font-family: var(--font-display);
   font-size: var(--copy-callout);
   line-height: 1.5;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
   color: var(--accent-box-text);
   opacity: 0.9;
@@ -2372,7 +2399,7 @@ html.intro-done main.home .hero-headline .intro-target {
   column-gap: clamp(3.5rem, 16vw, 10rem);
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 3.2vw, 2.1rem);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.35;
   letter-spacing: -0.02em;
   color: var(--text);
@@ -2462,7 +2489,7 @@ html.intro-done main.home .hero-headline .intro-target {
   white-space: nowrap;
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 3.2vw, 2.1rem);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.35;
   letter-spacing: -0.02em;
 }
@@ -2587,6 +2614,10 @@ html.intro-done main.home .hero-headline .intro-target {
 .hero-headline .headline-row {
   font: inherit;
   letter-spacing: inherit;
+}
+.hero-headline .accent-chip,
+.hero-headline .hero-accent {
+  font-weight: 700;
 }
 .intro-fly--meet,
 .intro-fly--Tinylab {
@@ -2844,13 +2875,13 @@ html.intro-done main.home .hero-headline .intro-target {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--neon);
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 0.25rem;
 }
 .home .viewer-hud-title {
   font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 400;
 }
 .home .viewer-btn {
   padding: 0.5rem 1rem;
@@ -2858,7 +2889,7 @@ html.intro-done main.home .hero-headline .intro-target {
   background: var(--paper);
   font-family: var(--font-display);
   font-size: var(--copy-xs);
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-2);
   cursor: pointer;
 }
@@ -2895,7 +2926,7 @@ html.intro-done main.home .hero-headline .intro-target {
   padding: 0.5rem 1.25rem;
   font-family: var(--font-display);
   font-size: var(--copy-sm);
-  font-weight: 700;
+  font-weight: 400;
 }
 .home .specs-grid {
   display: grid;
@@ -2937,7 +2968,7 @@ html.intro-done main.home .hero-headline .intro-target {
   grid-area: title;
   font-family: var(--font-display);
   font-size: clamp(1.02rem, 1.55vw, 1.22rem);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.02em;
   color: var(--text);
   line-height: 1.2;
@@ -2956,7 +2987,7 @@ html.intro-done main.home .hero-headline .intro-target {
   justify-self: end;
   flex-shrink: 0;
   font-size: var(--copy-micro);
-  font-weight: 800;
+  font-weight: 400;
   letter-spacing: 0.05em;
   line-height: 1.1;
   padding: 0.28em 0.42em;
@@ -2977,13 +3008,13 @@ html.intro-done main.home .hero-headline .intro-target {
   border-bottom: var(--outline-width) solid var(--outline);
   font-family: var(--font-display);
   font-size: var(--copy-sm);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
   color: var(--text-2);
   line-height: 1.6;
 }
 .home .spec-body > ul > li:last-child { border-bottom: none; }
-.home .spec-body > ul > li strong { color: var(--text); font-weight: 700; }
+.home .spec-body > ul > li strong { color: var(--text); font-weight: 400; }
 .home .sub-list {
   margin-top: 0.5rem;
   padding-left: 1.25rem;
@@ -3012,13 +3043,13 @@ html.intro-done main.home .hero-headline .intro-target {
 .callout-price {
   font-family: var(--font-display);
   font-size: clamp(2.25rem, 4vw, 3rem);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--accent-box-text);
   margin: 0.5rem 0 0;
 }
 .callout-price span {
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 400;
   opacity: 0.85;
 }
 .callout--pricing .deposit-note {
@@ -3078,7 +3109,7 @@ html.intro-done main.home .hero-headline .intro-target {
 }
 .site-page .anchor-nav a {
   font-size: var(--copy-sm2);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-3);
   text-decoration: none;
   padding: 0.4em 0.85em;
@@ -3095,7 +3126,7 @@ html.intro-done main.home .hero-headline .intro-target {
   align-items: center;
   gap: 0.35rem;
   font-size: var(--copy-sm2);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-3);
   text-decoration: none;
   margin-bottom: 1.5rem;
@@ -3147,7 +3178,7 @@ html.intro-done main.home .hero-headline .intro-target {
   gap: 0.55rem;
   font-family: var(--font-display);
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  font-weight: 700;
+  font-weight: 400;
   margin: 0 0 0.85rem;
   color: var(--text);
 }
@@ -3190,7 +3221,7 @@ html.intro-done main.home .hero-headline .intro-target {
 .site-page .facility-category__title {
   font-family: var(--font-display);
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  font-weight: 700;
+  font-weight: 400;
   margin: 0 0 0.85rem;
   color: var(--text);
 }
@@ -3208,42 +3239,43 @@ html.intro-done main.home .hero-headline .intro-target {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.3rem;
-  font-size: var(--copy-form-body);
   line-height: 1.45;
-}
-.home .facility-site .link-neon,
-.site-page .facility-site .link-neon {
-  margin-top: 0;
-  align-self: flex-start;
 }
 .home .facility-site__use,
 .site-page .facility-site__use {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-size: clamp(1.0625rem, 1.55vw, 1.25rem);
+  font-weight: 400;
   flex-shrink: 0;
+  color: var(--text);
 }
 .home .facility-site__loc,
 .site-page .facility-site__loc {
   font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--text-2);
-  text-decoration: none;
-}
-a.facility-site__loc:hover {
-  color: var(--text);
+  font-size: var(--copy-form-body);
+  font-weight: 400;
+  color: var(--accent);
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 0.15em;
+  text-decoration-color: var(--accent);
+}
+.home .facility-site__loc:hover,
+.home .facility-site__loc:focus-visible,
+.site-page .facility-site__loc:hover,
+.site-page .facility-site__loc:focus-visible {
+  color: var(--accent-bright);
+  text-decoration-color: var(--accent-bright);
 }
 .home .facility-site__role,
 .site-page .facility-site__role {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text);
   flex-shrink: 0;
 }
 .home .facility-site__link,
 .site-page .facility-site__link {
-  font-weight: 600;
+  font-weight: 400;
 }
 .home .facility-block,
 .site-page .facility-block {
@@ -3271,7 +3303,7 @@ a.facility-site__loc:hover {
 .site-page .facility-header h3 {
   font-family: var(--font-display);
   font-size: clamp(1.1rem, 1.8vw, 1.35rem);
-  font-weight: 700;
+  font-weight: 400;
   margin: 0;
   color: var(--text);
 }
@@ -3285,7 +3317,7 @@ a.facility-site__loc:hover {
   justify-content: center;
   border: var(--outline-width) solid var(--outline);
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-3);
   line-height: 1;
 }
@@ -3318,7 +3350,7 @@ a.facility-site__loc:hover {
 .site-page .equip-category {
   font-family: var(--font-display);
   font-size: var(--copy-equip-cat);
-  font-weight: 700;
+  font-weight: 400;
   margin: 1.25rem 0 0.75rem;
   display: inline-block;
 }
@@ -3335,7 +3367,7 @@ a.facility-site__loc:hover {
   padding: 0.5rem 0.75rem;
   font-size: var(--copy-sm2);
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 400;
   border-right: var(--outline-width) solid var(--outline);
   border-bottom: var(--outline-width) solid var(--outline);
   background: transparent;
@@ -3362,7 +3394,7 @@ a.facility-site__loc:hover {
 .site-page .form-group label {
   display: block;
   font-size: var(--copy-form-label);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -3401,7 +3433,7 @@ a.facility-site__loc:hover {
   color: #0a0a0a;
   font-family: var(--font-display);
   font-size: var(--copy-btn);
-  font-weight: 700;
+  font-weight: 400;
   cursor: pointer;
   margin-top: 0.5rem;
 }
@@ -3469,7 +3501,7 @@ a.facility-site__loc:hover {
   font-size: var(--copy-form-label);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text);
   margin-bottom: 0.35rem;
   padding: 0;
@@ -3478,13 +3510,13 @@ a.facility-site__loc:hover {
 .site-page .usecase-card h3 {
   font-family: var(--font-display);
   font-size: clamp(1rem, 1.5vw, 1.15rem);
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 0.5rem;
 }
 .site-page .usecase-card p {
   font-family: var(--font-display);
   font-size: var(--copy-form-body);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.65;
   letter-spacing: 0.01em;
   color: var(--text-2);
@@ -3717,13 +3749,13 @@ a.facility-site__loc:hover {
 }
 .site-page .info-item h4 {
   font-size: var(--copy-form-body);
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 0.25rem;
 }
 .site-page .info-item p {
   font-family: var(--font-display);
   font-size: var(--copy-sm2);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.6;
   letter-spacing: 0.01em;
   color: var(--text-3);
@@ -3745,7 +3777,7 @@ a.facility-site__loc:hover {
   border-top: var(--outline-width) solid var(--outline);
   font-family: var(--font-display);
   font-size: var(--copy-sm);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
   color: var(--text-2);
   line-height: 1.4;
@@ -3786,7 +3818,7 @@ a.facility-site__loc:hover {
 body.site-page main.site-page-main .form-success p {
   font-family: var(--font-display);
   font-size: var(--copy-body-lg);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.65;
   letter-spacing: 0.01em;
   color: var(--text-2);
@@ -3800,7 +3832,7 @@ body.site-page main.site-page-main .form-success p {
   margin-top: 1rem;
   font-size: var(--copy-sm);
   color: var(--neon);
-  font-weight: 700;
+  font-weight: 400;
 }
 .home .newsletter-success[hidden] {
   display: none;
@@ -3987,7 +4019,7 @@ section.legal-page .legal-sheet {
   grid-column: 2;
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 3.2vw, 2.25rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.02em;
   white-space: nowrap;
@@ -4018,7 +4050,7 @@ section.legal-page .legal-sheet {
   grid-column: 3;
   font-family: var(--font-display);
   font-size: var(--copy-nav);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-2);
   text-decoration: none;
   white-space: nowrap;
@@ -4050,7 +4082,7 @@ section.legal-page .legal-sheet {
   display: inline-block;
   font-family: var(--font-display);
   font-size: var(--copy-xs);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
@@ -4264,7 +4296,7 @@ section.legal-page .legal-sheet {
   z-index: 2;
   font-family: var(--font-display);
   font-size: var(--copy-micro);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.35rem 0.55rem;
@@ -4344,7 +4376,7 @@ section.legal-page .legal-sheet {
 }
 .site-page .shop-card__kicker {
   font-size: var(--copy-xs);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
@@ -4352,7 +4384,7 @@ section.legal-page .legal-sheet {
 .site-page .shop-card__title {
   font-family: var(--font-display);
   font-size: var(--copy-body-lg);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.2;
   margin: 0;
 }
@@ -4420,7 +4452,7 @@ section.legal-page .legal-sheet {
 .site-page .shop-card__price-label {
   font-family: var(--font-display);
   font-size: var(--copy-body);
-  font-weight: 600;
+  font-weight: 400;
   color: var(--ink);
 }
 .site-page .shop-card__price-note {
@@ -4464,7 +4496,7 @@ section.legal-page .legal-sheet {
   margin: 0 0 1.5rem;
   font-family: var(--font-display);
   font-size: var(--copy-hero-tagline);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.01em;
   color: var(--text-2);
@@ -4632,12 +4664,12 @@ section.legal-page .legal-sheet {
 .card-body { padding: 18px 20px; }
 .card-body h3 {
   font-size: var(--copy-sm);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text);
   margin-bottom: 4px;
 }
 .card-body p {
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-2);
 }
 .card-arrow {
@@ -4684,13 +4716,13 @@ section.legal-page .legal-sheet {
   font-size: 1.1rem;
   color: var(--text);
   margin-bottom: 10px;
-  font-weight: 700;
+  font-weight: 400;
 }
 .feature-card p {
   font-size: var(--copy-form-body);
   line-height: 1.65;
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 /* ── TWO COL / CEO ── */
@@ -4716,14 +4748,14 @@ section.legal-page .legal-sheet {
   font-family: var(--font-display);
   font-size: 1.15rem;
   color: var(--text);
-  font-weight: 700;
+  font-weight: 400;
 }
 .panel-body { padding: 28px; }
 .panel-body p {
   font-size: var(--copy-form-body);
   line-height: 1.75;
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 12px;
 }
 .link-neon {
@@ -4849,7 +4881,7 @@ section.legal-page .legal-sheet {
 .modal p {
   font-family: var(--font-display);
   font-size: var(--copy-form-body);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.85;
   letter-spacing: 0.01em;
   color: var(--text-2);
@@ -4881,13 +4913,13 @@ section.legal-page .legal-sheet {
 .content-section, .section { max-width: var(--max); margin: 0 auto; padding: 80px clamp(20px, 4vw, 40px); }
 #industries-list .section-eyebrow,
 .ind-detail .section-eyebrow { text-align: center; }
-.section h2, .section-header h2 { font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem); color: var(--text); font-weight: 700; margin-bottom: 1rem; }
+.section h2, .section-header h2 { font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem); color: var(--text); font-weight: 400; margin-bottom: 1rem; }
 .section p, .section-header p {
   font-family: var(--font-display);
   font-size: 0.95rem;
   line-height: 1.75;
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
 }
 
@@ -4905,10 +4937,10 @@ section.legal-page .legal-sheet {
 .ind-card-body p {
   font-family: var(--font-display);
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.01em;
 }
-.ind-card-body h3 { font-weight: 700; }
+.ind-card-body h3 { font-weight: 400; }
 .filter-btn {
   border: 1px solid var(--border);
   color: var(--text-3);
@@ -4916,7 +4948,7 @@ section.legal-page .legal-sheet {
   padding: 7px 18px;
   font-family: var(--font-display);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
 }
 .filter-btn.active, .filter-btn:hover {
@@ -4937,7 +4969,7 @@ section.legal-page .legal-sheet {
 .usecase-label h3 { color: var(--text); }
 .usecase-label span {
   display: inline-block;
-  font-weight: 700;
+  font-weight: 400;
 }
 .pricing-card { background: var(--surface); border-color: var(--neon); }
 .pricing-card .price { color: var(--text); }
@@ -4954,7 +4986,7 @@ section.legal-page .legal-sheet {
 .submit-btn, .btn-primary:not(.nav-cta) {
   background: var(--neon);
   color: #0a0a0a;
-  font-weight: 700;
+  font-weight: 400;
 }
 .cta-banner h2 { color: var(--text); }
 .cta-banner p { color: var(--text-2); }
@@ -4968,7 +5000,7 @@ section.legal-page .legal-sheet {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: clamp(0.7rem, 1vw, 0.85rem);
-  font-weight: 600;
+  font-weight: 400;
 }
 .usecase-card-inner { background: transparent; border: none; box-shadow: none; }
 .usecase-card h3 { color: var(--text); }
@@ -5194,4 +5226,39 @@ section.legal-page .legal-sheet {
   .nav.scrolled .nav-inner {
     display: none;
   }
+}
+
+/* Bold reserved for step/box labels and action controls only */
+strong,
+b {
+  font-weight: 400;
+}
+
+.home .why-cascade-card__label,
+.home .lab-pipeline__num,
+.home #industries .industry-case__label,
+.layer-kicker,
+.home .viewer-hud-label,
+.site-page .shop-card__kicker,
+.site-page .shop-card__badge,
+.home-section-title,
+.hero-headline,
+.hero-headline .accent-chip,
+.hero-headline .hero-accent,
+.intro-fly--meet,
+.intro-fly--Tinylab {
+  font-weight: 700;
+}
+
+button,
+.btn,
+.nav-cta,
+.submit-btn,
+.read-more-btn,
+.filter-btn.active,
+.viewer-btn,
+.home #industries .industry-grid-item__link,
+.card-link,
+.card-arrow {
+  font-weight: 600;
 }

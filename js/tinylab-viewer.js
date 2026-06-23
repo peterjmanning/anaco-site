@@ -103,9 +103,9 @@ function setOrbitPivot(center) {
 
 controls.enableDamping = true;
 controls.dampingFactor = 0.1;
-controls.minDistance = 0.005;
-controls.maxDistance = 5000;
-controls.zoomSpeed = 1.2;
+controls.minDistance = 0.2;
+controls.maxDistance = 12;
+controls.enableZoom = false;
 controls.rotateSpeed = 0.85;
 controls.screenSpacePanning = false;
 controls.enablePan = false;
@@ -113,13 +113,65 @@ controls.minPolarAngle = 0.2;
 controls.maxPolarAngle = Math.PI - 0.2;
 controls.mouseButtons = {
   LEFT: THREE.MOUSE.ROTATE,
-  MIDDLE: THREE.MOUSE.DOLLY,
-  RIGHT: THREE.MOUSE.DOLLY
+  MIDDLE: THREE.MOUSE.ROTATE,
+  RIGHT: THREE.MOUSE.ROTATE
 };
 controls.touches = {
   ONE: THREE.TOUCH.ROTATE,
-  TWO: THREE.TOUCH.DOLLY
+  TWO: THREE.TOUCH.ROTATE
 };
+
+let zoomTargetDistance = null;
+const ZOOM_DAMPING = 0.14;
+const ZOOM_WHEEL_SENSITIVITY = 0.00055;
+
+function getCameraDistance() {
+  return camera.position.distanceTo(orbitPivot);
+}
+
+function clampZoomDistance(dist) {
+  return THREE.MathUtils.clamp(dist, controls.minDistance, controls.maxDistance);
+}
+
+function setCameraDistance(dist) {
+  const clamped = clampZoomDistance(dist);
+  const dir = camera.position.clone().sub(orbitPivot);
+  if (dir.lengthSq() < 1e-8) dir.set(0, 0, 1);
+  else dir.normalize();
+  camera.position.copy(orbitPivot).addScaledVector(dir, clamped);
+}
+
+function updateZoomLimits() {
+  const base = Math.max(viewerModelSize, 0.05);
+  controls.minDistance = base * 0.35;
+  controls.maxDistance = base * 5.5;
+  if (zoomTargetDistance !== null) {
+    zoomTargetDistance = clampZoomDistance(zoomTargetDistance);
+  }
+}
+
+function updateSmoothZoom() {
+  if (zoomTargetDistance === null) return;
+  const current = getCameraDistance();
+  const next = THREE.MathUtils.lerp(current, zoomTargetDistance, ZOOM_DAMPING);
+  setCameraDistance(next);
+  if (Math.abs(next - zoomTargetDistance) < 0.0005) {
+    setCameraDistance(zoomTargetDistance);
+    zoomTargetDistance = null;
+  }
+}
+
+canvas.addEventListener('wheel', (event) => {
+  event.preventDefault();
+  let delta = event.deltaY;
+  if (event.deltaMode === 1) delta *= 16;
+  else if (event.deltaMode === 2) delta *= 120;
+  delta = THREE.MathUtils.clamp(delta, -100, 100);
+
+  const current = zoomTargetDistance ?? getCameraDistance();
+  const factor = Math.exp(-delta * ZOOM_WHEEL_SENSITIVITY);
+  zoomTargetDistance = clampZoomDistance(current * factor);
+}, { passive: false });
 
 controls.addEventListener('change', () => {
   if (!pivotLocked) return;
@@ -253,6 +305,7 @@ loader.load(MODEL_URL, (gltf) => {
 
   initialCamPos.copy(camera.position);
   initialCamTarget.copy(orbitPivot);
+  updateZoomLimits();
 
   placeholder.style.display = 'none';
 }, undefined, (err) => {
@@ -327,6 +380,7 @@ canvas.addEventListener('pointerup', (e) => {
 // Smooth camera animation
 function animateCamera(toPos, toTarget, duration) {
   if (camAnimation) camAnimation.cancel = true;
+  zoomTargetDistance = null;
 
   const fromPos = camera.position.clone();
   const fromTarget = orbitPivot.clone();
@@ -503,6 +557,7 @@ function enterModule(key) {
 
     // Camera target — account for the longer stretched assembly
     viewerModelSize = maxDim;
+    updateZoomLimits();
     const dist = maxDim * 3.2;
     const newPos = new THREE.Vector3(mcenter.x + dist * 0.5, mcenter.y + dist * 0.3, mcenter.z + dist);
     animateCamera(newPos, mcenter, 1000);
@@ -564,6 +619,9 @@ window.exitModule = function() {
 
   if (mainModel) {
     const box = new THREE.Box3().setFromObject(mainModel);
+    const size = box.getSize(new THREE.Vector3());
+    viewerModelSize = Math.max(size.x, size.y, size.z);
+    updateZoomLimits();
     setViewerFloor(box);
   }
   animateCamera(initialCamPos, initialCamTarget, 900);
@@ -575,17 +633,19 @@ window.exitModule = function() {
 };
 
 window.zoomIn = function() {
+  zoomTargetDistance = null;
   const dir = new THREE.Vector3().subVectors(camera.position, orbitPivot).normalize();
   const dist = camera.position.distanceTo(orbitPivot);
-  const newDist = Math.max(dist * 0.7, controls.minDistance);
+  const newDist = Math.max(dist * 0.88, controls.minDistance);
   const newPos = orbitPivot.clone().add(dir.multiplyScalar(newDist));
   animateCamera(newPos, orbitPivot, 250);
 };
 
 window.zoomOut = function() {
+  zoomTargetDistance = null;
   const dir = new THREE.Vector3().subVectors(camera.position, orbitPivot).normalize();
   const dist = camera.position.distanceTo(orbitPivot);
-  const newDist = Math.min(dist * 1.4, controls.maxDistance);
+  const newDist = Math.min(dist * 1.12, controls.maxDistance);
   const newPos = orbitPivot.clone().add(dir.multiplyScalar(newDist));
   animateCamera(newPos, orbitPivot, 250);
 };
@@ -597,6 +657,7 @@ function animate() {
     pivotAxes.position.copy(orbitPivot);
     pivotAxes.updateMatrix();
   }
+  updateSmoothZoom();
   controls.update();
   renderer.render(scene, camera);
 }

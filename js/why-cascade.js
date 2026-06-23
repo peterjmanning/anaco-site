@@ -4,6 +4,14 @@
   var MARKER_ID = 'why-cascade-arrowhead';
   var END_INSET = 3;
 
+  // Context → Problem → Solution; Context → Evolution → Solution
+  var PANEL_LINKS = [
+    { from: 0, to: 1, axis: 'horizontal' },
+    { from: 1, to: 3, axis: 'vertical' },
+    { from: 0, to: 2, axis: 'vertical' },
+    { from: 2, to: 3, axis: 'horizontal' }
+  ];
+
   function ensureMarker(svg) {
     var defs = svg.querySelector('defs');
     if (!defs) {
@@ -35,6 +43,20 @@
     defs.appendChild(marker);
   }
 
+  function panelPath(fromRect, toRect, rootRect, axis) {
+    if (axis === 'horizontal') {
+      var y = fromRect.top - rootRect.top + fromRect.height / 2;
+      var x1 = fromRect.left - rootRect.left + fromRect.width;
+      var x2 = toRect.left - rootRect.left - END_INSET;
+      return 'M ' + round(x1) + ' ' + round(y) + ' L ' + round(x2) + ' ' + round(y);
+    }
+
+    var x = fromRect.left - rootRect.left + fromRect.width / 2;
+    var y1 = fromRect.top - rootRect.top + fromRect.height;
+    var y2 = toRect.top - rootRect.top - END_INSET;
+    return 'M ' + round(x) + ' ' + round(y1) + ' L ' + round(x) + ' ' + round(y2);
+  }
+
   function updateWhyCascadeConnectors() {
     var root = document.querySelector('.why-cascade');
     if (!root) return;
@@ -53,6 +75,7 @@
     if (!width || !height) return;
 
     var rootRect = root.getBoundingClientRect();
+    var isStacked = width <= 640;
 
     svg.setAttribute('width', String(width));
     svg.setAttribute('height', String(height));
@@ -64,24 +87,37 @@
 
     ensureMarker(svg);
 
-    for (var i = 0; i < cards.length - 1; i++) {
-      var from = cards[i].getBoundingClientRect();
-      var to = cards[i + 1].getBoundingClientRect();
+    if (isStacked) {
+      for (var i = 0; i < cards.length - 1; i++) {
+        var fromStack = cards[i].getBoundingClientRect();
+        var toStack = cards[i + 1].getBoundingClientRect();
+        var sx = fromStack.left - rootRect.left + fromStack.width / 2;
+        var sy1 = fromStack.top - rootRect.top + fromStack.height;
+        var sy2 = toStack.top - rootRect.top - END_INSET;
 
-      var x1 = from.left - rootRect.left + from.width / 2;
-      var y1 = from.top - rootRect.top + from.height;
-      var x2 = to.left - rootRect.left - END_INSET;
-      var y2 = to.top - rootRect.top + to.height / 2;
-
-      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('class', 'why-cascade__connector');
-      path.setAttribute(
-        'd',
-        'M ' + round(x1) + ' ' + round(y1) + ' L ' + round(x1) + ' ' + round(y2) + ' L ' + round(x2) + ' ' + round(y2)
-      );
-      path.setAttribute('marker-end', 'url(#' + MARKER_ID + ')');
-      svg.appendChild(path);
+        appendConnector(svg, 'M ' + round(sx) + ' ' + round(sy1) + ' L ' + round(sx) + ' ' + round(sy2));
+      }
+      return;
     }
+
+    PANEL_LINKS.forEach(function (link) {
+      var from = cards[link.from];
+      var to = cards[link.to];
+      if (!from || !to) return;
+
+      appendConnector(
+        svg,
+        panelPath(from.getBoundingClientRect(), to.getBoundingClientRect(), rootRect, link.axis)
+      );
+    });
+  }
+
+  function appendConnector(svg, d) {
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('class', 'why-cascade__connector');
+    path.setAttribute('d', d);
+    path.setAttribute('marker-end', 'url(#' + MARKER_ID + ')');
+    svg.appendChild(path);
   }
 
   function round(value) {
