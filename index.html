@@ -124,14 +124,44 @@
             <li>Compliance, QC, process monitoring, soil analysis &mdash; all outsourced to third parties</li>
           </ul>
         </article>
-        <article class="why-cascade-card" role="listitem">
-          <p class="why-cascade-card__label">02. Problem</p>
-          <h3 class="why-cascade-card__headline">Slow. Expensive. Too late to act.</h3>
-          <ul class="why-cascade-card__points">
-            <li>Third-party labs: <strong>Costly, pay by the sample</strong> &middot; <strong>48+ hour</strong> turnaround</li>
-            <li>Spoilage risk, operational drag, yields stuck at the ceiling</li>
-            <li>Fermentation &amp; winemaking need live chemistry &mdash; not a two-day queue</li>
-          </ul>
+        <article class="why-cascade-card why-cascade-card--problem" role="listitem">
+          <div class="why-cascade-card__peel-stage">
+            <div class="why-cascade-card__case" id="whyProblemCase" aria-hidden="true">
+              <p class="why-cascade-card__case-kicker">Case study</p>
+              <p class="why-cascade-card__case-text">A mid-size winery shipped Brix and VA panels to an outside lab every morning. Results came back 36&ndash;48 hours later&mdash;after fermentation calls were already made.</p>
+              <p class="why-cascade-card__case-text">Two lots went out before out-of-spec juice was caught. The delay did not show up as a line item&mdash;it showed up as lost batches, rework, and a QC team that could only react after the fact.</p>
+            </div>
+            <div class="why-cascade-card__page">
+              <div class="why-cascade-card__page-body">
+                <p class="why-cascade-card__label">02. Problem</p>
+                <h3 class="why-cascade-card__headline">Slow. Expensive. Too late to act.</h3>
+                <ul class="why-cascade-card__points">
+                  <li>Third-party labs: <strong>Costly, pay by the sample</strong> &middot; <strong>48+ hour</strong> turnaround</li>
+                  <li>Spoilage risk, operational drag, yields stuck at the ceiling</li>
+                  <li>Fermentation &amp; winemaking need live chemistry &mdash; not a two-day queue</li>
+                </ul>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="why-cascade-card__peel-handle"
+              aria-expanded="false"
+              aria-controls="whyProblemCase"
+              aria-label="Peel back page to read case study">
+              <svg class="why-cascade-card__peel-curl" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <polygon points="100,100 100,0 0,100" />
+                <line x1="100" y1="0" x2="0" y2="100" />
+              </svg>
+              <span class="why-cascade-card__peel-hint">Case<br>Study</span>
+            </button>
+            <button type="button" class="why-cascade-card__peel-close" aria-label="Fold page back">
+              <svg class="why-cascade-card__peel-curl" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <polygon points="100,100 100,0 0,100" />
+                <line x1="100" y1="0" x2="0" y2="100" />
+              </svg>
+              <span class="why-cascade-card__peel-hint"><span class="why-cascade-card__peel-close-x" aria-hidden="true">&times;</span><br>Close</span>
+            </button>
+          </div>
         </article>
         <article class="why-cascade-card" role="listitem">
           <p class="why-cascade-card__label">04. Evolution</p>
@@ -156,9 +186,9 @@
             </div>
           </dl>
         </article>
-        <span class="why-cascade__chevron why-cascade__chevron--right" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l8 7-8 7"/></svg></span>
-        <span class="why-cascade__chevron why-cascade__chevron--down" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l8 7-8 7"/></svg></span>
-        <span class="why-cascade__chevron why-cascade__chevron--left" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l8 7-8 7"/></svg></span>
+        <span class="why-cascade__chevron why-cascade__chevron--right" aria-hidden="true"><img src="images/Chevron_Circle.png" alt="" width="24" height="24" decoding="async" /></span>
+        <span class="why-cascade__chevron why-cascade__chevron--down" aria-hidden="true"><img src="images/Chevron_Circle.png" alt="" width="24" height="24" decoding="async" /></span>
+        <span class="why-cascade__chevron why-cascade__chevron--left" aria-hidden="true"><img src="images/Chevron_Circle.png" alt="" width="24" height="24" decoding="async" /></span>
       </div>
     </div>
   </div>
@@ -167,7 +197,7 @@
 <section class="home-section" id="overview">
   <div class="home-wrap">
     <div class="home-section-head">
-      <h2 class="home-section-title">How Tinylab Works...</h2>
+      <h2 class="home-section-title">How Tinylab works...</h2>
     </div>
     <div class="sheet">
       <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
@@ -201,7 +231,7 @@
 <section class="home-section" id="industries">
   <div class="home-wrap">
     <div class="home-section-head">
-      <h2 class="home-section-title">Industries We Serve...
+      <h2 class="home-section-title">Industries we serve...
       </h2>
     </div>
     <div class="sheet">
@@ -220,7 +250,7 @@
 <section class="home-section" id="product">
   <div class="home-wrap">
     <div class="home-section-head">
-      <h2 class="home-section-title">Tinylab at a Glance...</h2>
+      <h2 class="home-section-title">Tinylab at a glance...</h2>
     </div>
     <div class="sheet">
       <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
@@ -353,7 +383,7 @@
 <section class="home-section" id="facilities">
   <div class="home-wrap">
     <div class="home-section-head">
-      <h2 class="home-section-title">Where We Operate...</h2>
+      <h2 class="home-section-title">Where we operate...</h2>
     </div>
     <div class="sheet">
       <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
@@ -408,12 +438,12 @@
           </h3>
           <ul class="facility-sites">
             <li class="facility-site">
-              <span class="facility-site__use">Magnify @ CNSI</span>
-              <a href="https://magnify.cnsi.ucla.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Los Angeles</a>
+              <span class="facility-site__use">Los Angeles</span>
+              <a href="https://magnify.cnsi.ucla.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Magnify @ CNSI</a>
             </li>
             <li class="facility-site">
-              <span class="facility-site__use">CNSI Innovation Workshop</span>
-              <a href="https://www.cnsi.ucsb.edu/innovation/innovation-workshop" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Santa Barbara</a>
+              <span class="facility-site__use">Santa Barbara</span>
+              <a href="https://www.cnsi.ucsb.edu/innovation/innovation-workshop" class="facility-site__loc" target="_blank" rel="noopener noreferrer">CNSI Innovation Workshop</a>
             </li>
           </ul>
         </div>
@@ -425,16 +455,16 @@
           </h3>
           <ul class="facility-sites">
             <li class="facility-site">
-              <span class="facility-site__use">UCLA Nanofabrication Laboratory</span>
-              <a href="https://nanolab.ucla.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Los Angeles</a>
+              <span class="facility-site__use">Los Angeles</span>
+              <a href="https://nanolab.ucla.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">UCLA Nanofabrication Laboratory</a>
             </li>
             <li class="facility-site">
-              <span class="facility-site__use">UCSB Nanofabrication Facility</span>
-              <a href="https://www.nanotech.ucsb.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Santa Barbara</a>
+              <span class="facility-site__use">Santa Barbara</span>
+              <a href="https://www.nanotech.ucsb.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">UCSB Nanofabrication Facility</a>
             </li>
             <li class="facility-site">
-              <span class="facility-site__use">Lurie Nanofabrication Facility</span>
-              <a href="https://lnf.umich.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Ann Arbor</a>
+              <span class="facility-site__use">Ann Arbor</span>
+              <a href="https://lnf.umich.edu/" class="facility-site__loc" target="_blank" rel="noopener noreferrer">Lurie Nanofabrication Facility</a>
             </li>
           </ul>
         </div>
@@ -546,8 +576,10 @@
 </script>
 <script type="module" src="js/tinylab-viewer.js"></script>
 <script src="js/industries-data.js" defer></script>
-<script src="js/industries-carousel.js?v=12" defer></script>
+<script src="js/industries-carousel.js?v=18" defer></script>
 <script src="js/home-intro.js" defer></script>
+<script src="js/why-problem-peel.js" defer></script>
+<script src="js/why-cascade.js" defer></script>
 <script src="js/anaco.js" defer></script>
 <script>
 function submitInquiry() {

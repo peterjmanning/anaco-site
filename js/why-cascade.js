@@ -1,140 +1,114 @@
 (function () {
   'use strict';
 
-  var MARKER_ID = 'why-cascade-arrowhead';
-  var END_INSET = 3;
-
-  // Context → Problem → Solution; Context → Evolution → Solution
-  var PANEL_LINKS = [
-    { from: 0, to: 1, axis: 'horizontal' },
-    { from: 1, to: 3, axis: 'vertical' },
-    { from: 0, to: 2, axis: 'vertical' },
-    { from: 2, to: 3, axis: 'horizontal' }
-  ];
-
-  function ensureMarker(svg) {
-    var defs = svg.querySelector('defs');
-    if (!defs) {
-      defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-      svg.appendChild(defs);
-    }
-
-    if (svg.querySelector('#' + MARKER_ID)) return;
-
-    var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-    marker.setAttribute('id', MARKER_ID);
-    marker.setAttribute('viewBox', '0 0 10 10');
-    marker.setAttribute('markerWidth', '8');
-    marker.setAttribute('markerHeight', '8');
-    marker.setAttribute('refX', '9');
-    marker.setAttribute('refY', '5');
-    marker.setAttribute('orient', 'auto');
-    marker.setAttribute('markerUnits', 'strokeWidth');
-
-    var head = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    head.setAttribute('d', 'M0,0 L10,5 L0,10');
-    head.setAttribute('fill', 'none');
-    head.setAttribute('stroke', '#0a0a0a');
-    head.setAttribute('stroke-width', '1.5');
-    head.setAttribute('stroke-linecap', 'square');
-    head.setAttribute('stroke-linejoin', 'miter');
-
-    marker.appendChild(head);
-    defs.appendChild(marker);
+  function round(value) {
+    return Math.round(value * 10) / 10;
   }
 
-  function panelPath(fromRect, toRect, rootRect, axis) {
-    if (axis === 'horizontal') {
-      var y = fromRect.top - rootRect.top + fromRect.height / 2;
-      var x1 = fromRect.left - rootRect.left + fromRect.width;
-      var x2 = toRect.left - rootRect.left - END_INSET;
-      return 'M ' + round(x1) + ' ' + round(y) + ' L ' + round(x2) + ' ' + round(y);
-    }
-
-    var x = fromRect.left - rootRect.left + fromRect.width / 2;
-    var y1 = fromRect.top - rootRect.top + fromRect.height;
-    var y2 = toRect.top - rootRect.top - END_INSET;
-    return 'M ' + round(x) + ' ' + round(y1) + ' L ' + round(x) + ' ' + round(y2);
+  function relRect(rect, rootRect) {
+    return {
+      left: rect.left - rootRect.left,
+      right: rect.right - rootRect.left,
+      top: rect.top - rootRect.top,
+      bottom: rect.bottom - rootRect.top
+    };
   }
 
-  function updateWhyCascadeConnectors() {
+  function hubPoints(rects) {
+    return {
+      right: {
+        x: rects[0].right,
+        y: (rects[0].top + rects[0].bottom) / 2
+      },
+      down: {
+        x: (rects[1].left + rects[1].right) / 2,
+        y: rects[1].bottom
+      },
+      left: {
+        x: rects[2].right,
+        y: (rects[2].top + rects[2].bottom) / 2
+      }
+    };
+  }
+
+  function positionChevrons(root, hubs) {
+    var map = {
+      right: root.querySelector('.why-cascade__chevron--right'),
+      down: root.querySelector('.why-cascade__chevron--down'),
+      left: root.querySelector('.why-cascade__chevron--left')
+    };
+
+    Object.keys(map).forEach(function (key) {
+      var node = map[key];
+      var point = hubs[key];
+      if (!node || !point) return;
+      node.style.left = round(point.x) + 'px';
+      node.style.top = round(point.y) + 'px';
+    });
+  }
+
+  function syncCardHeights(root, cards) {
+    var prevMins = Array.prototype.map.call(cards, function (card) {
+      return card.style.minHeight;
+    });
+
+    cards.forEach(function (card) {
+      card.style.minHeight = 'auto';
+    });
+
+    var maxHeight = 0;
+    cards.forEach(function (card) {
+      maxHeight = Math.max(maxHeight, Math.round(card.offsetHeight));
+    });
+
+    cards.forEach(function (card, index) {
+      card.style.minHeight = prevMins[index];
+    });
+
+    var next = maxHeight + 'px';
+    if (root.style.getPropertyValue('--why-card-height') !== next) {
+      root.style.setProperty('--why-card-height', next);
+    }
+  }
+
+  function updateWhyCascadeLayout() {
     var root = document.querySelector('.why-cascade');
     if (!root) return;
 
-    var svg = root.querySelector('.why-cascade__connectors');
-    if (!svg) return;
-
     var cards = root.querySelectorAll('.why-cascade-card');
-    if (cards.length < 2) {
-      svg.innerHTML = '';
-      return;
-    }
+    if (cards.length < 4) return;
 
     var width = root.offsetWidth;
-    var height = root.offsetHeight;
-    if (!width || !height) return;
+    if (!width) return;
 
-    var rootRect = root.getBoundingClientRect();
     var isStacked = width <= 640;
-
-    svg.setAttribute('width', String(width));
-    svg.setAttribute('height', String(height));
-    svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
-
-    svg.querySelectorAll('.why-cascade__connector').forEach(function (node) {
-      node.remove();
-    });
-
-    ensureMarker(svg);
-
     if (isStacked) {
-      for (var i = 0; i < cards.length - 1; i++) {
-        var fromStack = cards[i].getBoundingClientRect();
-        var toStack = cards[i + 1].getBoundingClientRect();
-        var sx = fromStack.left - rootRect.left + fromStack.width / 2;
-        var sy1 = fromStack.top - rootRect.top + fromStack.height;
-        var sy2 = toStack.top - rootRect.top - END_INSET;
-
-        appendConnector(svg, 'M ' + round(sx) + ' ' + round(sy1) + ' L ' + round(sx) + ' ' + round(sy2));
-      }
+      root.style.removeProperty('--why-card-height');
       return;
     }
 
-    PANEL_LINKS.forEach(function (link) {
-      var from = cards[link.from];
-      var to = cards[link.to];
-      if (!from || !to) return;
+    syncCardHeights(root, cards);
+    void root.offsetHeight;
 
-      appendConnector(
-        svg,
-        panelPath(from.getBoundingClientRect(), to.getBoundingClientRect(), rootRect, link.axis)
-      );
+    var rootRect = root.getBoundingClientRect();
+    var rects = Array.prototype.map.call(cards, function (card) {
+      return relRect(card.getBoundingClientRect(), rootRect);
     });
-  }
 
-  function appendConnector(svg, d) {
-    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('class', 'why-cascade__connector');
-    path.setAttribute('d', d);
-    path.setAttribute('marker-end', 'url(#' + MARKER_ID + ')');
-    svg.appendChild(path);
-  }
-
-  function round(value) {
-    return Math.round(value * 10) / 10;
+    positionChevrons(root, hubPoints(rects));
   }
 
   var resizeTimer;
   function scheduleUpdate() {
     window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(updateWhyCascadeConnectors, 50);
+    resizeTimer = window.setTimeout(updateWhyCascadeLayout, 50);
   }
 
   function init() {
-    updateWhyCascadeConnectors();
+    updateWhyCascadeLayout();
 
     window.addEventListener('resize', scheduleUpdate, { passive: true });
-    window.addEventListener('load', updateWhyCascadeConnectors, { passive: true });
+    window.addEventListener('load', updateWhyCascadeLayout, { passive: true });
 
     if (typeof ResizeObserver !== 'undefined') {
       var root = document.querySelector('.why-cascade');
@@ -148,7 +122,7 @@
     }
 
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(updateWhyCascadeConnectors);
+      document.fonts.ready.then(updateWhyCascadeLayout);
     }
   }
 

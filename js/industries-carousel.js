@@ -75,11 +75,89 @@
 
     grid.addEventListener('click', onGridClick);
     document.addEventListener('keydown', onDocumentKeydown);
+    bindIndustryTitleFitting(grid);
   }
 
-  function industryDescription(item) {
-    if (!item.cases || !item.cases.length) return '';
-    return item.cases[0].text || '';
+  var titleFitTimer;
+  function scheduleIndustryTitleFit() {
+    window.clearTimeout(titleFitTimer);
+    titleFitTimer = window.setTimeout(fitAllIndustryTitles, 50);
+  }
+
+  function fitIndustryTitle(title) {
+    var tile = title.closest('.industry-grid-item');
+    if (!tile || tile.classList.contains('is-expanded') || tile.classList.contains('is-flight')) {
+      title.style.removeProperty('font-size');
+      return;
+    }
+
+    var overlay = title.closest('.industry-grid-item__overlay');
+    if (!overlay) return;
+
+    title.style.removeProperty('font-size');
+    var size = parseFloat(window.getComputedStyle(title).fontSize);
+    var minSize = 13;
+    var overlayStyle = window.getComputedStyle(overlay);
+    var padLeft = parseFloat(overlayStyle.paddingLeft);
+    var padRight = parseFloat(overlayStyle.paddingRight);
+    var padBottom = parseFloat(overlayStyle.paddingBottom);
+    var maxWidth = overlay.clientWidth - padLeft - padRight;
+
+    function overflows() {
+      var overlayRect = overlay.getBoundingClientRect();
+      var titleRect = title.getBoundingClientRect();
+      return (
+        title.scrollWidth > maxWidth + 1 ||
+        titleRect.bottom > overlayRect.bottom - padBottom + 0.5 ||
+        titleRect.left < overlayRect.left + padLeft - 0.5
+      );
+    }
+
+    var guard = 0;
+    while (size > minSize && overflows() && guard < 140) {
+      size -= 0.5;
+      title.style.fontSize = size + 'px';
+      guard += 1;
+    }
+  }
+
+  function fitAllIndustryTitles() {
+    document.querySelectorAll('#industries .industry-grid-item__title').forEach(fitIndustryTitle);
+  }
+
+  function bindIndustryTitleFitting(grid) {
+    scheduleIndustryTitleFit();
+
+    window.addEventListener('resize', scheduleIndustryTitleFit, { passive: true });
+    window.addEventListener('load', scheduleIndustryTitleFit, { passive: true });
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', scheduleIndustryTitleFit, { passive: true });
+    }
+
+    if (typeof ResizeObserver !== 'undefined') {
+      var observer = new ResizeObserver(scheduleIndustryTitleFit);
+      observer.observe(grid);
+      grid.querySelectorAll('.industry-grid-item').forEach(function (tile) {
+        observer.observe(tile);
+      });
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scheduleIndustryTitleFit);
+    }
+  }
+
+  function formatIndustryTitle(title) {
+    var amp = title.indexOf('&');
+    if (amp !== -1) {
+      var before = title.slice(0, amp).trim();
+      var after = title.slice(amp + 1).trim();
+      if (before && after) {
+        return before + ' &\n' + after;
+      }
+    }
+    return title.split(/\s+/).join('\n');
   }
 
   function buildIndustryTile(item, index) {
@@ -112,17 +190,14 @@
     overlay.className = 'industry-grid-item__overlay';
     overlay.setAttribute('aria-hidden', 'true');
 
-    var desc = industryDescription(item);
-    if (desc) {
-      var descEl = document.createElement('p');
-      descEl.className = 'industry-grid-item__desc';
-      descEl.textContent = desc;
-      overlay.appendChild(descEl);
-    }
+    var hint = document.createElement('p');
+    hint.className = 'industry-grid-item__hint';
+    hint.textContent = 'Click to learn more \u2192';
+    overlay.appendChild(hint);
 
     var title = document.createElement('span');
     title.className = 'industry-grid-item__title';
-    title.textContent = item.title;
+    title.textContent = formatIndustryTitle(item.title);
     overlay.appendChild(title);
 
     var detail = document.createElement('div');
@@ -168,10 +243,12 @@
       '<path d="M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>' +
       '</svg></button>' +
       '<div class="industry-grid-item__detail-inner">' +
+      '<div class="industry-grid-item__detail-header">' +
       '<p class="industry-grid-item__detail-kicker">Industry</p>' +
       '<h3 class="industry-grid-item__detail-heading">' +
       escapeHtml(item.heading || item.title) +
       '</h3>' +
+      '</div>' +
       '<div class="industry-grid-item__cases">' +
       casesHtml +
       '</div>' +
@@ -204,7 +281,7 @@
       '<span class="industry-grid-item__more-cta">Contact us &rarr;</span>' +
       '<span class="industry-grid-item__more-text">Find out how Tinylab can streamline your team\'s analysis today.</span>' +
       '</div>' +
-      '<span class="industry-grid-item__title">...And more</span>' +
+      '<span class="industry-grid-item__title">And\nMore...</span>' +
       '</div>';
 
     return link;
@@ -428,6 +505,7 @@
         tile.setAttribute('aria-expanded', 'true');
         grid.classList.add('has-expanded');
         showDetail(tile, true);
+        scheduleIndustryTitleFit();
       });
       return;
     }
@@ -455,6 +533,7 @@
 
         grid.classList.remove('is-animating');
         showDetail(tile, true);
+        scheduleIndustryTitleFit();
       });
     });
   }
@@ -483,6 +562,7 @@
         el.classList.remove('is-row-collapsed', 'is-row-fading');
       });
       if (onSettled) onSettled();
+      scheduleIndustryTitleFit();
       return;
     }
 
@@ -518,6 +598,7 @@
       var detail = expanded.querySelector('.industry-grid-item__detail');
       if (detail) detail.hidden = true;
       if (onSettled) onSettled();
+      scheduleIndustryTitleFit();
     });
   }
 
