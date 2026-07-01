@@ -43,7 +43,9 @@
     var visual = imageSrc
       ? '<img class="shop-card__img" src="' +
         escapeHtml(imageSrc) +
-        '" alt="" loading="lazy" decoding="async"' +
+        '" alt="' +
+        escapeHtml(product.name) +
+        '" loading="lazy" decoding="async"' +
         imgDims +
         '>'
       : '<div class="shop-card__icon shop-card__icon--' +

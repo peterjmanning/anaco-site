@@ -83,7 +83,7 @@
           </h1>
           <p class="hero-tagline">Lab-grade analysis, wherever your work happens.</p>
           <div class="hero-btns">
-            <a href="#product" class="btn btn-ghost">Explore in 3D</a>
+            <a href="#product" class="btn btn-ghost">View gallery</a>
             <a href="shop/" class="btn btn-primary">Order →</a>
           </div>
         </div>
@@ -92,10 +92,10 @@
             <div class="hero-device-hatch pattern-hatch" aria-hidden="true"></div>
             <div class="media-frame media-frame--device">
               <img
-                src="images/tinylab-device.gif"
+                src="images/v3.99.png"
                 alt="Tinylab device"
-                width="520"
-                height="520"
+                width="784"
+                height="980"
                 decoding="async"
                 fetchpriority="high">
             </div>
@@ -254,127 +254,20 @@
     </div>
     <div class="sheet">
       <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
-      <div class="viewer-layout">
-        <div id="viewer-container" class="viewer-frame">
-          <canvas id="viewer-canvas"></canvas>
-          <div id="part-hud" class="viewer-hud" style="display:none">
-            <div class="viewer-hud-label">Module</div>
-            <div id="part-name" class="viewer-hud-title"></div>
-          </div>
-          <button type="button" id="backBtn" class="viewer-btn viewer-btn--tl" onclick="exitModule()" style="display:none">← Back to Overview</button>
-          <div id="moduleTitle" class="viewer-module-title" style="display:none"></div>
-          <div class="viewer-controls viewer-controls--br">
-            <button type="button" class="viewer-btn viewer-btn--round" onclick="zoomIn()" aria-label="Zoom in">+</button>
-            <button type="button" class="viewer-btn viewer-btn--round" onclick="zoomOut()" aria-label="Zoom out">−</button>
-          </div>
-          <div id="viewer-placeholder" class="viewer-placeholder">
-            <span>3D model loading…</span>
+      <div class="product-carousel" id="productCarousel" tabindex="0" aria-roledescription="carousel" aria-label="Tinylab gallery">
+        <div class="product-carousel__stage">
+          <div class="product-carousel__hatch pattern-hatch" aria-hidden="true"></div>
+          <div class="product-carousel__frame">
+            <div class="product-carousel__track" id="productCarouselTrack"></div>
+            <button type="button" class="product-carousel__nav product-carousel__nav--prev" aria-label="Previous image">
+              <span aria-hidden="true">&larr;</span>
+            </button>
+            <button type="button" class="product-carousel__nav product-carousel__nav--next" aria-label="Next image">
+              <span aria-hidden="true">&rarr;</span>
+            </button>
           </div>
         </div>
-        <aside id="viewer-spec-panel" class="viewer-spec-panel" aria-label="Module specifications" aria-live="polite">
-          <p class="viewer-spec-panel__hint">Click a highlighted module to view its specifications.</p>
-
-          <div class="viewer-spec-panel__module" data-module="microreactor" hidden>
-            <div class="spec-card">
-              <div class="spec-header">
-                <div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div>
-                <h3>Microreactors</h3>
-                <span class="badge" title="Up to 24">24</span>
-              </div>
-              <div class="spec-body"><ul>
-                <li><strong>Headspace pressure & gas control</strong></li>
-                <li><strong>Microfluidic mixing:</strong> Up to 0.1 μL accuracy</li>
-                <li><strong>In-situ electrochemical measurement</strong>
-                  <ul class="sub-list">
-                    <li>DPV (Differential Pulse Voltammetry)</li>
-                    <li>CV (Cyclic Voltammetry)</li>
-                    <li>pH</li>
-                    <li>TA (Titratable Acidity)</li>
-                  </ul>
-                </li>
-                <li><strong>Independent temperature control zones:</strong> −10 to +125°C (+14 to +257°F)</li>
-                <li>Self-cleaning mode</li>
-              </ul></div>
-            </div>
-          </div>
-
-          <div class="viewer-spec-panel__module" data-module="ptv" hidden>
-            <div class="spec-card">
-              <div class="spec-header">
-                <div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 2v8M8 6l4 4 4-4"/><rect x="4" y="10" width="16" height="12" rx="2"/></svg></div>
-                <h3>Programmable Temperature Vaporizer</h3>
-              </div>
-              <div class="spec-body"><ul>
-                <li>Heats up to <strong>+300°C</strong></li>
-                <li><strong>Modes:</strong>
-                  <ul class="sub-list">
-                    <li>Quick Ramp</li>
-                    <li>Programmed Ramp Schedule</li>
-                  </ul>
-                </li>
-                <li><strong>Split gas control:</strong> 1:1, 1:2, 1:3, 1:4, 1:9, 1:19, 1:99 (Outlet:Waste)</li>
-              </ul></div>
-            </div>
-          </div>
-
-          <div class="viewer-spec-panel__module" data-module="microgc" hidden>
-            <div class="spec-card">
-              <div class="spec-header">
-                <div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M4 4h4v16H4zM10 4h4v16h-4zM16 4h4v16h-4"/></svg></div>
-                <h3>Gas Chromatography Columns</h3>
-                <span class="badge" title="4 parallel columns">4×</span>
-              </div>
-              <div class="spec-body"><ul>
-                <li>4 parallel <strong>MEMS μGC</strong> columns</li>
-                <li>Unique stationary phases</li>
-                <li>On-chip heating/cooling</li>
-              </ul></div>
-            </div>
-          </div>
-
-          <div class="viewer-spec-panel__module viewer-spec-panel__module--stack" data-module="flow-cell" hidden>
-            <div class="spec-card">
-              <div class="spec-header">
-                <div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
-                <h3>Sensing Modules</h3>
-              </div>
-              <div class="spec-body"><ul>
-                <li><strong>Flow-Modulated Pneumatic Resonator</strong>
-                  <ul class="sub-list">
-                    <li>Use a single spectrometer for multiple measurements</li>
-                    <li>Control & divert gas flow</li>
-                  </ul>
-                </li>
-                <li><strong>MEMS multi-pass optical flow cells</strong>
-                  <ul class="sub-list">
-                    <li>Gas: UV-VIS, NIR</li>
-                    <li>Liquid: UV-VIS, NIR</li>
-                  </ul>
-                </li>
-                <li><strong>MEMS single-pass optical flow cells</strong>
-                  <ul class="sub-list">
-                    <li>Liquid: UV-VIS, NIR</li>
-                  </ul>
-                </li>
-              </ul></div>
-            </div>
-            <div class="spec-card">
-              <div class="spec-header">
-                <div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-                <h3>Multiple Photonics Options Available</h3>
-              </div>
-              <div class="spec-body"><ul>
-                <li><strong>Spectrometer options:</strong>
-                  <ul class="sub-list">
-                    <li>200–1000 nm</li>
-                    <li>900–1700 nm</li>
-                    <li>900–2500 nm</li>
-                  </ul>
-                </li>
-              </ul></div>
-            </div>
-          </div>
-        </aside>
+        <div class="product-carousel__dots" id="productCarouselDots" role="tablist" aria-label="Choose slide"></div>
       </div>
     </div>
   </div>
@@ -566,15 +459,8 @@
   </div>
 </footer>
 
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
-<script type="module" src="js/tinylab-viewer.js"></script>
+<script src="js/product-carousel-data.js" defer></script>
+<script src="js/product-carousel.js" defer></script>
 <script src="js/industries-data.js" defer></script>
 <script src="js/industries-carousel.js?v=18" defer></script>
 <script src="js/home-intro.js" defer></script>

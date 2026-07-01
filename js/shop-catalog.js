@@ -23,9 +23,9 @@ window.SHOP_CATALOG = {
       kicker: 'Base unit',
       description:
         'Portable analytical lab with integrated control software.',
-      image: '../images/tinylab-device.gif',
-      imageWidth: 456,
-      imageHeight: 456,
+      image: '../images/v3.99.png',
+      imageWidth: 784,
+      imageHeight: 980,
       icon: 'system',
       featured: true,
     },
@@ -35,6 +35,7 @@ window.SHOP_CATALOG = {
       kicker: 'Module',
       description:
         'Headspace pressure, microfluidic mixing, in-situ electrochemistry, and independent temperature zones.',
+      image: '../images/microreactors.png',
       icon: 'microreactor',
     },
     {
@@ -43,6 +44,7 @@ window.SHOP_CATALOG = {
       kicker: 'Module',
       description:
         'Programmable Temperature Vaporizer with quick or scheduled ramp modes and split gas control.',
+      image: '../images/PTV.png',
       icon: 'ptv',
     },
     {
@@ -51,6 +53,7 @@ window.SHOP_CATALOG = {
       kicker: 'Module',
       description:
         'Four parallel MEMS μGC columns with unique stationary phases and on-chip heating/cooling.',
+      image: '../images/microGC.png',
       icon: 'microgc',
     },
     {
@@ -59,6 +62,7 @@ window.SHOP_CATALOG = {
       kicker: 'Module',
       description:
         'Sensing modules with flow-modulated pneumatic resonator and MEMS optical flow cells.',
+      image: '../images/flow cell.png',
       icon: 'flow-cell',
     },
   ],
