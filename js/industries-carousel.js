@@ -7,6 +7,28 @@
   var TILE_RATIO = 9 / 16;
   var EXPAND_RATIO = 21 / 9;
 
+  function getIndustriesRoot() {
+    return document.querySelector('.home #industries');
+  }
+
+  function getTileAspectRatioCss() {
+    var root = getIndustriesRoot();
+    if (!root) return '9 / 16';
+    var ratio = getComputedStyle(root).getPropertyValue('--industry-tile-ratio').trim();
+    return ratio || '9 / 16';
+  }
+
+  function getTileRatio() {
+    var css = getTileAspectRatioCss();
+    var parts = css.split('/').map(function (part) {
+      return parseFloat(part.trim());
+    });
+    if (parts.length === 2 && parts[0] && parts[1]) {
+      return parts[0] / parts[1];
+    }
+    return TILE_RATIO;
+  }
+
   function getGridCols(grid) {
     var template = window.getComputedStyle(grid).gridTemplateColumns;
     var cols = template.split(' ').filter(function (part) {
@@ -275,7 +297,7 @@
     link.setAttribute('aria-label', 'Don\'t see your industry? Contact us');
 
     link.innerHTML =
-      '<div class="industry-grid-item__more-inner pattern-hatch">' +
+      '<div class="industry-grid-item__more-inner">' +
       '<div class="industry-grid-item__more-body">' +
       '<span class="industry-grid-item__more-lead">Don\'t see your industry?</span>' +
       '<span class="industry-grid-item__more-cta">Contact us &rarr;</span>' +
@@ -360,7 +382,7 @@
     var row = Math.floor(index / cols);
     var gridRect = grid.getBoundingClientRect();
     var cellW = gridRect.width / cols;
-    var cellH = cellW / TILE_RATIO;
+    var cellH = cellW / getTileRatio();
     return {
       top: gridRect.top + row * cellH,
       left: gridRect.left + col * cellW,
@@ -514,7 +536,7 @@
     fadeSiblings(siblings, false);
 
     ensureWideImage(tile, imgPath).finally(function () {
-      var tileSpacer = createSpacer('industry-grid-spacer', '9 / 16');
+      var tileSpacer = createSpacer('industry-grid-spacer', getTileAspectRatioCss());
       tile.insertAdjacentElement('afterend', tileSpacer);
 
       animateFlight(tile, from, to, EXPAND_MS, function () {

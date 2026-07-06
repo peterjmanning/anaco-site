@@ -1,6 +1,9 @@
 (function () {
   'use strict';
 
+  var STACK_BREAKPOINT = 640;
+  var syncing = false;
+
   function round(value) {
     return Math.round(value * 10) / 10;
   }
@@ -47,31 +50,61 @@
     });
   }
 
+  function boxPaddingHeight(node) {
+    var style = window.getComputedStyle(node);
+    return (
+      (parseFloat(style.paddingTop) || 0) +
+      (parseFloat(style.paddingBottom) || 0)
+    );
+  }
+
+  function measureProblemCardHeight(card) {
+    var pageBody = card.querySelector('.why-cascade-card__page-body');
+    if (!pageBody) return 0;
+    return Math.ceil(pageBody.scrollHeight);
+  }
+
+  function measureStandardCardHeight(card) {
+    var style = window.getComputedStyle(card);
+    var gap = parseFloat(style.rowGap || style.gap) || 0;
+    var total = boxPaddingHeight(card);
+    var children = card.children;
+
+    for (var i = 0; i < children.length; i++) {
+      if (i > 0) total += gap;
+      total += children[i].scrollHeight;
+    }
+
+    return Math.ceil(total);
+  }
+
+  function measureCardHeight(card) {
+    if (card.classList.contains('why-cascade-card--problem')) {
+      return measureProblemCardHeight(card);
+    }
+    return measureStandardCardHeight(card);
+  }
+
   function syncCardHeights(root, cards) {
-    var prevMins = Array.prototype.map.call(cards, function (card) {
-      return card.style.minHeight;
-    });
-
-    cards.forEach(function (card) {
-      card.style.minHeight = 'auto';
-    });
-
     var maxHeight = 0;
-    cards.forEach(function (card) {
-      maxHeight = Math.max(maxHeight, Math.round(card.offsetHeight));
-    });
 
-    cards.forEach(function (card, index) {
-      card.style.minHeight = prevMins[index];
+    cards.forEach(function (card) {
+      maxHeight = Math.max(maxHeight, measureCardHeight(card));
     });
 
     var next = maxHeight + 'px';
-    if (root.style.getPropertyValue('--why-card-height') !== next) {
+    var prev = root.style.getPropertyValue('--why-card-height');
+    if (prev !== next) {
       root.style.setProperty('--why-card-height', next);
+      return true;
     }
+
+    return false;
   }
 
   function updateWhyCascadeLayout() {
+    if (syncing) return;
+
     var root = document.querySelector('.why-cascade');
     if (!root) return;
 
@@ -81,13 +114,16 @@
     var width = root.offsetWidth;
     if (!width) return;
 
-    var isStacked = width <= 640;
+    var isStacked = width <= STACK_BREAKPOINT;
+
+    syncing = true;
+    syncCardHeights(root, cards);
+    syncing = false;
+
     if (isStacked) {
-      root.style.removeProperty('--why-card-height');
       return;
     }
 
-    syncCardHeights(root, cards);
     void root.offsetHeight;
 
     var rootRect = root.getBoundingClientRect();
@@ -100,6 +136,7 @@
 
   var resizeTimer;
   function scheduleUpdate() {
+    if (syncing) return;
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(updateWhyCascadeLayout, 50);
   }
@@ -113,11 +150,14 @@
     if (typeof ResizeObserver !== 'undefined') {
       var root = document.querySelector('.why-cascade');
       if (root) {
-        var observer = new ResizeObserver(scheduleUpdate);
-        observer.observe(root);
-        root.querySelectorAll('.why-cascade-card').forEach(function (card) {
-          observer.observe(card);
+        var observer = new ResizeObserver(function (entries) {
+          var shouldUpdate = entries.some(function (entry) {
+            return entry.target === root;
+          });
+          if (!shouldUpdate) return;
+          scheduleUpdate();
         });
+        observer.observe(root);
       }
     }
 

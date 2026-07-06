@@ -65,7 +65,7 @@
       escapeHtml(product.id) +
       '">' +
       '<div class="shop-card__visual' +
-      (product.featured ? ' shop-card__visual--featured' : ' pattern-hatch-light') +
+      (product.featured ? ' shop-card__visual--featured' : ' shop-card__visual--plain') +
       '">' +
       visual +
       '</div>' +

@@ -14,7 +14,7 @@
   const PIECES = [
     { key: 'meet', fly: '.intro-fly--meet', target: 'main.home .hero-headline .headline-row:first-child' },
     { key: 'Tinylab', fly: '.intro-fly--Tinylab', target: 'main.home .hero-headline .headline-row--accent' },
-    { key: 'logo', fly: '.intro-fly--logo', target: 'nav.nav .nav-logo .brand-wordmark' },
+    { key: 'logo', fly: '.intro-fly--logo', target: 'nav.nav .nav-logo .brand-mark' },
   ];
 
   const TARGET_HIDE = 'main.home .intro-target, nav.nav .intro-target';
