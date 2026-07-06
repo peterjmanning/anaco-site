@@ -93,11 +93,13 @@
     data.forEach(function (item, index) {
       grid.appendChild(buildIndustryTile(item, index));
     });
-    grid.appendChild(buildMoreTile(data.length));
 
     grid.addEventListener('click', onGridClick);
     document.addEventListener('keydown', onDocumentKeydown);
     bindIndustryTitleFitting(grid);
+    if (typeof window.refreshScrollReveal === 'function') {
+      window.refreshScrollReveal();
+    }
   }
 
   var titleFitTimer;
@@ -118,7 +120,7 @@
 
     title.style.removeProperty('font-size');
     var size = parseFloat(window.getComputedStyle(title).fontSize);
-    var minSize = 13;
+    var minSize = 10;
     var overlayStyle = window.getComputedStyle(overlay);
     var padLeft = parseFloat(overlayStyle.paddingLeft);
     var padRight = parseFloat(overlayStyle.paddingRight);
@@ -158,7 +160,11 @@
     }
 
     if (typeof ResizeObserver !== 'undefined') {
-      var observer = new ResizeObserver(scheduleIndustryTitleFit);
+      var observer = new ResizeObserver(function () {
+        scheduleIndustryTitleFit();
+        var expanded = grid.querySelector('.industry-grid-item.is-expanded.is-detail-visible');
+        if (expanded) syncDetailScrollMode(expanded);
+      });
       observer.observe(grid);
       grid.querySelectorAll('.industry-grid-item').forEach(function (tile) {
         observer.observe(tile);
@@ -219,7 +225,7 @@
 
     var title = document.createElement('span');
     title.className = 'industry-grid-item__title';
-    title.textContent = formatIndustryTitle(item.title);
+    title.textContent = item.tileTitle || formatIndustryTitle(item.title);
     overlay.appendChild(title);
 
     var detail = document.createElement('div');
@@ -237,23 +243,42 @@
     return btn;
   }
 
+  function caseParagraphsHtml(caseItem) {
+    var paragraphs = caseItem.paragraphs;
+    if (!paragraphs || !paragraphs.length) {
+      if (caseItem.text) {
+        paragraphs = [caseItem.text];
+      } else {
+        return '';
+      }
+    }
+
+    return (
+      '<ul class="industry-case__list">' +
+      paragraphs
+        .map(function (paragraph) {
+          return '<li class="industry-case__text">' + escapeHtml(paragraph) + '</li>';
+        })
+        .join('') +
+      '</ul>'
+    );
+  }
+
   function buildDetailHtml(item) {
+    var caseCount = (item.cases || []).length;
     var casesHtml = (item.cases || [])
       .map(function (c) {
         return (
           '<article class="industry-case">' +
-          '<div class="industry-case__icon">' +
-          c.icon +
-          '</div>' +
-          '<div class="industry-case__label">' +
-          escapeHtml(c.label) +
-          '</div>' +
+          (c.label
+            ? '<div class="industry-case__label">' + escapeHtml(c.label) + '</div>'
+            : '') +
           '<h4 class="industry-case__head">' +
           escapeHtml(c.head) +
           '</h4>' +
-          '<p class="industry-case__text">' +
-          escapeHtml(c.text) +
-          '</p>' +
+          '<div class="industry-case__body">' +
+          caseParagraphsHtml(c) +
+          '</div>' +
           '</article>'
         );
       })
@@ -271,11 +296,11 @@
       escapeHtml(item.heading || item.title) +
       '</h3>' +
       '</div>' +
-      '<div class="industry-grid-item__cases">' +
+      '<div class="industry-grid-item__cases" style="--industry-case-count:' + caseCount + '">' +
       casesHtml +
       '</div>' +
       '<div class="industry-grid-item__detail-actions">' +
-      '<a href="shop/#order" class="industry-grid-item__link industry-grid-item__link--accent">Order &rarr;</a>' +
+      '<a href="shop/" class="industry-grid-item__link industry-grid-item__link--accent">Order &rarr;</a>' +
       '</div>' +
       '</div>'
     );
@@ -448,6 +473,16 @@
     });
   }
 
+  function syncDetailScrollMode(tile) {
+    var detail = tile && tile.querySelector('.industry-grid-item__detail');
+    if (!detail) return;
+
+    window.requestAnimationFrame(function () {
+      var canScroll = detail.scrollHeight > detail.clientHeight + 1;
+      detail.style.overflowY = canScroll ? 'auto' : 'visible';
+    });
+  }
+
   function showDetail(tile, show) {
     var detail = tile.querySelector('.industry-grid-item__detail');
     if (!detail) return;
@@ -455,9 +490,11 @@
       detail.hidden = false;
       requestAnimationFrame(function () {
         tile.classList.add('is-detail-visible');
+        syncDetailScrollMode(tile);
       });
     } else {
       tile.classList.remove('is-detail-visible');
+      detail.style.removeProperty('overflow-y');
       window.setTimeout(function () {
         if (!tile.classList.contains('is-expanded')) {
           detail.hidden = true;

@@ -4,9 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anaco — The Analysis Company</title>
-<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="icon" type="image/png" href="images/Anaco Word Logo Favicon Black No Bg.png">
 <link rel="preload" href="fonts/aeonik/AeonikPro-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/aeonik/Aeonik-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/fonts-aeonik.css">
 <link rel="stylesheet" href="css/anaco.css">
 <script>
@@ -43,12 +46,12 @@
     </p>
     <div class="home-intro__flyer" hidden>
       <div class="home-intro__cluster home-intro__cluster--title">
-        <span class="intro-fly intro-fly--meet display-xl headline-row">Meet</span>
-        <span class="intro-fly intro-fly--Tinylab display-xl headline-row headline-row--accent"><span class="accent-chip">Tinylab</span></span>
+        <span class="intro-fly intro-fly--meet display-xl headline-row">Introducing</span>
+        <span class="intro-fly intro-fly--Tinylab display-xl headline-row headline-row--accent"><img class="hero-tinylab-wordmark" src="images/Tinylab Text Gold.png" srcset="images/Tinylab Text Gold.png 1083w" sizes="(min-width: 900px) 560px, 92vw" alt="Tinylab" width="1083" height="287" decoding="async"></span>
       </div>
       <span class="intro-fly intro-fly--divider" aria-hidden="true"></span>
       <div class="home-intro__cluster home-intro__cluster--brand">
-        <img class="intro-fly intro-fly--logo brand-mark" src="images/favicon.png" alt="Anaco" width="3000" height="3000">
+        <img class="intro-fly intro-fly--logo brand-mark" src="images/Anaco Word Logo Favicon Black No Bg.png" alt="Anaco" width="3000" height="3000">
       </div>
     </div>
   </div>
@@ -57,14 +60,14 @@
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="./" class="nav-logo"><img src="images/favicon.png" alt="Anaco" class="brand-mark intro-target" width="3000" height="3000"></a>
+    <a href="./" class="nav-logo"><img src="images/Anaco Word Logo Favicon Black No Bg.png" alt="Anaco" class="brand-mark intro-target" width="3000" height="3000"></a>
     <button class="nav-toggle" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links">
       <li><a href="./" class="nav-link" data-nav-home>Home</a></li>
-      <li><a href="#industries" class="nav-link">Industries</a></li>
-      <li><a href="#product" class="nav-link">Product</a></li>
-      <li><a href="#facilities" class="nav-link">About</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="#" class="nav-link" data-scroll-to="industries">Industries</a></li>
+      <li><a href="#" class="nav-link" data-scroll-to="product">Product</a></li>
+      <li><a href="#" class="nav-link" data-scroll-to="facilities">About</a></li>
+      <li><a href="#" class="nav-link" data-scroll-to="contact">Contact</a></li>
       <li><a href="shop/" class="nav-cta">Order</a></li>
     </ul>
   </div>
@@ -78,27 +81,13 @@
       <div class="hero-inner">
         <div class="hero-content">
           <h1 class="display-xl hero-headline">
-            <span class="headline-row intro-target">Meet</span>
-            <span class="headline-row headline-row--accent intro-target"><span class="accent-chip hero-accent">Tinylab</span></span>
+            <span class="headline-row intro-target">Introducing</span>
+            <span class="headline-row headline-row--accent intro-target"><img class="hero-tinylab-wordmark" src="images/Tinylab Text Gold.png" srcset="images/Tinylab Text Gold.png 1083w" sizes="(min-width: 900px) 560px, 92vw" alt="Tinylab" width="1083" height="287" decoding="async" fetchpriority="high"></span>
           </h1>
-          <p class="hero-tagline">Lab-grade analysis, wherever your work happens.</p>
+          <p class="hero-tagline">The Automated Desktop Laboratory for Anyone, Anywhere.</p>
           <div class="hero-btns">
-            <a href="#product" class="btn btn-ghost">View gallery</a>
+            <button type="button" class="btn btn-ghost" data-scroll-to="productCarousel">View gallery</button>
             <a href="shop/" class="btn btn-primary">Order →</a>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <div class="hero-device-stage">
-            <div class="hero-device-hatch pattern-hatch" aria-hidden="true"></div>
-            <div class="media-frame media-frame--device">
-              <img
-                src="images/carousel_tinylab/v3.115.png"
-                alt="Tinylab device"
-                width="1608"
-                height="905"
-                decoding="async"
-                fetchpriority="high">
-            </div>
           </div>
         </div>
       </div>
@@ -108,37 +97,43 @@
 
 <section class="home-section" id="why">
   <div class="home-wrap">
-    <div class="home-section-head">
-      <h2 class="home-section-title">Why Tinylab?</h2>
-    </div>
     <div class="sheet">
-      <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
-      <div class="sheet-hatch pattern-hatch sheet-hatch--square sheet-hatch--br" aria-hidden="true"></div>
+      <h2 class="home-section-title">Why Tinylab?</h2>
+      <p class="story-intro body-lg">Across agriculture, biomanufacturing, and chemistry (ABC), outside labs still gate quality control&mdash;slow, expensive, and too far from where decisions get made.</p>
       <div class="why-cascade" role="list">
         <article class="why-cascade-card" role="listitem">
-          <p class="why-cascade-card__label">01. Context</p>
-          <h3 class="why-cascade-card__headline">Businesses producing Agricultural, Biomanufactured, and Chemical goods power the American economy.</h3>
+          <div class="why-cascade-card__step-head">
+            <span class="why-cascade-card__num" aria-hidden="true">01</span>
+            <h3 class="why-cascade-card__title">Context</h3>
+          </div>
+          <p class="why-cascade-card__headline">1.9 Million US farms & facilities, producing $8T/yr in ABC goods, rely on 3rd Party labs every day for...</p>
           <ul class="why-cascade-card__points">
-            <li><strong>1.9 million</strong> farms and facilities generate <strong>$8 Trillion</strong> in value to the U.S. economy.</li>
-            <li>ABC Businesses rely on 3rd-party analytical chemistry laboratories for regulatory compliance, quality control, process monitoring, and more.</li>
+            <li>Regulatory compliance</li>
+            <li>Quality control</li>
+            <li>Process monitoring</li>
           </ul>
         </article>
         <article class="why-cascade-card why-cascade-card--problem" role="listitem">
           <div class="why-cascade-card__peel-stage">
             <div class="why-cascade-card__case" id="whyProblemCase" aria-hidden="true">
-              <p class="why-cascade-card__case-kicker">Industrial Fermentation</p>
+              <p class="why-cascade-card__case-kicker">Case Study: Industrial Fermentation</p>
               <p class="why-cascade-card__case-text">Microbial fermentation processes are highly sensitive to small changes in temperature, chemical composition, agitation, and more.</p>
               <p class="why-cascade-card__case-text">The best way to monitor the health of the microbes and progress of the fermentation is through chemical sampling and analysis.</p>
               <p class="why-cascade-card__case-text">This means getting chemical information quickly is essential for making live adjustments to the fermentation process to maximize yields.</p>
               <p class="why-cascade-card__case-text">High-end process probes and analytical instruments are prohibitively expensive and 48+ hour wait times for results from 3rd-party labs prevent immediate action.</p>
             </div>
+            <span class="why-cascade-card__case-scroll-dot" aria-hidden="true" hidden></span>
             <div class="why-cascade-card__page">
               <div class="why-cascade-card__page-body">
-                <p class="why-cascade-card__label">02. Problem</p>
-                <h3 class="why-cascade-card__headline">3rd-Party Labs are Slow and Expensive.</h3>
+                <div class="why-cascade-card__step-head">
+                  <span class="why-cascade-card__num" aria-hidden="true">02</span>
+                  <h3 class="why-cascade-card__title">Problem</h3>
+                </div>
+                <p class="why-cascade-card__headline">These labs are too slow and too expensive. This comes at the cost of...</p>
                 <ul class="why-cascade-card__points">
-                  <li>Information is too slow to be actionable, increasing the risk of spoilage and loss and decreasing operational efficiency.</li>
-                  <li>The per-sample pricing model is too expensive to gather enough useful data to increase yields.</li>
+                  <li>Increased risk of spoilage and loss</li>
+                  <li>Decrease operational efficiency</li>
+                  <li>Can&rsquo;t collect enough useful data to increase yields</li>
                 </ul>
               </div>
             </div>
@@ -163,17 +158,12 @@
             </button>
           </div>
         </article>
-        <article class="why-cascade-card" role="listitem">
-          <p class="why-cascade-card__label">04. Evolution</p>
-          <h3 class="why-cascade-card__headline">Anaco&rsquo;s Chemical Digital Twin platform is only possible with Tinylab.</h3>
-          <ul class="why-cascade-card__points">
-            <li>ABC businesses can create chemical digital twins that allow them to improve their production processes in a simulated environment the same way that modern manufacturers do with robots.</li>
-            <li>CDT-facilitated simulations enable commodity good-producing ABC businesses to reduce expenses, increase yields, and improve quality.</li>
-          </ul>
-        </article>
         <article class="why-cascade-card why-cascade-card--solution" role="listitem">
-          <p class="why-cascade-card__label">03. Solution</p>
-          <h3 class="why-cascade-card__headline"><span class="why-cascade-card__product">Tinylab</span> &mdash; the automated desktop lab.</h3>
+          <div class="why-cascade-card__step-head">
+            <span class="why-cascade-card__num" aria-hidden="true">03</span>
+            <h3 class="why-cascade-card__title">Solution</h3>
+          </div>
+          <p class="why-cascade-card__headline"><span class="why-cascade-card__product">Tinylab</span> &mdash; the automated desktop lab.</p>
           <p class="why-cascade-card__lede">Anyone. Anywhere. Full QC on your bench.</p>
           <dl class="why-cascade-card__stats">
             <div class="why-cascade-card__stat">
@@ -186,9 +176,18 @@
             </div>
           </dl>
         </article>
-        <span class="why-cascade__chevron why-cascade__chevron--right" aria-hidden="true"><img src="images/Chevron_Circle.png" alt="" width="24" height="24" decoding="async" /></span>
-        <span class="why-cascade__chevron why-cascade__chevron--down" aria-hidden="true"><img src="images/Chevron_Circle.png" alt="" width="24" height="24" decoding="async" /></span>
-        <span class="why-cascade__chevron why-cascade__chevron--left" aria-hidden="true"><img src="images/Chevron_Circle.png" alt="" width="24" height="24" decoding="async" /></span>
+        <article class="why-cascade-card" role="listitem">
+          <div class="why-cascade-card__step-head">
+            <span class="why-cascade-card__num" aria-hidden="true">04</span>
+            <h3 class="why-cascade-card__title">Evolution</h3>
+          </div>
+          <p class="why-cascade-card__headline">Tinylab users can improve their production &amp; growing processes in a simulated environment, the same way that modern manufacturers do with robots.</p>
+          <ul class="why-cascade-card__points">
+            <li>Reduce expenses</li>
+            <li>Increase yields</li>
+            <li>Improve quality</li>
+          </ul>
+        </article>
       </div>
     </div>
   </div>
@@ -196,11 +195,8 @@
 
 <section class="home-section" id="overview">
   <div class="home-wrap">
-    <div class="home-section-head">
-      <h2 class="home-section-title">How Tinylab works...</h2>
-    </div>
     <div class="sheet">
-      <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
+      <h2 class="home-section-title">How Tinylab works...</h2>
       <p class="story-intro body-lg">Tinylab is the world&rsquo;s smallest analytical laboratory&mdash;a full workflow on one benchtop system.</p>
       <div class="lab-pipeline" role="list">
         <div class="lab-pipeline__step" role="listitem">
@@ -230,16 +226,10 @@
 
 <section class="home-section" id="industries">
   <div class="home-wrap">
-    <div class="home-section-head">
-      <h2 class="home-section-title">Industries we serve...
-      </h2>
-    </div>
     <div class="sheet">
-      <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
-      <div class="sheet-hatch pattern-hatch sheet-hatch--square sheet-hatch--br" aria-hidden="true"></div>
+      <h2 class="home-section-title">Industries we serve...</h2>
       <div class="industries-hub">
         <div class="industries-hub-stage">
-          <div class="industries-hub-hatch pattern-hatch" aria-hidden="true"></div>
           <div class="industries-grid" id="industriesGrid" aria-label="Industries"></div>
         </div>
       </div>
@@ -249,21 +239,21 @@
 
 <section class="home-section" id="product">
   <div class="home-wrap">
-    <div class="home-section-head">
-      <h2 class="home-section-title">Tinylab at a glance...</h2>
-    </div>
     <div class="sheet">
-      <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
+      <h2 class="home-section-title">Tinylab at a glance...</h2>
       <div class="product-carousel" id="productCarousel" tabindex="0" aria-roledescription="carousel" aria-label="Tinylab gallery">
         <div class="product-carousel__stage">
-          <div class="product-carousel__hatch pattern-hatch" aria-hidden="true"></div>
           <div class="product-carousel__frame">
             <div class="product-carousel__track" id="productCarouselTrack"></div>
             <button type="button" class="product-carousel__nav product-carousel__nav--prev" aria-label="Previous image">
-              <span aria-hidden="true">&larr;</span>
+              <svg class="product-carousel__nav-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+                <path d="M14 6L8 12l6 6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </button>
             <button type="button" class="product-carousel__nav product-carousel__nav--next" aria-label="Next image">
-              <span aria-hidden="true">&rarr;</span>
+              <svg class="product-carousel__nav-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+                <path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </button>
           </div>
         </div>
@@ -274,12 +264,8 @@
 
 <section class="home-section" id="facilities">
   <div class="home-wrap">
-    <div class="home-section-head">
-      <h2 class="home-section-title">Where we operate...</h2>
-    </div>
     <div class="sheet">
-      <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
-      <div class="sheet-hatch pattern-hatch sheet-hatch--edge-bottom" aria-hidden="true"></div>
+      <h2 class="home-section-title">Where we operate...</h2>
       <div class="facility-grid">
         <div class="facility-card">
           <h3 class="facility-card__title">
@@ -367,12 +353,8 @@
 
 <section class="home-section" id="contact">
   <div class="home-wrap">
-    <div class="home-section-head">
-      <h2 class="home-section-title">Inquiries</h2>
-    </div>
     <div class="sheet">
-      <div class="sheet-hatch pattern-hatch pattern-hatch--accent sheet-hatch--band-top-right" aria-hidden="true"></div>
-      <div class="sheet-hatch pattern-hatch sheet-hatch--square sheet-hatch--br" aria-hidden="true"></div>
+      <h2 class="home-section-title">Inquiries</h2>
       <div class="form-panel" id="inquiryFormCard">
         <div id="inquiryFormContent">
           <div class="form-row">
@@ -454,17 +436,18 @@
 
 <footer class="footer">
   <div class="footer-inner">
-    <div><a href="#terms">Terms</a><span> · </span><a href="#privacy">Privacy</a><span> · </span><span>© 2026 The Analysis Company</span><span> · </span><a href="#contact">Contact</a></div>
+    <div><a href="#" data-scroll-to="terms">Terms</a><span> · </span><a href="#" data-scroll-to="privacy">Privacy</a><span> · </span><span>© 2026 The Analysis Company</span><span> · </span><a href="#" data-scroll-to="contact">Contact</a></div>
   </div>
 </footer>
 
 <script src="js/product-carousel-data.js" defer></script>
 <script src="js/product-carousel.js" defer></script>
 <script src="js/industries-data.js" defer></script>
-<script src="js/industries-carousel.js?v=19" defer></script>
+<script src="js/industries-carousel.js?v=23" defer></script>
 <script src="js/home-intro.js" defer></script>
 <script src="js/why-problem-peel.js" defer></script>
 <script src="js/why-cascade.js" defer></script>
+<script src="js/home-scroll-reveal.js" defer></script>
 <script src="js/anaco.js" defer></script>
 <script>
 function submitInquiry() {

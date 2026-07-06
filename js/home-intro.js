@@ -20,9 +20,6 @@
   const TARGET_HIDE = 'main.home .intro-target, nav.nav .intro-target';
   const PAGE_FADE = [
     '.hero .sheet--hero',
-    '.hero-tagline',
-    '.hero-btns',
-    '.hero-visual',
     'main.home .home-section',
     'footer.footer',
     'nav.nav .nav-links',
@@ -102,7 +99,10 @@
   }
 
   function isLogoPiece(el) {
-    return el.classList.contains('intro-fly--logo');
+    return (
+      el.classList.contains('intro-fly--logo') ||
+      el.classList.contains('intro-fly--Tinylab')
+    );
   }
 
   function placeFixedDivider(el, rect) {

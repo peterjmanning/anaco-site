@@ -24,12 +24,19 @@
     if (option) select.value = productId;
   }
 
+  function scrollToOrderSection() {
+    var section = document.getElementById('order');
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   function bindOrderLinks() {
     document.addEventListener('click', function (event) {
       var link = event.target.closest('.shop-card__order');
       if (!link) return;
+      event.preventDefault();
       var productId = link.dataset.productId;
       if (productId) selectProduct(productId);
+      scrollToOrderSection();
     });
   }
 
@@ -37,13 +44,6 @@
     var params = new URLSearchParams(window.location.search);
     var productId = params.get('product');
     if (productId) selectProduct(productId);
-  }
-
-  function scrollToOrderIfHash() {
-    if (window.location.hash === '#order') {
-      var section = document.getElementById('order');
-      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   }
 
   function showOrderSuccess() {
@@ -55,7 +55,6 @@
     populateProductSelect();
     bindOrderLinks();
     applyQueryProduct();
-    scrollToOrderIfHash();
   }
 
   window.submitOrder = function () {
