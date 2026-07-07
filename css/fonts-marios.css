@@ -1,0 +1,40 @@
+/* Marios — self-hosted (Come Type) */
+@font-face {
+  font-family: 'Marios';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local('Marios'),
+    url('../fonts/marios/Marios-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Marios';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local('Marios SemiBold'),
+    url('../fonts/marios/Marios-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Marios';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('Marios Black'),
+    url('../fonts/marios/Marios-Black.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Marios';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src:
+    local('Marios Black'),
+    url('../fonts/marios/Marios-Black.woff') format('woff');
+}

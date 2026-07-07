@@ -13,7 +13,7 @@
 
   const PIECES = [
     { key: 'meet', fly: '.intro-fly--meet', target: 'main.home .hero-headline .headline-row:first-child' },
-    { key: 'Tinylab', fly: '.intro-fly--Tinylab', target: 'main.home .hero-headline .headline-row--accent' },
+    { key: 'Tinylab', fly: '.intro-fly--Tinylab', target: 'main.home .hero-tinylab-wordmark' },
     { key: 'logo', fly: '.intro-fly--logo', target: 'nav.nav .nav-logo .brand-mark' },
   ];
 
@@ -99,10 +99,7 @@
   }
 
   function isLogoPiece(el) {
-    return (
-      el.classList.contains('intro-fly--logo') ||
-      el.classList.contains('intro-fly--Tinylab')
-    );
+    return el.classList.contains('intro-fly--logo');
   }
 
   function placeFixedDivider(el, rect) {
@@ -311,6 +308,31 @@
     });
   }
 
+  function warmupTinylabPaint(intro) {
+    const flyWordmark = intro.querySelector('.intro-fly--Tinylab .hero-tinylab-wordmark');
+    const heroWordmark = document.querySelector('main.home .hero-tinylab-wordmark');
+    [flyWordmark, heroWordmark].forEach((el) => {
+      if (!el) return;
+      void el.offsetWidth;
+      void el.getBoundingClientRect();
+    });
+  }
+
+  async function loadTinylabFont() {
+    if (!document.fonts?.load) return;
+    const size =
+      getComputedStyle(document.documentElement).getPropertyValue('--hero-tinylab-wordmark-size').trim() ||
+      '4rem';
+    try {
+      await Promise.all([
+        document.fonts.load(`900 ${size} Marios`),
+        document.fonts.load("900 1em Marios"),
+      ]);
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
   async function runIntro() {
     const intro = document.getElementById('home-intro');
     const portal = intro?.querySelector('.home-intro__fly-portal');
@@ -351,6 +373,9 @@
         /* ignore */
       }
     }
+    await loadTinylabFont();
+    warmupTinylabPaint(intro);
+    await nextFrame();
 
     markPageFadeTargets();
     hideRealTargets();
@@ -360,7 +385,7 @@
     labSlot.style.width = `${rectOf(labEl).width}px`;
 
     line1.classList.add('is-visible');
-    await wait(820);
+    await wait(920);
     line2.classList.add('is-visible');
     await wait(LINE2_LAB_FLY_DELAY_MS);
 
@@ -399,6 +424,8 @@
     portal.querySelectorAll('.home-intro__lab-trail').forEach((el) => el.remove());
     question.hidden = true;
     flyer.hidden = false;
+    void flyer.offsetWidth;
+    flyer.classList.add('is-visible');
 
     const dividerEl = intro.querySelector('.intro-fly--divider');
     const meetEl = items.find((p) => p.key === 'meet').flyEl;
@@ -406,12 +433,12 @@
     const markEl = items.find((p) => p.key === 'logo').flyEl;
 
     meetEl.classList.add('is-flash');
-    await wait(240);
+    await wait(340);
     TinylabEl.classList.add('is-flash');
-    await wait(240);
-    if (dividerEl) dividerEl.classList.add('is-flash');
+    void TinylabEl.offsetWidth;
     markEl.classList.add('is-flash');
-    await wait(780);
+    if (dividerEl) dividerEl.classList.add('is-flash');
+    await wait(960);
 
     items.forEach((p) => {
       p.flyEl.classList.remove('is-flash');
@@ -434,7 +461,7 @@
     if (dividerEl && dividerStart) placeFixedDivider(dividerEl, dividerStart);
 
     intro.classList.add('is-flying');
-    await wait(32);
+    await nextFrame();
 
     const ends = items.map((p) => rectOf(p.targetEl));
 

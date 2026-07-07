@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
 @import url('fonts-aeonik.css');
+@import url('fonts-marios.css');
 
 /* Anaco — paper white, grid background, sharp edges */
 :root {
@@ -33,7 +34,21 @@
   --accent-box-pad-y: 0.14em;
   --accent-box-pad-x: 0.42em;
   --accent-dim: rgba(10, 10, 10, 0.08);
-  --tinylab-gold: #c0b277;
+  --tinylab-gold: #c4b35a;
+  --tinylab-gold-deep: #887838;
+  --tinylab-gold-highlight: #f7f2dc;
+  --font-tinylab: 'Marios', var(--font-display);
+  --tinylab-gold-gradient: linear-gradient(
+    162deg,
+    #faf7e8 0%,
+    #ebe4b0 14%,
+    #d9cf78 30%,
+    #c4b35a 46%,
+    #b5a44c 60%,
+    #d4ca78 74%,
+    #a89540 88%,
+    #887838 100%
+  );
   --dark: #1a1a1a;
   --font-section: 'Aeonik Pro', Arial, sans-serif;
   --font-display: 'Quicksand', Arial, sans-serif;
@@ -60,7 +75,8 @@
   --hero-headline-size: clamp(17px, 3.2vw, 22px);
   --hero-intro-label-size: clamp(11px, 2vw, 14px);
   --hero-headline-letter-spacing: 25%;
-  --hero-tinylab-wordmark-height: clamp(86px, 13.2vw, 9.3rem);
+  --hero-tinylab-wordmark-size: clamp(3.75rem, 13.2vw, 9.3rem);
+  --shop-tinylab-wordmark-size: 2.5rem;
   --btn-fill: var(--text);
   --btn-fill-hover: #2a2a2a;
   --btn-text-on-fill: var(--paper);
@@ -1458,9 +1474,6 @@ main.home .home-section .home-wrap > .sheet {
   }
   .intro-fly--meet {
     font-size: var(--hero-intro-label-size);
-  }
-  .intro-fly--Tinylab {
-    font-size: var(--hero-headline-size);
   }
   .home #facilities .facility-grid {
     grid-template-columns: 1fr;
@@ -3078,8 +3091,8 @@ html.intro-done main.home .hero-headline .intro-target {
   opacity: 0;
   transform: translate3d(0, 10px, 0);
   transition:
-    opacity 0.55s var(--ease),
-    transform 0.5s var(--ease);
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 .home-intro.is-active:not(.is-flying) .home-intro__line.is-visible {
@@ -3170,19 +3183,27 @@ html.intro-done main.home .hero-headline .intro-target {
 }
 .home-intro__lab,
 .home-intro__sample {
+  background-image: var(--tinylab-gold-gradient);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
   color: var(--tinylab-gold);
+  -webkit-text-fill-color: transparent;
   white-space: nowrap;
-  -webkit-text-stroke: 0.4px rgba(124, 112, 64, 0.4);
+  -webkit-text-stroke: 0.4px rgba(138, 124, 56, 0.4);
   paint-order: stroke fill;
+  text-shadow: 0 0.03em 0.1em rgba(90, 82, 30, 0.16);
 }
 @supports not ((-webkit-text-stroke: 0.4px) or (text-stroke: 0.4px)) {
   .home-intro__lab,
   .home-intro__sample {
     text-shadow:
-      0.45px 0 0 rgba(124, 112, 64, 0.35),
-      -0.45px 0 0 rgba(124, 112, 64, 0.35),
-      0 0.45px 0 rgba(124, 112, 64, 0.35),
-      0 -0.45px 0 rgba(124, 112, 64, 0.35);
+      0.45px 0 0 rgba(138, 124, 56, 0.34),
+      -0.45px 0 0 rgba(138, 124, 56, 0.34),
+      0 0.45px 0 rgba(138, 124, 56, 0.34),
+      0 -0.45px 0 rgba(138, 124, 56, 0.34),
+      0 0.03em 0.1em rgba(90, 82, 30, 0.16);
   }
 }
 .home-intro__lab-trail {
@@ -3192,7 +3213,7 @@ html.intro-done main.home .hero-headline .intro-target {
   margin: 0;
   height: 2px;
   border-radius: 1px;
-  background: var(--tinylab-gold);
+  background: var(--tinylab-gold-gradient);
   opacity: 0;
   transform-origin: 100% 50%;
   animation: home-intro-lab-trail 0.4s ease-out forwards;
@@ -3250,9 +3271,10 @@ html.intro-done main.home .hero-headline .intro-target {
   align-items: center;
   gap: clamp(18px, 3vw, 28px);
   overflow: visible;
+  opacity: 0;
 }
 .home-intro__flyer.is-visible {
-  animation: intro-flyer-in 0.2s ease-out forwards;
+  animation: intro-flyer-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 .home-intro__cluster--title {
   display: flex;
@@ -3269,7 +3291,8 @@ html.intro-done main.home .hero-headline .intro-target {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(0.35rem, 1.2vw, 0.65rem);
+  justify-content: center;
+  gap: clamp(0.2rem, 0.8vw, 0.45rem);
   margin: 0 0 1rem;
   font-family: var(--font-hero);
   font-size: var(--hero-headline-size);
@@ -3277,63 +3300,105 @@ html.intro-done main.home .hero-headline .intro-target {
   line-height: 1;
   letter-spacing: var(--hero-headline-letter-spacing);
   color: var(--text);
-  width: fit-content;
-  align-self: flex-end;
-  margin-left: auto;
-  margin-right: 0;
+  width: 100%;
+  max-width: 100%;
+  align-self: center;
+  text-align: center;
+  overflow: visible;
 }
 .hero-headline .headline-row:first-child {
   font-size: var(--hero-intro-label-size);
+  letter-spacing: var(--hero-headline-letter-spacing);
 }
 .hero-headline .headline-row {
-  font: inherit;
-  letter-spacing: inherit;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  white-space: nowrap;
 }
 .hero-headline .headline-row--accent {
   line-height: 1;
 }
-.hero-tinylab-wordmark {
-  display: block;
-  height: var(--hero-tinylab-wordmark-height);
-  width: calc(var(--hero-tinylab-wordmark-height) * 1083 / 287);
-  max-width: min(92vw, calc(var(--hero-tinylab-wordmark-height) * 1083 / 287));
-  margin: 0;
-  object-fit: contain;
-  object-position: center center;
-}
-/* Scale gold wordmark with viewport above 1920px (stays ~9.3rem at 1920) */
-@media (min-width: 1920px) {
-  :root {
-    --hero-tinylab-wordmark-height: clamp(9.3rem, 7.75vw, 13.5rem);
-  }
-}
-@media (min-width: 2560px) {
-  :root {
-    --hero-tinylab-wordmark-height: clamp(12.4rem, 7.75vw, 16rem);
-  }
-}
-.intro-fly--Tinylab .hero-tinylab-wordmark {
+.hero-headline .hero-tinylab-wordmark,
+.home-intro .hero-tinylab-wordmark {
+  display: inline-block;
+  width: auto;
   max-width: none;
+  margin-inline: auto;
+  padding: 0.06em 0.22em 0.04em 0.1em;
+  font-family: var(--font-tinylab);
+  font-weight: 900;
+  font-style: normal;
+  font-size: var(--hero-tinylab-wordmark-size);
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-align: center;
+  overflow: visible;
+  background-image: var(--tinylab-gold-gradient);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--tinylab-gold);
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0.04em 0.14em rgba(90, 82, 28, 0.18);
+}
+.shop-page .shop-banner__tinylab-wordmark {
+  display: inline-block;
+  width: auto;
+  max-width: none;
+  margin-inline: auto;
+  padding: 0.06em 0.16em 0.04em 0.1em;
+  font-family: var(--font-tinylab);
+  font-weight: 900;
+  font-style: normal;
+  font-size: var(--shop-tinylab-wordmark-size);
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-align: center;
+  overflow: visible;
+  background-image: var(--tinylab-gold-gradient);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--tinylab-gold);
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0.04em 0.12em rgba(90, 82, 28, 0.16);
 }
 .hero-headline .accent-chip,
 .hero-headline .hero-accent {
   font-weight: 700;
 }
 .intro-fly--meet {
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
   font-family: var(--font-hero);
   font-size: var(--hero-intro-label-size);
   font-weight: 500;
   line-height: 1;
   letter-spacing: var(--hero-headline-letter-spacing);
   color: var(--text);
+  white-space: nowrap;
 }
 .intro-fly--Tinylab {
-  font-family: var(--font-hero);
-  font-size: var(--hero-headline-size);
-  font-weight: 500;
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
   line-height: 1;
-  letter-spacing: var(--hero-headline-letter-spacing);
-  color: var(--text);
+  overflow: visible;
+  opacity: 0;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.intro-fly--Tinylab .hero-tinylab-wordmark {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 .headline-row {
   display: block;
@@ -3379,8 +3444,11 @@ html.intro-done main.home .hero-headline .intro-target {
   height: var(--brand-wordmark-h);
   width: var(--brand-wordmark-h);
 }
-.intro-fly.is-flash {
-  animation: intro-flash-in 0.32s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+.intro-fly.is-flash:not(.intro-fly--Tinylab) {
+  animation: intro-flash-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.intro-fly--Tinylab.is-flash {
+  opacity: 1;
 }
 .home-intro__fly-portal .intro-fly:not(.intro-fly--divider) {
   animation: none;
@@ -3388,11 +3456,18 @@ html.intro-done main.home .hero-headline .intro-target {
 }
 @keyframes intro-flash-in {
   0% { opacity: 0; }
+  35% { opacity: 0.4; }
   100% { opacity: 1; }
 }
 @keyframes intro-flyer-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 .home-intro.is-complete {
   pointer-events: none;
@@ -3479,13 +3554,7 @@ html.intro-done main.home .hero-headline .intro-target {
     white-space: normal;
   }
   .home-intro .hero-tinylab-wordmark {
-    height: clamp(54px, 15vw, 76px);
-    width: auto;
-    max-width: min(88vw, calc(var(--hero-tinylab-wordmark-height) * 1083 / 287));
-    margin-inline: auto;
-  }
-  .home-intro .intro-fly--Tinylab .hero-tinylab-wordmark {
-    max-width: min(88vw, calc(var(--hero-tinylab-wordmark-height) * 1083 / 287));
+    font-size: clamp(3.5rem, 16vw, 5rem);
   }
   .home-intro .intro-fly--divider {
     margin-inline: auto;
@@ -3531,25 +3600,30 @@ html.intro-done main.home .hero-headline .intro-target {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: visible;
 }
 .hero-inner {
   display: grid;
-  grid-template-columns: minmax(46%, 1.15fr) minmax(260px, 0.85fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(20px, 3vw, 40px);
   align-items: center;
   width: 100%;
   flex: 1;
+  overflow: visible;
 }
 .hero-content {
   grid-column: 2;
-  justify-self: end;
+  justify-self: center;
+  align-self: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  max-width: min(100%, 34rem);
-  margin-left: auto;
-  transform: translate(-10px, -10px);
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: min(100%, 32rem);
+  margin: 0;
+  transform: none;
+  overflow: visible;
 }
 /* ── IMAGE OUTLINE (thin black border on wrapper — avoids clipped edges) ── */
 .media-frame {
@@ -4783,7 +4857,6 @@ section.legal-page .legal-sheet {
 }
 .shop-page.site-page {
   padding-top: 0;
-  --shop-tinylab-wordmark-h: clamp(34px, 4.8vw, 46px);
 }
 .shop-page #shop-main.page-section {
   padding-top: 0;
@@ -4830,17 +4903,14 @@ section.legal-page .legal-sheet {
   margin: 0;
   justify-self: center;
   grid-column: 2;
-  line-height: 0;
+  line-height: 1;
   white-space: nowrap;
 }
 .shop-page .shop-banner__tinylab-wordmark {
   display: block;
-  height: var(--shop-tinylab-wordmark-h);
-  width: calc(var(--shop-tinylab-wordmark-h) * 1083 / 287);
-  max-width: min(72vw, calc(var(--shop-tinylab-wordmark-h) * 1083 / 287));
+  font-size: var(--shop-tinylab-wordmark-size);
+  line-height: 1;
   margin: 0;
-  object-fit: contain;
-  object-position: center;
 }
 .shop-page .shop-banner__title-link {
   display: inline-flex;
@@ -5121,9 +5191,7 @@ section.legal-page .legal-sheet {
     justify-self: center;
   }
   .shop-page .shop-banner__tinylab-wordmark {
-    height: clamp(30px, 8vw, 40px);
-    width: calc(clamp(30px, 8vw, 40px) * 1083 / 287);
-    max-width: min(80vw, calc(clamp(30px, 8vw, 40px) * 1083 / 287));
+    font-size: clamp(2rem, 5vw, 2.5rem);
   }
   .shop-page .shop-banner__back {
     grid-column: 2;
@@ -5367,12 +5435,10 @@ section.legal-page .legal-sheet {
 }
 
 .hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  max-width: min(100%, 34rem);
-  transform: translate(-10px, -10px);
+  align-items: center;
+  text-align: center;
+  max-width: min(100%, 32rem);
+  transform: none;
 }
 .hero-tagline {
   margin: 0 0 1.5rem;
@@ -5383,11 +5449,12 @@ section.legal-page .legal-sheet {
   letter-spacing: var(--hero-headline-letter-spacing);
   color: var(--text);
   max-width: 34rem;
+  text-align: center;
 }
 .hero-btns {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 12px;
 }
 /* ── SECTIONS ── */
@@ -6034,12 +6101,17 @@ section.legal-page .legal-sheet {
   .hero-content {
     grid-column: 1;
     min-width: 0;
-    align-items: flex-end;
-    text-align: right;
+    align-items: center;
+    text-align: center;
     padding-top: clamp(140px, 38vw, 320px);
+    overflow: visible;
   }
-  main.home {
-    overflow-x: clip;
+  .hero-headline {
+    align-self: center;
+    width: 100%;
+  }
+  main.home .hero .sheet--hero {
+    overflow: visible;
   }
   main.home .home-wrap,
   main.home .home-section .sheet {
@@ -6140,10 +6212,13 @@ b {
 .site-page .shop-card__kicker,
 .site-page .shop-card__badge,
 .hero-headline,
-.hero-tinylab-wordmark,
-.intro-fly--meet,
-.intro-fly--Tinylab {
+.intro-fly--meet {
   font-weight: 500;
+}
+.hero-headline .hero-tinylab-wordmark,
+.home-intro .hero-tinylab-wordmark,
+.shop-page .shop-banner__tinylab-wordmark {
+  font-weight: 900;
 }
 
 button,
