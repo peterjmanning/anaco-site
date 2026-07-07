@@ -5988,8 +5988,7 @@ section.legal-page .legal-sheet {
     display: contents;
   }
   .hero-headline,
-  .hero-tinylab-rail > .hero-tinylab-wordmark-wrap,
-  .hero-tinylab-rail > .hero-tagline-inset {
+  .hero-tinylab-rail > .hero-tinylab-wordmark-wrap {
     order: 1;
     width: 100%;
     max-width: 100%;
@@ -6010,11 +6009,20 @@ section.legal-page .legal-sheet {
     padding: 0;
   }
   .hero-tinylab-rail > .hero-btns-inset {
+    order: 4;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    justify-self: center;
+  }
+  .hero-tinylab-rail > .hero-tagline-inset {
     order: 3;
     width: 100%;
     max-width: 100%;
     text-align: center;
     justify-self: center;
+    margin-top: 0;
+    margin-bottom: 0;
   }
   .hero-visual__img {
     display: block;
@@ -6081,6 +6089,16 @@ section.legal-page .legal-sheet {
     justify-content: center;
     max-width: 100%;
     margin-inline: auto;
+  }
+  .home #facilities .facility-grid {
+    grid-template-columns: 1fr;
+  }
+  .home #facilities .facility-card {
+    border-right: none;
+    border-bottom: var(--outline-width) solid var(--outline);
+  }
+  .home #facilities .facility-card:last-child {
+    border-bottom: none;
   }
 }
 @media (max-width: 900px) {
