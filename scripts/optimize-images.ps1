@@ -1,17 +1,10 @@
-# Resizes industry JPEGs for web:
-#   images/grid/{name}.jpg       — grid tiles (~512px wide)
-#   images/grid/{name}-wide.jpg  — expanded row (~1440px wide)
-#   images/{name}.jpg            — detail pages (max 1920×1080, in place)
+# Resizes industry JPEGs in images/ for web (max 1920×1080, in place).
 # Run: npm run optimize-images
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 
 $root = Split-Path -Parent $PSScriptRoot
 $imagesDir = Join-Path $root 'images'
-$gridDir = Join-Path $imagesDir 'grid'
-$heroDir = Join-Path $imagesDir 'hero'
-New-Item -ItemType Directory -Force -Path $gridDir | Out-Null
-New-Item -ItemType Directory -Force -Path $heroDir | Out-Null
 
 function Save-ResizedJpeg {
   param([string]$InputPath, [string]$OutputPath, [int]$MaxWidth = 1920, [int]$MaxHeight = 1080)
@@ -47,35 +40,10 @@ function Optimize-InPlace {
   Move-Item -Force $tmp $Path
 }
 
-$names = @(
-  'winery','biomanufacturing','agriculture','chemicals','oilandgas','research',
-  'defense','municipal','education','universityeducation','beverages','cpg',
-  'supplementsnutrition','beautyfragrances','home'
-)
+$names = @('agriculture', 'beautyfragrances', 'chemicals', 'cpg')
 
 foreach ($name in $names) {
-  $src = Join-Path $imagesDir "$name.jpg"
-  Save-ResizedJpeg -InputPath $src -OutputPath (Join-Path $gridDir "$name.jpg") -MaxWidth 512 -MaxHeight 910
-  Save-ResizedJpeg -InputPath $src -OutputPath (Join-Path $gridDir "$name-wide.jpg") -MaxWidth 1440 -MaxHeight 2560
-  Optimize-InPlace -Path $src
-}
-
-$gif = Join-Path $imagesDir 'tinylab-device.gif'
-if (Test-Path $gif) {
-  try {
-    $gi = New-Object System.Drawing.Bitmap($gif)
-    $dimension = [System.Drawing.Imaging.FrameDimension]::Time
-    if ($gi.FrameDimensionsList -contains 'time') {
-      $gi.SelectActiveFrame($dimension, 0) | Out-Null
-    }
-    $tmp = Join-Path $env:TEMP 'anaco-gif-frame.png'
-    $gi.Save($tmp, [System.Drawing.Imaging.ImageFormat]::Png)
-    $gi.Dispose()
-    Save-ResizedJpeg -InputPath $tmp -OutputPath (Join-Path $heroDir 'tinylab-device-poster.jpg') -MaxWidth 1920 -MaxHeight 1080
-    Remove-Item $tmp -ErrorAction SilentlyContinue
-  } catch {
-    Write-Warning "Could not build hero poster from GIF: $_"
-  }
+  Optimize-InPlace -Path (Join-Path $imagesDir "$name.jpg")
 }
 
 Write-Host 'Done.'

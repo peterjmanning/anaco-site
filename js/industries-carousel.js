@@ -150,7 +150,6 @@
     btn.className = 'industry-grid-item';
     btn.dataset.index = String(index);
     btn.dataset.industryId = item.id;
-    btn.dataset.imgPath = item.img;
     btn.setAttribute('aria-expanded', 'false');
     btn.setAttribute('aria-label', item.title);
 
@@ -231,9 +230,9 @@
       .join('');
 
     return (
-      '<button type="button" class="industry-grid-item__close" aria-label="Minimize">' +
-      '<svg class="industry-grid-item__close-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">' +
-      '<path d="M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>' +
+      '<button type="button" class="industry-grid-item__close" aria-label="Close">' +
+      '<svg class="industry-grid-item__close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+      '<path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>' +
       '</svg></button>' +
       '<div class="industry-grid-item__detail-inner">' +
       '<div class="industry-grid-item__detail-header">' +

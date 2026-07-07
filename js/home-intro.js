@@ -102,6 +102,80 @@
     return el.classList.contains('intro-fly--logo');
   }
 
+  function isMeetPiece(el) {
+    return el.classList.contains('intro-fly--meet');
+  }
+
+  function meetFlyRect(el, targetRect) {
+    const width = el.offsetWidth || rectOf(el).width;
+    return {
+      left: targetRect.left + (targetRect.width - width) / 2,
+      top: targetRect.top,
+      width,
+      height: targetRect.height,
+    };
+  }
+
+  function isTinylabPiece(el) {
+    return el.classList.contains('intro-fly--Tinylab');
+  }
+
+  function tinylabWordmarkEl(flyEl) {
+    return flyEl?.querySelector('.hero-tinylab-wordmark') || flyEl;
+  }
+
+  function syncTinylabFlyStyles(flyEl, targetEl) {
+    const flyWordmark = tinylabWordmarkEl(flyEl);
+    if (!flyWordmark || !targetEl) return;
+    const cs = getComputedStyle(targetEl);
+    flyWordmark.style.fontFamily = cs.fontFamily;
+    flyWordmark.style.fontSize = cs.fontSize;
+    flyWordmark.style.fontWeight = cs.fontWeight;
+    flyWordmark.style.fontStyle = cs.fontStyle;
+    flyWordmark.style.lineHeight = cs.lineHeight;
+    flyWordmark.style.letterSpacing = cs.letterSpacing;
+    flyWordmark.style.padding = cs.padding;
+  }
+
+  function tinylabFlyMetrics(flyEl, targetRect) {
+    const flyRect = rectOf(flyEl);
+    const inner = tinylabWordmarkEl(flyEl);
+    const innerRect = rectOf(inner);
+    return {
+      left: targetRect.left - (innerRect.left - flyRect.left),
+      top: targetRect.top - (innerRect.top - flyRect.top),
+      width: targetRect.width,
+      height: targetRect.height,
+      innerWidth: innerRect.width,
+      innerHeight: innerRect.height,
+    };
+  }
+
+  function flyScale(el, from, to, innerFrom) {
+    if (isLogoPiece(el)) {
+      return { scaleX: to.width / from.width, scaleY: to.height / from.height };
+    }
+    if (isTinylabPiece(el)) {
+      const inner = innerFrom || { width: from.width, height: from.height };
+      return { scaleX: to.width / inner.width, scaleY: to.height / inner.height };
+    }
+    return { scaleX: 1, scaleY: 1 };
+  }
+
+  function flyDestination(el, from, to, innerFrom) {
+    if (isMeetPiece(el)) {
+      const width = el.offsetWidth || from.width;
+      return {
+        left: to.left + (to.width - width) / 2,
+        top: to.top,
+      };
+    }
+    if (isTinylabPiece(el)) {
+      return tinylabFlyMetrics(el, to);
+    }
+    return { left: to.left, top: to.top };
+  }
+
   function placeFixedDivider(el, rect) {
     el.style.cssText = [
       'position:fixed',
@@ -299,10 +373,13 @@
       void el.offsetWidth;
 
       requestAnimationFrame(() => {
-        const endScaleX = isLogoPiece(el) ? to.width / from.width : 1;
-        const endScaleY = isLogoPiece(el) ? to.height / from.height : 1;
+        const innerFrom = isTinylabPiece(el)
+          ? rectOf(tinylabWordmarkEl(el))
+          : null;
+        const { scaleX: endScaleX, scaleY: endScaleY } = flyScale(el, from, to, innerFrom);
+        const dest = flyDestination(el, from, to, innerFrom);
         el.style.transition = `transform ${ms}ms ${FLY_EASE}`;
-        el.style.transform = buildFlyTransform(to.left, to.top, endScaleX, endScaleY);
+        el.style.transform = buildFlyTransform(dest.left, dest.top, endScaleX, endScaleY);
         onTransitionEnd(el, 'transform', ms, 100).then(resolve);
       });
     });
@@ -331,6 +408,13 @@
     } catch (e) {
       /* ignore */
     }
+  }
+
+  function captureFlyerAnchor(introEl, questionEl) {
+    const stage = introEl?.querySelector('.home-intro__stage');
+    if (!stage || !questionEl) return;
+    const anchorTop = rectOf(questionEl).top - rectOf(stage).top;
+    introEl.style.setProperty('--intro-flyer-anchor-top', `${Math.round(anchorTop)}px`);
   }
 
   async function runIntro() {
@@ -410,6 +494,8 @@
     }
     await wait(LAB_SETTLE_MS);
 
+    captureFlyerAnchor(intro, question);
+
     if (labFly?.shell) {
       await runPairVanish(labFly.shell, sampleEl, labFly.deltaX, question);
     } else {
@@ -451,6 +537,11 @@
       dividerEl.style.opacity = '1';
     }
 
+    const tinylabPiece = items.find((p) => p.key === 'Tinylab');
+    if (tinylabPiece?.flyEl && tinylabPiece?.targetEl) {
+      syncTinylabFlyStyles(tinylabPiece.flyEl, tinylabPiece.targetEl);
+    }
+
     const starts = items.map((p) => ({ piece: p, rect: rectOf(p.flyEl) }));
     const dividerStart = dividerEl ? rectOf(dividerEl) : null;
 
@@ -463,14 +554,24 @@
     intro.classList.add('is-flying');
     await nextFrame();
 
-    const ends = items.map((p) => rectOf(p.targetEl));
-
-    const revealAt = Math.round(FLY_MS * 0.5);
     const html = document.documentElement;
+    html.classList.add('intro-reveal');
+    await nextFrame();
+
+    if (tinylabPiece?.flyEl && tinylabPiece?.targetEl) {
+      syncTinylabFlyStyles(tinylabPiece.flyEl, tinylabPiece.targetEl);
+      await nextFrame();
+      const tinylabIndex = items.indexOf(tinylabPiece);
+      if (tinylabIndex >= 0) {
+        starts[tinylabIndex].rect = rectOf(tinylabPiece.flyEl);
+        placeFixed(tinylabPiece.flyEl, starts[tinylabIndex].rect);
+      }
+    }
+
+    const ends = items.map((p) => rectOf(p.targetEl));
 
     const flyTasks = [
       Promise.all(starts.map(({ piece, rect }, i) => slideTo(piece.flyEl, rect, ends[i]))),
-      wait(revealAt).then(() => html.classList.add('intro-reveal')),
     ];
     if (dividerEl) flyTasks.push(shrinkDivider(dividerEl, FLY_MS, FLY_EASE));
 
@@ -479,8 +580,17 @@
     items.forEach((p, i) => {
       const end = ends[i];
       const start = starts[i].rect;
-      const scaleX = isLogoPiece(p.flyEl) ? end.width / start.width : 1;
-      const scaleY = isLogoPiece(p.flyEl) ? end.height / start.height : 1;
+      if (isMeetPiece(p.flyEl)) {
+        placeFixed(p.flyEl, meetFlyRect(p.flyEl, end));
+        return;
+      }
+      const innerStart = isTinylabPiece(p.flyEl) ? rectOf(tinylabWordmarkEl(p.flyEl)) : null;
+      const { scaleX, scaleY } = flyScale(p.flyEl, start, end, innerStart);
+      if (isTinylabPiece(p.flyEl)) {
+        const dest = tinylabFlyMetrics(p.flyEl, end);
+        placeFixed(p.flyEl, dest, scaleX, scaleY);
+        return;
+      }
       placeFixed(p.flyEl, end, scaleX, scaleY);
     });
 
