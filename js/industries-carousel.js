@@ -41,50 +41,6 @@
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  function imageBaseName(imgPath) {
-    return imgPath.replace(/^images\//, '').replace(/\.(jpe?g|png|webp)$/i, '');
-  }
-
-  function gridThumbSrc(imgPath) {
-    return 'images/grid/' + imageBaseName(imgPath) + '.jpg';
-  }
-
-  function gridWideSrc(imgPath) {
-    return 'images/grid/' + imageBaseName(imgPath) + '-wide.jpg';
-  }
-
-  function loadImage(src) {
-    return new Promise(function (resolve, reject) {
-      var img = new Image();
-      img.decoding = 'async';
-      img.onload = function () {
-        resolve(img);
-      };
-      img.onerror = reject;
-      img.src = src;
-    });
-  }
-
-  function ensureWideImage(tile, imgPath) {
-    var img = tile.querySelector('.industry-grid-item__media img');
-    if (!img || img.dataset.wideLoaded === '1') {
-      return Promise.resolve();
-    }
-    var wide = gridWideSrc(imgPath);
-    var fallback = imgPath;
-    return loadImage(wide)
-      .then(function () {
-        img.src = wide;
-        img.dataset.wideLoaded = '1';
-      })
-      .catch(function () {
-        return loadImage(fallback).then(function () {
-          img.src = fallback;
-          img.dataset.wideLoaded = '1';
-        });
-      });
-  }
-
   function initIndustriesGrid() {
     var data = window.INDUSTRIES_DATA;
     var grid = document.getElementById('industriesGrid');
@@ -205,13 +161,7 @@
     img.alt = '';
     img.decoding = 'async';
     img.loading = 'eager';
-    img.src = gridThumbSrc(item.img);
-    img.dataset.fallback = item.img;
-    img.addEventListener('error', function onImgError() {
-      if (img.dataset.fallbackApplied === '1') return;
-      img.dataset.fallbackApplied = '1';
-      img.src = item.img;
-    });
+    img.src = item.img;
     media.appendChild(img);
 
     var overlay = document.createElement('div');
@@ -232,10 +182,6 @@
     detail.className = 'industry-grid-item__detail';
     detail.hidden = true;
     detail.innerHTML = buildDetailHtml(item);
-
-    btn.addEventListener('mouseenter', function () {
-      ensureWideImage(btn, item.img);
-    });
 
     btn.appendChild(media);
     btn.appendChild(overlay);
@@ -550,33 +496,29 @@
     }
 
     var index = Number(tile.dataset.index);
-    var imgPath = tile.dataset.imgPath;
     var siblings = rowSiblings(grid, index);
     var from = rectCopy(tile.getBoundingClientRect());
     var to = getExpandTargetRect(grid, from);
 
     if (prefersReducedMotion()) {
-      ensureWideImage(tile, imgPath).finally(function () {
-        siblings.forEach(function (el) {
-          el.classList.add('is-row-collapsed');
-        });
-        tile.classList.add('is-expanded');
-        tile.setAttribute('aria-expanded', 'true');
-        grid.classList.add('has-expanded');
-        showDetail(tile, true);
-        scheduleIndustryTitleFit();
+      siblings.forEach(function (el) {
+        el.classList.add('is-row-collapsed');
       });
+      tile.classList.add('is-expanded');
+      tile.setAttribute('aria-expanded', 'true');
+      grid.classList.add('has-expanded');
+      showDetail(tile, true);
+      scheduleIndustryTitleFit();
       return;
     }
 
     grid.classList.add('is-animating');
     fadeSiblings(siblings, false);
 
-    ensureWideImage(tile, imgPath).finally(function () {
-      var tileSpacer = createSpacer('industry-grid-spacer', getTileAspectRatioCss());
-      tile.insertAdjacentElement('afterend', tileSpacer);
+    var tileSpacer = createSpacer('industry-grid-spacer', getTileAspectRatioCss());
+    tile.insertAdjacentElement('afterend', tileSpacer);
 
-      animateFlight(tile, from, to, EXPAND_MS, function () {
+    animateFlight(tile, from, to, EXPAND_MS, function () {
         tile.classList.remove('is-flight');
         clearFlightStyles(tile);
         tileSpacer.remove();
@@ -594,7 +536,6 @@
         showDetail(tile, true);
         scheduleIndustryTitleFit();
       });
-    });
   }
 
   function collapseExpanded(grid, onSettled) {

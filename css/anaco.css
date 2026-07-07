@@ -807,6 +807,15 @@ main.home .home-section .home-wrap > .sheet {
   padding-bottom: 0;
 }
 
+/* Story sections — larger body copy; section titles (.home-section-title) unchanged */
+.home #why,
+.home #overview,
+.home #facilities {
+  --copy-body-lg: clamp(1.3125rem, 2.05vw, 1.5rem);
+  --copy-sm: clamp(1.0625rem, 1.55vw, 1.2rem);
+  --copy-form-body: clamp(1.0625rem, 1.5vw, 1.125rem);
+}
+
 /* ── WHAT / WHY story sections ── */
 .home .story-intro {
   max-width: 52rem;
@@ -892,7 +901,7 @@ main.home .home-section .home-wrap > .sheet {
   align-content: start;
 }
 .home #why .why-cascade-card__case-kicker {
-  font-size: clamp(1rem, 1.35vw, 1.125rem);
+  font-size: clamp(1.0625rem, 1.45vw, 1.2rem);
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0.02em;
@@ -908,7 +917,7 @@ main.home .home-section .home-wrap > .sheet {
   color: #fff;
 }
 .home #why .why-cascade-card__case-text {
-  font-size: clamp(0.9rem, 1.12vw, 1.02rem);
+  font-size: clamp(0.975rem, 1.25vw, 1.1rem);
   line-height: 1.35;
 }
 .home #why .why-cascade-card__case {
@@ -1012,7 +1021,7 @@ main.home .home-section .home-wrap > .sheet {
 .home .why-cascade-card__lede {
   margin: 0 0 0.55rem;
   font-family: var(--font-display);
-  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+  font-size: clamp(1.0625rem, 1.35vw, 1.1875rem);
   font-weight: 400;
   line-height: 1.45;
   color: var(--text-2);
@@ -1068,7 +1077,7 @@ main.home .home-section .home-wrap > .sheet {
 .home .why-cascade-card__stat dd {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+  font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
   font-weight: 400;
   line-height: 1.3;
   color: var(--text);
@@ -1461,9 +1470,6 @@ main.home .home-section .home-wrap > .sheet {
     border-bottom: var(--outline-width) solid var(--outline);
   }
   .home #facilities .facility-card:last-child {
-    border-bottom: none;
-  }
-  .home #facilities .facility-card:nth-last-child(-n + 2) {
     border-bottom: none;
   }
   .home .lab-pipeline {
@@ -2680,7 +2686,11 @@ main.home .home-section .home-wrap > .sheet {
   font-size: clamp(0.78rem, 1.1vw, 0.92rem);
   line-height: 1.15;
   min-height: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
 }
 .home .viewer-spec-panel .spec-header .badge {
   font-size: var(--copy-micro);
@@ -2985,6 +2995,7 @@ html.intro-pending .home-intro {
   position: relative;
   z-index: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100%;
@@ -3290,6 +3301,17 @@ html.intro-done main.home .hero-headline .intro-target {
   object-fit: contain;
   object-position: center center;
 }
+/* Scale gold wordmark with viewport above 1920px (stays ~9.3rem at 1920) */
+@media (min-width: 1920px) {
+  :root {
+    --hero-tinylab-wordmark-height: clamp(9.3rem, 7.75vw, 13.5rem);
+  }
+}
+@media (min-width: 2560px) {
+  :root {
+    --hero-tinylab-wordmark-height: clamp(12.4rem, 7.75vw, 16rem);
+  }
+}
 .intro-fly--Tinylab .hero-tinylab-wordmark {
   max-width: none;
 }
@@ -3375,6 +3397,100 @@ html.intro-done main.home .hero-headline .intro-target {
 .home-intro.is-complete {
   pointer-events: none;
 }
+@media (max-width: 900px) {
+  .home-intro {
+    overflow: hidden;
+  }
+  .home-intro__stage {
+    max-width: 100%;
+    width: 100%;
+    padding:
+      max(20px, env(safe-area-inset-top, 0px))
+      clamp(14px, 4.5vw, 22px)
+      max(20px, env(safe-area-inset-bottom, 0px));
+    overflow: hidden;
+  }
+  .home-intro__question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.22em;
+    width: 100%;
+    max-width: min(100%, 20rem);
+    margin-inline: auto;
+    font-size: clamp(1rem, 4.6vw, 1.3rem);
+    text-align: center;
+  }
+  .home-intro__line {
+    display: block;
+    width: 100%;
+    grid-row: auto;
+  }
+  .home-intro__line--1,
+  .home-intro__line--2 {
+    grid-column: auto;
+    justify-items: center;
+    text-align: center;
+  }
+  .home-intro__stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1em;
+  }
+  .home-intro__stack-line {
+    display: block;
+    white-space: nowrap;
+  }
+  .home-intro__stack--lead .home-intro__stack-line:nth-child(1),
+  .home-intro__stack--lead .home-intro__stack-line:nth-child(2),
+  .home-intro__stack--lead .home-intro__stack-line:nth-child(3),
+  .home-intro__stack--dest .home-intro__stack-line:nth-child(1),
+  .home-intro__stack--dest .home-intro__stack-line:nth-child(2),
+  .home-intro__stack--dest .home-intro__stack-line:nth-child(3) {
+    grid-row: auto;
+  }
+  .home-intro__stack--dest .home-intro__stack-line {
+    justify-self: center;
+  }
+  .home-intro__stack-line--word {
+    justify-content: center;
+  }
+  .home-intro__lab-fly-shell {
+    font-size: clamp(1rem, 4.6vw, 1.3rem);
+  }
+  .home-intro__flyer {
+    width: 100%;
+    max-width: min(92vw, 20rem);
+    margin-inline: auto;
+    align-items: center;
+  }
+  .home-intro__cluster--title {
+    width: 100%;
+    align-items: center;
+  }
+  .home-intro .intro-fly--meet,
+  .home-intro .intro-fly--Tinylab {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+  .home-intro .headline-row {
+    white-space: normal;
+  }
+  .home-intro .hero-tinylab-wordmark {
+    height: clamp(54px, 15vw, 76px);
+    width: auto;
+    max-width: min(88vw, calc(var(--hero-tinylab-wordmark-height) * 1083 / 287));
+    margin-inline: auto;
+  }
+  .home-intro .intro-fly--Tinylab .hero-tinylab-wordmark {
+    max-width: min(88vw, calc(var(--hero-tinylab-wordmark-height) * 1083 / 287));
+  }
+  .home-intro .intro-fly--divider {
+    margin-inline: auto;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .home-intro { display: none !important; }
   html.intro-pending .intro-page-fade {
@@ -3454,7 +3570,6 @@ html.intro-done main.home .hero-headline .intro-target {
   max-width: min(38vw, 340px);
   max-height: min(420px, 42vh);
   border: none;
-  vertical-align: top;
   object-fit: contain;
 }
 .card-image,
@@ -3654,6 +3769,7 @@ html.intro-done main.home .hero-headline .intro-target {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
 }
 .home .spec-header .badge {
@@ -3834,7 +3950,7 @@ body.site-page main.site-page-main {
 }
 .home #facilities .facility-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   width: 100%;
   border: var(--outline-width) solid var(--outline);
   box-sizing: border-box;
@@ -3843,16 +3959,13 @@ body.site-page main.site-page-main {
   padding: clamp(20px, 2.5vw, 28px);
   border: none;
   border-right: var(--outline-width) solid var(--outline);
-  border-bottom: var(--outline-width) solid var(--outline);
   box-sizing: border-box;
   background: transparent;
   box-shadow: none;
+  min-width: 0;
 }
-.home #facilities .facility-card:nth-child(2n) {
+.home #facilities .facility-card:last-child {
   border-right: none;
-}
-.home #facilities .facility-card:nth-last-child(-n + 2) {
-  border-bottom: none;
 }
 .home #facilities .facility-card__title {
   display: flex;
@@ -3923,7 +4036,13 @@ body.site-page main.site-page-main {
   gap: 0.3rem;
   line-height: 1.45;
 }
-.home .facility-site__use,
+.home #facilities .facility-site__use {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.65vw, 1.3125rem);
+  font-weight: 400;
+  flex-shrink: 0;
+  color: var(--text);
+}
 .site-page .facility-site__use {
   font-family: var(--font-display);
   font-size: clamp(1.0625rem, 1.55vw, 1.25rem);
@@ -5102,7 +5221,6 @@ section.legal-page .legal-sheet {
   max-height: min(420px, 42vh);
   margin: 0;
   padding: 0;
-  vertical-align: top;
   object-fit: contain;
 }
 .site-page .shop-card--featured .shop-card__body {
@@ -5668,7 +5786,6 @@ section.legal-page .legal-sheet {
 }
 
 /* Industries / legacy compat */
-.ind-card, .industry-card { /* alias */ }
 .usecase-card { text-decoration: none; color: inherit; }
 .btn-outline {
   background: transparent;
