@@ -55,8 +55,8 @@
         '</div>';
 
     var cardClass =
-      'shop-card' +
-      (product.featured ? ' shop-card--featured' : ' shop-card--module');
+      'shop-card shop-card--module' +
+      (product.featured ? ' shop-card--featured' : '');
 
     return (
       '<article class="' +
@@ -76,11 +76,9 @@
       '<h3 class="shop-card__title">' +
       escapeHtml(product.name) +
       '</h3>' +
-      (product.featured
-        ? '<p class="shop-card__desc">' + escapeHtml(product.description) + '</p>'
-        : '<div class="shop-card__desc-wrap"><p class="shop-card__desc">' +
-          escapeHtml(product.description) +
-          '</p></div>') +
+      '<div class="shop-card__desc-wrap"><p class="shop-card__desc">' +
+      escapeHtml(product.description) +
+      '</p></div>' +
       '<div class="shop-card__actions">' +
       '<button type="button" class="btn btn-primary shop-card__order" data-product-id="' +
       escapeHtml(product.id) +
@@ -128,12 +126,19 @@
   }
 
   function syncFeaturedCardLayout() {
+    var stackedFeatured = window.matchMedia('(max-width: 1100px)').matches;
     document.querySelectorAll('.shop-card--featured').forEach(function (card) {
+      if (stackedFeatured) {
+        card.style.removeProperty('--shop-featured-media-w');
+        return;
+      }
+
       var img = card.querySelector('.shop-card__img');
-      if (!img) return;
+      var visual = card.querySelector('.shop-card__visual--featured');
+      if (!img || !visual) return;
 
       function measure() {
-        card.style.setProperty('--shop-featured-media-w', img.offsetWidth + 'px');
+        card.style.setProperty('--shop-featured-media-w', visual.offsetWidth + 'px');
       }
 
       if (img.complete) {
