@@ -198,7 +198,7 @@ function submitNewsletter() {
   data.append('email', email.value);
   data.append('_subject', 'Newsletter Subscription — ' + email.value);
   data.append('_template', 'table');
-  fetch('https://formsubmit.co/ajax/agangla@anaco.com', { method: 'POST', body: data })
+  fetch('https://formsubmit.co/ajax/bliker@anaco.com', { method: 'POST', body: data })
     .then(function () { showNewsletterSuccess(); })
     .catch(function () { showNewsletterSuccess(); });
 }
@@ -226,7 +226,7 @@ function submitInquiry() {
   data.append('_template', 'table');
   if (company) data.append('company', company);
   if (phone) data.append('phone', phone);
-  fetch('https://formsubmit.co/ajax/agangla@anaco.com', { method: 'POST', body: data })
+  fetch('https://formsubmit.co/ajax/bliker@anaco.com', { method: 'POST', body: data })
     .then(function () { showInquirySuccess(); })
     .catch(function () { showInquirySuccess(); });
 }

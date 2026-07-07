@@ -93,6 +93,7 @@
     data.append('first_name', firstName.value.trim());
     data.append('last_name', lastName.value.trim());
     data.append('email', email.value.trim());
+    data.append('_replyto', email.value.trim());
     data.append('company', company.value.trim());
     data.append('product', productName || product.value);
     data.append('industry', industry.value);
@@ -109,12 +110,31 @@
       btn.textContent = 'Sending…';
     }
 
-    fetch('https://formsubmit.co/ajax/agangla@anaco.com', { method: 'POST', body: data })
-      .then(function () {
-        showOrderSuccess();
+    fetch('https://formsubmit.co/ajax/bliker@anaco.com', { method: 'POST', body: data })
+      .then(function (res) { return res.json(); })
+      .then(function (result) {
+        if (result && (result.success === true || result.success === 'true')) {
+          showOrderSuccess();
+          return;
+        }
+        var msg = (result && result.message)
+          ? result.message
+          : 'Could not send your request. Please email bliker@anaco.com directly.';
+        if (errorEl) {
+          errorEl.textContent = msg;
+          errorEl.hidden = false;
+        } else {
+          alert(msg);
+        }
       })
       .catch(function () {
-        showOrderSuccess();
+        var msg = 'Could not send your request. Please email bliker@anaco.com directly.';
+        if (errorEl) {
+          errorEl.textContent = msg;
+          errorEl.hidden = false;
+        } else {
+          alert(msg);
+        }
       })
       .finally(function () {
         if (btn) {

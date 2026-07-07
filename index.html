@@ -392,7 +392,8 @@
             <label for="inquiryMessage">Message *</label>
             <textarea id="inquiryMessage" placeholder="How can we help?" required></textarea>
           </div>
-          <button type="button" class="submit-btn" onclick="submitInquiry()">Send message →</button>
+          <button type="button" class="submit-btn" id="inquirySubmitBtn" onclick="submitInquiry()">Send message →</button>
+          <p class="form-error" id="inquiryFormError" hidden role="alert"></p>
           <p class="contact-linkedin">
             Connect with us on
             <a href="https://www.linkedin.com/company/analysiscompany/" class="contact-linkedin__link" target="_blank" rel="noopener noreferrer" aria-label="Anaco on LinkedIn">
@@ -455,6 +456,9 @@ function submitInquiry() {
   var email = document.getElementById('inquiryEmail');
   var type = document.getElementById('inquiryType');
   var message = document.getElementById('inquiryMessage');
+  var errorEl = document.getElementById('inquiryFormError');
+  var btn = document.getElementById('inquirySubmitBtn');
+  if (errorEl) errorEl.hidden = true;
   if (!name.value || !email.value || !type.value || !message.value) {
     alert('Please fill in all required fields.');
     return;
@@ -464,15 +468,49 @@ function submitInquiry() {
   var data = new FormData();
   data.append('name', name.value);
   data.append('email', email.value);
+  data.append('_replyto', email.value);
   data.append('inquiry_type', type.value);
   data.append('message', message.value);
   data.append('_subject', type.value + ' — ' + name.value);
   data.append('_template', 'table');
   if (company) data.append('company', company);
   if (phone) data.append('phone', phone);
-  fetch('https://formsubmit.co/ajax/agangla@anaco.com', { method: 'POST', body: data })
-    .then(function () { showInquirySuccess(); })
-    .catch(function () { showInquirySuccess(); });
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+  }
+  fetch('https://formsubmit.co/ajax/bliker@anaco.com', { method: 'POST', body: data })
+    .then(function (res) { return res.json(); })
+    .then(function (result) {
+      if (result && (result.success === true || result.success === 'true')) {
+        showInquirySuccess();
+        return;
+      }
+      var msg = (result && result.message)
+        ? result.message
+        : 'Could not send your message. Please email bliker@anaco.com directly.';
+      if (errorEl) {
+        errorEl.textContent = msg;
+        errorEl.hidden = false;
+      } else {
+        alert(msg);
+      }
+    })
+    .catch(function () {
+      var msg = 'Could not send your message. Please email bliker@anaco.com directly.';
+      if (errorEl) {
+        errorEl.textContent = msg;
+        errorEl.hidden = false;
+      } else {
+        alert(msg);
+      }
+    })
+    .finally(function () {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Send message →';
+      }
+    });
 }
 function showInquirySuccess() {
   document.getElementById('inquiryFormContent').style.display = 'none';
