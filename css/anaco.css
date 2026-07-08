@@ -779,7 +779,6 @@ main.home .home-section .home-wrap > .sheet {
 /* Landing hero: full bleed; home sections: open layout on page background */
 main.home .hero .sheet--hero {
   border: none;
-  border-bottom: var(--outline-width) solid var(--outline);
 }
 main.home .home-section .home-wrap > .sheet {
   border: none;
@@ -3849,7 +3848,7 @@ html.intro-done main.home .hero-headline .intro-target {
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: var(--outline-width) solid var(--outline);
+  border-bottom: none;
   padding: calc(var(--nav-h) + clamp(32px, 5vw, 56px)) clamp(36px, 5vw, 72px) clamp(40px, 6vw, 72px);
   background-color: var(--bg);
   min-height: clamp(360px, 42vw, 1080px);
@@ -3871,7 +3870,7 @@ html.intro-done main.home .hero-headline .intro-target {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: min(68vw, 820px);
+  max-width: min(68vw, var(--hero-visual-max-w, 820px));
   min-width: 0;
   padding: 0;
   box-sizing: border-box;
@@ -3881,7 +3880,7 @@ html.intro-done main.home .hero-headline .intro-target {
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(78vh, 920px);
+  max-height: min(78vh, var(--hero-visual-max-h, 920px));
   object-fit: contain;
   object-position: center center;
 }
@@ -3914,6 +3913,35 @@ html.intro-done main.home .hero-headline .intro-target {
   overflow: visible;
   position: relative;
   z-index: 1;
+}
+
+/* Ultrawide: keep ≤1920 look, then grow image + Tinylab block with viewport.
+   Floor values match the 1920px caps so nothing jumps at the breakpoint. */
+@media (min-width: 2000px) {
+  :root {
+    --hero-visual-max-w: min(41vw, 1200px);
+    --hero-visual-max-h: min(78vh, 1120px);
+    /* 7.44vw = 9.3rem at 2000px — continuous with the normal-monitor cap */
+    --hero-tinylab-wordmark-size: clamp(9.3rem, 7.44vw, 14rem);
+    --hero-headline-size: clamp(22px, 1.1vw, 30px);
+    --hero-intro-label-size: clamp(14px, 0.7vw, 18px);
+  }
+  .hero .sheet--hero {
+    min-height: clamp(1080px, 42vw, 1280px);
+  }
+  .hero-tinylab-rail {
+    font-size: clamp(
+      9.3rem,
+      min(var(--hero-tinylab-wordmark-size), 22cqi),
+      14rem
+    );
+  }
+  .hero-visual {
+    max-width: var(--hero-visual-max-w);
+  }
+  .hero-visual__img {
+    max-height: var(--hero-visual-max-h);
+  }
 }
 /* ── IMAGE OUTLINE (thin black border on wrapper — avoids clipped edges) ── */
 .media-frame {
@@ -5588,11 +5616,20 @@ section.legal-page .legal-sheet {
 }
 @media (min-width: 1101px) {
   .hero-content {
-    align-items: center;
+    /* Bias toward the right edge of the half */
+    align-items: flex-end;
     text-align: right;
+    padding-left: clamp(40px, 5.5vw, 110px);
+    padding-right: clamp(2px, 0.6vw, 12px);
   }
   .hero-tagline {
     text-align: right;
+  }
+}
+@media (min-width: 2000px) {
+  .hero-content {
+    padding-left: clamp(72px, 8vw, 180px);
+    padding-right: clamp(4px, 1vw, 24px);
   }
 }
 .hero-title-block {
