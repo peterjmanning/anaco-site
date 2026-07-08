@@ -3456,7 +3456,7 @@ html.intro-done main.home .hero-headline .intro-target {
   width: min(100%, max-content);
   max-width: 100%;
   min-width: 0;
-  align-self: flex-end;
+  align-self: center;
 }
 .hero-headline-width {
   display: grid;
@@ -3862,14 +3862,14 @@ html.intro-done main.home .hero-headline .intro-target {
 .hero-visual {
   position: relative;
   grid-column: 1;
-  justify-self: start;
-  align-self: end;
+  justify-self: center;
+  align-self: center;
   left: auto;
   bottom: auto;
   z-index: 0;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: min(68vw, 820px);
   min-width: 0;
@@ -3883,11 +3883,11 @@ html.intro-done main.home .hero-headline .intro-target {
   height: auto;
   max-height: min(78vh, 920px);
   object-fit: contain;
-  object-position: left bottom;
+  object-position: center center;
 }
 .hero-inner {
   display: grid;
-  grid-template-columns: minmax(clamp(240px, 42%, 580px), 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(20px, 3vw, 40px);
   align-items: center;
   width: 100%;
@@ -3900,7 +3900,7 @@ html.intro-done main.home .hero-headline .intro-target {
   align-self: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   text-align: right;
   width: 100%;
   max-width: 100%;
@@ -5588,7 +5588,7 @@ section.legal-page .legal-sheet {
 }
 @media (min-width: 1101px) {
   .hero-content {
-    align-items: flex-end;
+    align-items: center;
     text-align: right;
   }
   .hero-tagline {
