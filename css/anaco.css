@@ -4,7 +4,7 @@
 
 /* Anaco — paper white, grid background, sharp edges */
 :root {
-  --bg: #E4E4E4;
+  --bg: #ffffff;
   --paper: #ffffff;
   --bg-elevated: var(--paper);
   --surface: var(--paper);
@@ -34,25 +34,24 @@
   --accent-box-pad-y: 0.14em;
   --accent-box-pad-x: 0.42em;
   --accent-dim: rgba(10, 10, 10, 0.08);
-  --tinylab-gold: #b88732;
-  --tinylab-gold-deep: #6f5620;
-  --tinylab-gold-highlight: #f3e2a8;
+  --tinylab-gold: #ebdaa1;
+  --tinylab-gold-deep: #8b6a2b;
+  --tinylab-gold-highlight: #fff4cf;
   --font-tinylab: 'Marios', var(--font-display);
   --tinylab-gold-gradient: linear-gradient(
     168deg,
-    #fff9eb 0%,
-    #f2e2a8 8%,
-    #dfc56a 18%,
-    #c9a03a 32%,
-    #b07e28 46%,
-    #c99538 58%,
-    #e8c86a 68%,
-    #9a7024 84%,
-    #6b4f1c 100%
+    #fffef5 0%,
+    #fff6d0 12%,
+    #ebdaa1 35%,
+    #d4b96a 48%,
+    #ebdaa1 58%,
+    #fff0c8 72%,
+    #c9a050 88%,
+    #9a7428 100%
   );
   --tinylab-wordmark-shadow:
-    0 0.03em 0.12em rgba(75, 58, 18, 0.28),
-    0 -0.02em 0.05em rgba(255, 245, 210, 0.42);
+    0 0.02em 0.04em rgba(120, 92, 30, 0.2),
+    0 -0.01em 0 rgba(255, 250, 225, 0.7);
   --dark: #1a1a1a;
   --font-section: 'Aeonik Pro', Arial, sans-serif;
   --font-display: 'Quicksand', Arial, sans-serif;
@@ -419,9 +418,20 @@ main.home .industries-hub-hatch,
   content: none !important;
 }
 .nav-cta-exit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-left: 0.35em;
-  font-size: 0.92em;
+  width: 0.92em;
+  height: 0.92em;
+  flex-shrink: 0;
   line-height: 1;
+  vertical-align: -0.06em;
+}
+.nav-cta-exit__icon {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .nav-cta:hover,
 .nav-cta:focus-visible {
@@ -2448,8 +2458,6 @@ main.home .home-section .home-wrap > .sheet {
 }
 .home #industries .industry-grid-item__link .nav-cta-exit {
   margin-left: 0.35em;
-  font-size: 0.92em;
-  line-height: 1;
 }
 .home #industries .industry-grid-item--more {
   cursor: pointer;
@@ -3563,6 +3571,8 @@ html.intro-done main.home .hero-headline .intro-target {
   background-clip: text;
   color: var(--tinylab-gold);
   -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.35px rgba(154, 116, 40, 0.32);
+  paint-order: stroke fill;
   text-shadow: var(--tinylab-wordmark-shadow);
 }
 .hero-tinylab-rail .hero-tinylab-wordmark {
@@ -3646,6 +3656,8 @@ html.intro-done main.home .hero-headline .intro-target {
   background-clip: text;
   color: var(--tinylab-gold);
   -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.35px rgba(154, 116, 40, 0.32);
+  paint-order: stroke fill;
   text-shadow: var(--tinylab-wordmark-shadow);
 }
 .hero-headline .accent-chip,
@@ -6577,7 +6589,6 @@ section.legal-page .legal-sheet {
   }
   .nav-links .nav-cta .nav-cta-exit {
     margin-left: 0.35em;
-    font-size: 0.92em;
   }
   .nav.scrolled .nav-inner {
     display: none;

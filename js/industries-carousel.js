@@ -262,7 +262,7 @@
       casesHtml +
       '</div>' +
       '<div class="industry-grid-item__detail-actions">' +
-      '<a href="shop/" class="industry-grid-item__link industry-grid-item__link--accent">Order<span class="nav-cta-exit" aria-hidden="true">↗</span></a>' +
+      '<a href="shop/" class="industry-grid-item__link industry-grid-item__link--accent">Order<span class="nav-cta-exit" aria-hidden="true"><svg class="nav-cta-exit__icon" viewBox="0 0 12 12" focusable="false"><path d="M3.5 8.5L8.5 3.5M8.5 3.5H5M8.5 3.5V7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>' +
       '</div>' +
       '</div>'
     );
