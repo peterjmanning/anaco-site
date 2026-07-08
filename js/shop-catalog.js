@@ -23,9 +23,9 @@ window.SHOP_CATALOG = {
       kicker: 'Base unit',
       description:
         'Portable analytical lab with integrated control software.',
-      image: '../images/v3.145.png',
-      imageWidth: 784,
-      imageHeight: 980,
+      image: '../images/n.jpg',
+      imageWidth: 1319,
+      imageHeight: 1049,
       icon: 'system',
       featured: true,
     },

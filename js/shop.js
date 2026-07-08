@@ -80,7 +80,7 @@
       escapeHtml(product.description) +
       '</p></div>' +
       '<div class="shop-card__actions">' +
-      '<button type="button" class="btn btn-primary shop-card__order" data-product-id="' +
+      '<button type="button" class="btn shop-card__order" data-product-id="' +
       escapeHtml(product.id) +
       '">Order</button>' +
       '</div>' +

@@ -128,27 +128,12 @@
     const flyWordmark = tinylabWordmarkEl(flyEl);
     if (!flyWordmark || !targetEl) return;
     const cs = getComputedStyle(targetEl);
-    flyWordmark.style.fontFamily = cs.fontFamily;
-    flyWordmark.style.fontSize = cs.fontSize;
-    flyWordmark.style.fontWeight = cs.fontWeight;
-    flyWordmark.style.fontStyle = cs.fontStyle;
-    flyWordmark.style.lineHeight = cs.lineHeight;
-    flyWordmark.style.letterSpacing = cs.letterSpacing;
-    flyWordmark.style.padding = cs.padding;
-  }
-
-  function tinylabFlyMetrics(flyEl, targetRect) {
-    const flyRect = rectOf(flyEl);
-    const inner = tinylabWordmarkEl(flyEl);
-    const innerRect = rectOf(inner);
-    return {
-      left: targetRect.left - (innerRect.left - flyRect.left),
-      top: targetRect.top - (innerRect.top - flyRect.top),
-      width: targetRect.width,
-      height: targetRect.height,
-      innerWidth: innerRect.width,
-      innerHeight: innerRect.height,
-    };
+    // Keep flyer at its own display size; only normalize box model so scale math is clean.
+    flyWordmark.style.padding = '0';
+    flyWordmark.style.margin = '0';
+    flyWordmark.style.display = 'block';
+    flyWordmark.style.objectFit = 'contain';
+    flyWordmark.style.maxWidth = cs.maxWidth;
   }
 
   function flyScale(el, from, to, innerFrom) {
@@ -157,12 +142,13 @@
     }
     if (isTinylabPiece(el)) {
       const inner = innerFrom || { width: from.width, height: from.height };
-      return { scaleX: to.width / inner.width, scaleY: to.height / inner.height };
+      const scale = to.width / Math.max(inner.width, 1);
+      return { scaleX: scale, scaleY: scale };
     }
     return { scaleX: 1, scaleY: 1 };
   }
 
-  function flyDestination(el, from, to, innerFrom) {
+  function flyDestination(el, from, to, innerFrom, scaleX = 1, scaleY = 1) {
     if (isMeetPiece(el)) {
       const width = el.offsetWidth || from.width;
       return {
@@ -171,7 +157,12 @@
       };
     }
     if (isTinylabPiece(el)) {
-      return tinylabFlyMetrics(el, to);
+      const ox = (innerFrom?.left != null ? innerFrom.left : from.left) - from.left;
+      const oy = (innerFrom?.top != null ? innerFrom.top : from.top) - from.top;
+      return {
+        left: to.left - ox * scaleX,
+        top: to.top - oy * scaleY,
+      };
     }
     return { left: to.left, top: to.top };
   }
@@ -361,23 +352,26 @@
     ];
     if (isLogoPiece(el)) {
       rules.push(`width:${rect.width}px`, `height:${rect.height}px`);
+    } else if (isTinylabPiece(el)) {
+      // Keep natural image box; scale via transform so end size matches target without a jump.
+      rules.push('width:auto', 'height:auto');
     } else {
       rules.push('width:auto', 'height:auto');
     }
     el.style.cssText = rules.join(';');
   }
 
-  function slideTo(el, from, to, ms = FLY_MS) {
+  function slideTo(el, from, to, ms = FLY_MS, innerFromRect = null) {
     return new Promise((resolve) => {
       placeFixed(el, from);
       void el.offsetWidth;
 
       requestAnimationFrame(() => {
         const innerFrom = isTinylabPiece(el)
-          ? rectOf(tinylabWordmarkEl(el))
+          ? innerFromRect || rectOf(tinylabWordmarkEl(el))
           : null;
         const { scaleX: endScaleX, scaleY: endScaleY } = flyScale(el, from, to, innerFrom);
-        const dest = flyDestination(el, from, to, innerFrom);
+        const dest = flyDestination(el, from, to, innerFrom, endScaleX, endScaleY);
         el.style.transition = `transform ${ms}ms ${FLY_EASE}`;
         el.style.transform = buildFlyTransform(dest.left, dest.top, endScaleX, endScaleY);
         onTransitionEnd(el, 'transform', ms, 100).then(resolve);
@@ -395,19 +389,26 @@
     });
   }
 
-  async function loadTinylabFont() {
-    if (!document.fonts?.load) return;
-    const size =
-      getComputedStyle(document.documentElement).getPropertyValue('--hero-tinylab-wordmark-size').trim() ||
-      '4rem';
-    try {
-      await Promise.all([
-        document.fonts.load(`900 ${size} Marios`),
-        document.fonts.load("900 1em Marios"),
-      ]);
-    } catch (e) {
-      /* ignore */
-    }
+  function loadTinylabImage(intro) {
+    const imgs = [
+      intro?.querySelector('.intro-fly--Tinylab .hero-tinylab-wordmark'),
+      document.querySelector('main.home .hero-tinylab-wordmark'),
+    ].filter(Boolean);
+
+    return Promise.all(
+      imgs.map(
+        (img) =>
+          new Promise((resolve) => {
+            if (img.complete && img.naturalWidth) {
+              resolve();
+              return;
+            }
+            const done = () => resolve();
+            img.addEventListener('load', done, { once: true });
+            img.addEventListener('error', done, { once: true });
+          })
+      )
+    );
   }
 
   function captureFlyerAnchor(introEl, questionEl) {
@@ -457,7 +458,7 @@
         /* ignore */
       }
     }
-    await loadTinylabFont();
+    await loadTinylabImage(intro);
     warmupTinylabPaint(intro);
     await nextFrame();
 
@@ -542,7 +543,11 @@
       syncTinylabFlyStyles(tinylabPiece.flyEl, tinylabPiece.targetEl);
     }
 
-    const starts = items.map((p) => ({ piece: p, rect: rectOf(p.flyEl) }));
+    const starts = items.map((p) => {
+      const rect = rectOf(p.flyEl);
+      const innerRect = isTinylabPiece(p.flyEl) ? rectOf(tinylabWordmarkEl(p.flyEl)) : null;
+      return { piece: p, rect, innerRect };
+    });
     const dividerStart = dividerEl ? rectOf(dividerEl) : null;
 
     portal.append(...items.map((p) => p.flyEl));
@@ -564,6 +569,7 @@
       const tinylabIndex = items.indexOf(tinylabPiece);
       if (tinylabIndex >= 0) {
         starts[tinylabIndex].rect = rectOf(tinylabPiece.flyEl);
+        starts[tinylabIndex].innerRect = rectOf(tinylabWordmarkEl(tinylabPiece.flyEl));
         placeFixed(tinylabPiece.flyEl, starts[tinylabIndex].rect);
       }
     }
@@ -571,7 +577,11 @@
     const ends = items.map((p) => rectOf(p.targetEl));
 
     const flyTasks = [
-      Promise.all(starts.map(({ piece, rect }, i) => slideTo(piece.flyEl, rect, ends[i]))),
+      Promise.all(
+        starts.map(({ piece, rect, innerRect }, i) =>
+          slideTo(piece.flyEl, rect, ends[i], FLY_MS, innerRect)
+        )
+      ),
     ];
     if (dividerEl) flyTasks.push(shrinkDivider(dividerEl, FLY_MS, FLY_EASE));
 
@@ -580,14 +590,21 @@
     items.forEach((p, i) => {
       const end = ends[i];
       const start = starts[i].rect;
+      const innerStart = starts[i].innerRect;
       if (isMeetPiece(p.flyEl)) {
         placeFixed(p.flyEl, meetFlyRect(p.flyEl, end));
         return;
       }
-      const innerStart = isTinylabPiece(p.flyEl) ? rectOf(tinylabWordmarkEl(p.flyEl)) : null;
       const { scaleX, scaleY } = flyScale(p.flyEl, start, end, innerStart);
       if (isTinylabPiece(p.flyEl)) {
-        const dest = tinylabFlyMetrics(p.flyEl, end);
+        const ox = (innerStart?.left ?? start.left) - start.left;
+        const oy = (innerStart?.top ?? start.top) - start.top;
+        const dest = {
+          left: end.left - ox * scaleX,
+          top: end.top - oy * scaleY,
+          width: start.width,
+          height: start.height,
+        };
         placeFixed(p.flyEl, dest, scaleX, scaleY);
         return;
       }
