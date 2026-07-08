@@ -5,7 +5,7 @@
   var DETAIL_MS = 320;
   var EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
   var TILE_RATIO = 9 / 16;
-  var EXPAND_RATIO = 21 / 9;
+  var EXPAND_RATIO = 16 / 10;
 
   function getIndustriesRoot() {
     return document.querySelector('.home #industries');
@@ -27,6 +27,24 @@
       return parts[0] / parts[1];
     }
     return TILE_RATIO;
+  }
+
+  function getExpandAspectRatioCss() {
+    var root = getIndustriesRoot();
+    if (!root) return '16 / 10';
+    var ratio = getComputedStyle(root).getPropertyValue('--industry-expand-ratio').trim();
+    return ratio || '16 / 10';
+  }
+
+  function getExpandRatio() {
+    var css = getExpandAspectRatioCss();
+    var parts = css.split('/').map(function (part) {
+      return parseFloat(part.trim());
+    });
+    if (parts.length === 2 && parts[0] && parts[1]) {
+      return parts[0] / parts[1];
+    }
+    return EXPAND_RATIO;
   }
 
   function getGridCols(grid) {
@@ -236,7 +254,6 @@
       '</svg></button>' +
       '<div class="industry-grid-item__detail-inner">' +
       '<div class="industry-grid-item__detail-header">' +
-      '<p class="industry-grid-item__detail-kicker">Industry</p>' +
       '<h3 class="industry-grid-item__detail-heading">' +
       escapeHtml(item.heading || item.title) +
       '</h3>' +
@@ -245,7 +262,7 @@
       casesHtml +
       '</div>' +
       '<div class="industry-grid-item__detail-actions">' +
-      '<a href="shop/" class="industry-grid-item__link industry-grid-item__link--accent">Order &rarr;</a>' +
+      '<a href="shop/" class="industry-grid-item__link industry-grid-item__link--accent">Order<span class="nav-cta-exit" aria-hidden="true">↗</span></a>' +
       '</div>' +
       '</div>'
     );
@@ -338,11 +355,12 @@
 
   function getExpandTargetRect(grid, fromRect) {
     var gridRect = grid.getBoundingClientRect();
+    var expandRatio = getExpandRatio();
     return {
       top: fromRect.top,
       left: gridRect.left,
       width: gridRect.width,
-      height: gridRect.width / EXPAND_RATIO,
+      height: gridRect.width / expandRatio,
     };
   }
 
@@ -423,8 +441,7 @@
     if (!detail) return;
 
     window.requestAnimationFrame(function () {
-      var canScroll = detail.scrollHeight > detail.clientHeight + 1;
-      detail.style.overflowY = canScroll ? 'auto' : 'visible';
+      detail.style.overflowY = 'visible';
     });
   }
 
@@ -571,7 +588,7 @@
     expanded.classList.add('is-flight');
     expanded.style.transform = 'translateZ(0)';
 
-    var rowSpacer = createSpacer('industry-grid-spacer industry-grid-spacer--row', '21 / 9');
+    var rowSpacer = createSpacer('industry-grid-spacer industry-grid-spacer--row', getExpandAspectRatioCss());
     rowSpacer.style.gridColumn = '1 / -1';
     expanded.insertAdjacentElement('beforebegin', rowSpacer);
 
