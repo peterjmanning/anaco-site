@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var FADE_MS = 600;
+  var SLIDE_MS = 420;
   var preloaded = Object.create(null);
 
   function getSlides() {
@@ -60,11 +60,9 @@
     preloadSrc(slides[(centerIndex - 1 + slides.length) % slides.length].src);
   }
 
-  function buildSlide(slide, index, total, isActive) {
+  function buildSlide(slide, index, total) {
     return (
-      '<figure class="product-carousel__slide' +
-      (isActive ? ' is-active' : '') +
-      '" id="productCarouselSlide-' +
+      '<figure class="product-carousel__slide" id="productCarouselSlide-' +
       index +
       '" role="group" aria-roledescription="slide" aria-label="' +
       (index + 1) +
@@ -77,8 +75,8 @@
       escapeHtml(slide.src) +
       '" alt="' +
       escapeHtml(slide.alt || 'Tinylab render') +
-      '" width="1920" height="1080" loading="' +
-      (index <= 1 ? 'eager' : 'lazy') +
+      '" width="1080" height="1080" loading="' +
+      (index <= 2 ? 'eager' : 'lazy') +
       '" decoding="async" draggable="false">' +
       '</figure>'
     );
@@ -109,7 +107,7 @@
 
     track.innerHTML = slides
       .map(function (slide, index) {
-        return buildSlide(slide, index, slides.length, index === 0);
+        return buildSlide(slide, index, slides.length);
       })
       .join('');
 
@@ -119,44 +117,75 @@
     var index = 0;
     var transitioning = false;
 
-    if (slides.length <= 1) {
-      if (prevBtn) prevBtn.hidden = true;
-      if (nextBtn) nextBtn.hidden = true;
+    root.style.setProperty('--product-carousel-slide-ms', SLIDE_MS + 'ms');
+
+    function getVisibleCount() {
+      var raw = getComputedStyle(root)
+        .getPropertyValue('--product-carousel-visible')
+        .trim();
+      var count = parseInt(raw, 10);
+      return count > 0 ? count : 3;
     }
 
-    root.style.setProperty('--product-carousel-fade-ms', FADE_MS + 'ms');
+    function getMaxIndex() {
+      return Math.max(0, slides.length - getVisibleCount());
+    }
 
-    function setSlideMotion(enabled) {
-      slideEls.forEach(function (slide) {
-        slide.style.transition = enabled
-          ? 'opacity ' + FADE_MS + 'ms cubic-bezier(0.4, 0, 0.2, 1)'
-          : 'none';
-      });
+    function updateNavVisibility() {
+      var hide = getMaxIndex() === 0;
+      if (prevBtn) prevBtn.hidden = hide;
+      if (nextBtn) nextBtn.hidden = hide;
+    }
+
+    updateNavVisibility();
+
+    function setTrackMotion(enabled) {
+      track.style.transition = enabled
+        ? 'transform ' + SLIDE_MS + 'ms cubic-bezier(0.4, 0, 0.2, 1)'
+        : 'none';
     }
 
     function applyIndex(nextIndex) {
+      var maxIndex = getMaxIndex();
+      if (nextIndex > maxIndex) nextIndex = 0;
+      if (nextIndex < 0) nextIndex = maxIndex;
+
+      index = nextIndex;
+      var offset = slideEls[index] ? -slideEls[index].offsetLeft : 0;
+      track.style.transform = 'translate3d(' + offset + 'px, 0, 0)';
+
       slideEls.forEach(function (slide, slideIndex) {
-        var active = slideIndex === nextIndex;
-        slide.classList.toggle('is-active', active);
-        slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+        var inView =
+          slideIndex >= index && slideIndex < index + getVisibleCount();
+        slide.setAttribute('aria-hidden', inView ? 'false' : 'true');
       });
+
       root.setAttribute(
         'aria-label',
-        'Tinylab gallery, slide ' + (nextIndex + 1) + ' of ' + slides.length
+        'Tinylab gallery, showing images ' +
+          (index + 1) +
+          '–' +
+          Math.min(index + getVisibleCount(), slides.length) +
+          ' of ' +
+          slides.length
       );
-      preloadAround(slides, nextIndex);
+      preloadAround(slides, index);
     }
 
     function goTo(nextIndex) {
-      if (!slides.length || nextIndex === index) return;
+      if (!slides.length) return;
+      var maxIndex = getMaxIndex();
+      var target = nextIndex;
+      if (target > maxIndex) target = 0;
+      if (target < 0) target = maxIndex;
+      if (target === index) return;
       if (transitioning) return;
 
       var reduced = prefersReducedMotion();
       transitioning = !reduced;
 
-      setSlideMotion(!reduced);
-      index = (nextIndex + slides.length) % slides.length;
-      applyIndex(index);
+      setTrackMotion(!reduced);
+      applyIndex(target);
 
       if (reduced) {
         transitioning = false;
@@ -165,7 +194,7 @@
 
       window.setTimeout(function () {
         transitioning = false;
-      }, FADE_MS);
+      }, SLIDE_MS);
     }
 
     function step(delta) {
@@ -193,10 +222,20 @@
       }
     });
 
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(function () {
+        setTrackMotion(false);
+        updateNavVisibility();
+        applyIndex(Math.min(index, getMaxIndex()));
+      }, 100);
+    });
+
     slides.forEach(function (slide) {
       preloadSrc(slide.src);
     });
-    setSlideMotion(false);
+    setTrackMotion(false);
     applyIndex(0);
   }
 
